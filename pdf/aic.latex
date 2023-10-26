@@ -69,8 +69,11 @@
 
 \mainmatter
 
-\chapter{Introduction}
+\chapter{Background}
 \input{tex_intro_fiximg.tex}
+
+\chapter{Introduction}
+\input{lecture_1_-__introduction_fiximg.tex}
 
 \chapter{Refresher}
 \input{a_refresher_fiximg.tex}

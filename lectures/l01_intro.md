@@ -4,6 +4,7 @@ autoscale:true
 theme: Plain Jane, 1
 text:  Helvetica
 header:  Helvetica
+date: 2024-01-06
     
 
 <!--pan_title: Lecture 1 -  Introduction -->
@@ -53,7 +54,7 @@ I have a hobby trying to figure out how to make a new analog circuit design
 
 -->
 
-![inline](../media/timeline_white.svg)
+![inline](../media/timeline.pdf)
 
 
 ---
@@ -109,7 +110,7 @@ analog components, otherwise they won't work.
 
 The steps to make integrated circuits is split in two. We have a analog flow, and a digital flow. 
 
-It's rare to find a single human that do both flows well. Ususally people choose, and I think it's based on what they like and their personality.
+It's rare to find a single human that do both flows well. Usually people choose, and I think it's based on what they like and their personality.
 
 If you like the world to be ordered, with definite answers, then it's likely that you'll find the digital flow interesting.
 
@@ -133,7 +134,7 @@ Something that would make me really happy is if someone is able to tapeout an IC
 The fantastic thing that it's actually possible without signing an NDA or buying expensive software licenses. 
 
 In 2020 Google and Skywater joined forces to release a 130 nm process design kit to the public. In addition, they 
-have fuled a renaissance of open source software tools.
+have fueled a renaissance of open source software tools.
 
 Together with [Efabless](https://https://efabless.com) there are cheap alternatives, like [tinytapeout](https://tinytapeout.com),
 which makes it possible for a private citizen to tape-out their own integrated circuit.
@@ -150,9 +151,9 @@ which makes it possible for a private citizen to tape-out their own integrated c
 There are a multitude of tools and skills needed to design professional ICs. 
 It's not likely that you'll find all the skills in one human, and even if you
 could, one human does not have sufficient bandwidth to design ICs with all it's aspects in a 
-resonable timeline 
+reasonable timeline 
 
-That is, unless we can find a way to ICs alot easier to make.
+That is, unless we can find a way to ICs  easier to make.
 
 The skills needed are
 
@@ -239,12 +240,12 @@ Don't expect that I'll magically take information and put it inside your head, a
 **You are the one that must teach yourself everything.**
 
 I consider my role as a guide, similar to a mountain guide. I can't carry you up the mountain, you need to walk up the mountain
-, but I know the safe path to take and increase the likelyhood that you'll come back alive. 
+, but I know the safe path to take and increase the likelihood that you'll come back alive. 
 
 I want to:
 -->
 
-- Enable you to read the book
+- Enable you to read the books on integrated circuits
 - Enable you to read papers (latest research)
 - Correct misunderstandings of the topic 
 - Answer any questions you have on the chapters
@@ -252,7 +253,7 @@ I want to:
 <!--pan_doc:
 
 I'm not a mind reader, I can't see inside your head. That means, you must ask questions, only by your questions can I start to understand
-what pieces of information is missing from your head, or maybe how to correct your understanding. 
+what pieces of information is missing from your head, or maybe somehow to correct your understanding. 
 
 At the same time, and similar to a mountain guide, you should not assume I'm always right. I'm human, and I will make mistakes. 
 And maybe you can correct my understanding of something. All I care about is to *really* understand how the world works, so if you think 
@@ -305,7 +306,7 @@ The TA will be in the "exercise hours", and I also will hopefully join most days
 
 The syllabus will be from Analog Integrated Circuit Design (CJM) and Circuits for all seasons. 
 
-Buy a hardcopy of the book if you don't have that. Don't expect to understand the book by reading the PDF. 
+Buy a hard-copy of the book if you don't have that. Don't expect to understand the book by reading the PDF. 
 
 -->
 
@@ -366,6 +367,8 @@ Strict deadline 29 of April. If you hand in 30 of April at 00:00:01, then you fa
 
 ---
 
+<!--pan_skip: -->
+
 ## Milestones 
 
 [.column]
@@ -398,7 +401,7 @@ Open source software (xschem, ngspice, sky130B PDK, Magic VLSI, netgen)
 <!--pan_doc:
 
 I've made a rather detailed (at least I think so myself) tutorial on how to make a current mirror with the open source tools.
-I stongly recommend you start with that first. 
+I strongly recommend you start with that first. 
 -->
 
  [rply\_ex0\_sky130nm](https://wulffern.github.io/rply_ex0_sky130nm)
