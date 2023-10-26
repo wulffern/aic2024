@@ -39,7 +39,7 @@ jobs:
           python3 -m pip install --break-system-packages click svglib
           apt -y install python3-svglib
           python3 -m pip install --break-system-packages  svglib
-          git config --global --add safe.directory /__w/aic2023/aic2023
+          git config --global --add safe.directory /__w/aic2024/aic2024
           make
       - name: Setup Pages
         uses: actions/configure-pages@v2
