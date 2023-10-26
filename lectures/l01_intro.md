@@ -382,7 +382,7 @@ Strict deadline 29 of April. If you hand in 30 of April at 00:00:01, then you fa
  
 [.column]
 
-
+[Grading](https://www.ntnu.no/wiki/display/tfe4487/CNR+-+Grading)
 
 
 ---
@@ -434,7 +434,7 @@ Expect that you will spend at least $$2\pi$$ times more time than planned *(most
 - google
 - ask a someone in your class
 - use the "øvingstime and labratorieøvelse" to talk to teaching assistants and hopefully me. Don't ask about future exercises
-- come to the office (B311) on Fridays
+- come to the office (B311)
 
 ---
 

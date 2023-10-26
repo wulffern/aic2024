@@ -385,6 +385,9 @@ def post(filename,root,date):
     if(not os.path.exists("docs/assets/media/")):
         os.mkdir("docs/assets/media/")
 
+    if(not os.path.exists("docs/_posts")):
+        os.mkdir("docs/_posts")
+
     #- Post
     l = Lecture(filename,options=options)
 
