@@ -23,6 +23,7 @@ images.txt
 ip/
 
 # Distribution / packaging
+media/
 pdf/*.latex
 pdf/*_fiximg.tex
 pdf/*.md
