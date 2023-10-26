@@ -356,7 +356,6 @@ Strict deadline 29 of April. If you hand in 30 of April at 00:00:01, then you fa
 
 ---
 
-<!--pan_skip: -->
 
 # CNR (2024)
 
@@ -367,26 +366,14 @@ Strict deadline 29 of April. If you hand in 30 of April at 00:00:01, then you fa
 
 ---
 
+
+![fit](../media/project_plan.pdf)
+
+---
+
 <!--pan_skip: -->
 
-## Milestones 
-
-[.column]
-
- $$I = f(T)$$
-
- $$t = f(I)$$
-
- $$D = f(t)$$
-
- Layout
-
- Report 
- 
-[.column]
-
-[Grading](https://www.ntnu.no/wiki/display/tfe4487/CNR+-+Grading)
-
+# [Grading](https://www.ntnu.no/wiki/display/tfe4487/CNR+-+Grading)
 
 ---
 
