@@ -23,10 +23,11 @@ images.txt
 ip/
 
 # Distribution / packaging
-media/
 pdf/*.latex
 pdf/*_fiximg.tex
+pdf/*_fiximg_png.tex
 pdf/*.md
+media/
 .Python
 build/
 develop-eggs/
