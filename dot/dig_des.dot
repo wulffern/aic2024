@@ -1,0 +1,32 @@
+digraph G{
+
+rankdir="LR";
+
+node [margin=0.5 color=blue fontcolor=black fontsize=20 width=0.5 shape=box fontname="Helvetica"]
+I [label="Idea",shape=egg]
+D [label="Digital Design \n SystemVerilog"]
+S [label="Digital Simulation \n iverilog/vpp/verilator/gtkwave"]
+PNR [label="RTL to GDSII \nOpenRoad"]
+TO [label="Tapeout",shape=egg]
+
+AD [label="Analog Design \nXschem" color=red]
+ASV [label="Analog Model \nSystemVerilog" color=blue]
+AS [label="Analog Simulation \nngspice" color=red]
+AL [label="Analog Layout \nMagic" color=red]
+AV [label="LVS\nnetgen" color=red]
+LPE [label="Parasitics\nMagic" color=red]
+AGDS [label="GDSII"]
+
+D -> S -> PNR -> TO
+PNR  -> S -> D
+
+
+AD -> ASV ->  D
+
+I -> AD
+I -> D
+
+AD -> AS -> AL -> AV -> AGDS -> PNR
+AV -> LPE -> AS
+AL -> AS -> AD
+}
