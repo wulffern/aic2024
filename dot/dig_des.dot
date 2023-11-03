@@ -1,6 +1,6 @@
 digraph G{
 
-rankdir="LR";
+#rankdir="LR";
 
 node [margin=0.5 color=blue fontcolor=black fontsize=20 width=0.5 shape=box fontname="Helvetica"]
 I [label="Idea",shape=egg]

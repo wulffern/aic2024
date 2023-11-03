@@ -139,6 +139,9 @@ have fueled a renaissance of open source software tools.
 Together with [Efabless](https://https://efabless.com) there are cheap alternatives, like [tinytapeout](https://tinytapeout.com),
 which makes it possible for a private citizen to tape-out their own integrated circuit.
 
+Google just sponsored a [GlobalFoundries 180 nm tapeout](https://efabless.com/gf-180-open-mpw-shuttle-program) where you could tape out 
+your circuit for free.
+
 -->
 
 
@@ -247,7 +250,7 @@ I want to:
 
 - Enable you to read the books on integrated circuits
 - Enable you to read papers (latest research)
-- Correct misunderstandings of the topic 
+- Correct misunderstandings on the topic 
 - Answer any questions you have on the chapters
 
 <!--pan_doc:
@@ -298,13 +301,14 @@ The TA will be in the "exercise hours", and I also will hopefully join most days
 
 ---
 
-<!--pan_skip: -->
-
-<!-- 
+<!--pan_doc:
 
 # Syllabus
 
 The syllabus will be from Analog Integrated Circuit Design (CJM) and Circuits for all seasons. 
+
+These lecture notes are a supplement to the book. I try to give some background, and how to think about electronics. 
+It's not my goal to repeat information that you can find in the book.
 
 Buy a hard-copy of the book if you don't have that. Don't expect to understand the book by reading the PDF. 
 
@@ -361,13 +365,115 @@ Strict deadline 29 of April. If you hand in 30 of April at 00:00:01, then you fa
 
 *"In an insane world, it was the sanest choice."*  - Sarah Connor, Terminator 2: Judgment Day
 
+<!--pan_doc: 
+
+The project for 2024 is to 
+
+-->
+
  
 **Design a integrated temperature sensor with digital read-out**
+
+<!--pan_doc: 
+
+An outline of the plan is shown below. There will be five milestones in all. 
+
+At the end of the project you will have a function that converts temperature to a digital value.
+
+$$
+D = f_0(T)
+$$
+
+,however, I've broken down the challenge into three steps, first convert Temperature into a current
+
+$$
+I = f_1(T)
+$$
+
+Then convert current into a time 
+
+$$
+t = f_2(I)
+$$
+
+then time to digital
+
+$$
+D = f_3(t) = f_3(f_2(f_1(T))) = f_0(T)
+$$
+
+The fourth milestone is the report, while the fifth milestone is the layout. 
+
+
+
+-->
+
 
 ---
 
 
 ![fit](../media/project_plan.pdf)
+
+
+<!--pan_doc:
+
+## Group dynamics
+
+How you work together is important. No-one can do everything by them self. I know from experience it can be 
+magical when bright brains come together. The collective brain can be smarter, better, faster, than anyone 
+in the group. 
+
+That's why I think it's important not to just work in groups, but also focus on how we work in groups.
+
+
+A group shall be maximum 4 members. There must be at least 3 that don't know each-other that well. 
+
+The group will meet once per week, and shall have a discussion according to the outline below. 
+
+### First session of milestone 
+
+During the first group session of a milestone, you will
+
+**Check-in (5 minutes)**
+
+Each member of the group says how they feel. Some examples could be:
+- My dog died yesterday, so I'm not feeling great today.
+- I woke up early, had an omelette, and went running, so I feel motivated and fantastic.
+- I feel *blaaah* today, motivation is lacking. 
+
+The point of this excersize is to get to know eachother a bit, and attempt to create pshycological safety in the group.
+
+**Ideas (30 minutes)**
+
+Come up with ideas for how the milestone could be implemented. What circuit ideas could work? 
+
+**Plan (10 minutes)**
+
+Sketch out who does what the next week. What's the goal for the week. 
+
+**Reflect (2 minutes)**
+
+In silence, think about the group dynamics. How did it go today? What was good? 
+What could be improved? Write down one word.
+
+**Discuss (7 minutes)** 
+
+Each group member talks about their one word.
+
+### Other sessions of a milestone 
+
+You shall always Check-in, Reflect and Discuss. Although some may consider it a waste of time, it's important to improve the
+group dynamics.
+
+**Review (30 minutes)**
+
+Go through the plan from last week, what worked, what did not work, what should be done differently.  Discuss.
+
+**Plan (10 minutes)**
+
+Sketch out who does what the next week. What's the goal for the week. 
+
+-->
 
 ---
 
