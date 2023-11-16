@@ -131,7 +131,7 @@ it's likely that you'll find analog flow interesting.
 
 Something that would make me really happy is if someone is able to tapeout an IC after this course. 
 
-The fantastic thing that it's actually possible without signing an NDA or buying expensive software licenses. 
+It's now possible without signing an NDA or buying expensive software licenses. 
 
 In 2020 Google and Skywater joined forces to release a 130 nm process design kit to the public. In addition, they 
 have fueled a renaissance of open source software tools.
@@ -272,12 +272,12 @@ my understanding is wrong, then I'll happily discuss.
 # Plan
 
 **Lectures:**
-Thursday at 08:15 - 10:00
+Friday at 08:15 - 10:00
 
 The "lectures" will be Q & A's on the topic. If no questions, then I'll ramble on
 
 **Exercise Hours:**
-Friday at 14:15 - 16:00
+Friday at 10:15 - 12:00
 
 The TA will be in the "exercise hours", and I also will hopefully join most days.
 
@@ -384,7 +384,7 @@ $$
 D = f_0(T)
 $$
 
-,however, I've broken down the challenge into three steps, first convert Temperature into a current
+ I've broken down the challenge into three steps, first convert Temperature into a current
 
 $$
 I = f_1(T)
@@ -425,16 +425,17 @@ in the group.
 
 That's why I think it's important not to just work in groups, but also focus on how we work in groups.
 
-
 A group shall be maximum 4 members. There must be at least 3 that don't know each-other that well. 
 
 The group will meet once per week, and shall have a discussion according to the outline below. 
+
+If there is time left at the end of the group session it will be used for Q & A.
 
 ### First session of milestone 
 
 During the first group session of a milestone, you will
 
-**Check-in (5 minutes)**
+**Check-in (10 minutes)**
 
 Each member of the group says how they feel. Some examples could be:
 - My dog died yesterday, so I'm not feeling great today.
@@ -451,12 +452,13 @@ Come up with ideas for how the milestone could be implemented. What circuit idea
 
 Sketch out who does what the next week. What's the goal for the week. 
 
-**Reflect (2 minutes)**
+
+**Reflect (5 minutes)**
 
 In silence, think about the group dynamics. How did it go today? What was good? 
 What could be improved? Write down one word.
 
-**Discuss (7 minutes)** 
+**Discuss (10 minutes)** 
 
 Each group member talks about their one word.
 
@@ -472,6 +474,7 @@ Go through the plan from last week, what worked, what did not work, what should 
 **Plan (10 minutes)**
 
 Sketch out who does what the next week. What's the goal for the week. 
+
 
 -->
 
