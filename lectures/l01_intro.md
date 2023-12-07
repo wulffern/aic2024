@@ -117,11 +117,15 @@ If you like the world to be ordered, with definite answers, then it's likely tha
 If you're comfortable with not knowing, and an insatiable desire to understand how the world *really* works at a fundamental level, then 
 it's likely that you'll find analog flow interesting. 
 
+![inline](../media/dig_des.svg)
+
 -->
 
 ---
 
-![inline](../media/dig_des.svg)
+<!--pan_skip: -->
+
+![inline](../media/dig_des_lr.svg)
 
 ---
 
@@ -274,13 +278,14 @@ my understanding is wrong, then I'll happily discuss.
 **Lectures:**
 Friday at 08:15 - 10:00
 
-The "lectures" will be Q & A's on the topic. If no questions, then I'll ramble on
+Read the introduction before the lectures at [aic2024](https://analogicus.com/aic2024)
 
-**Exercise Hours:**
+The "lectures" will be Q & A's on the topic. If no questions, then I'll ramble on.
+
+**Project Hours:**
 Friday at 10:15 - 12:00
 
-The TA will be in the "exercise hours", and I also will hopefully join most days.
-
+The TA will be in the "project hours", and I will join most days.
 
 ---
 
@@ -290,7 +295,7 @@ The TA will be in the "exercise hours", and I also will hopefully join most days
 
 - [Description](https://www.ntnu.no/studier/emner/TFE4188#tab=omEmnet)
 
-- [Time schedule](https://tp.uio.no/ntnu/timeplan/?id=TFE4188&sem=24v&sort=form&type=course)
+- [Time schedule](https://www.ntnu.no/studier/emner/TFE4188#tab=timeplan)
 
 - [Lecture plan](https://wulffern.github.io/aic2024/plan/)
 
@@ -314,7 +319,7 @@ Buy a hard-copy of the book if you don't have that. Don't expect to understand t
 
 -->
 
-![inline](../media/cjm.png) ![inline](../media/cfas.png)
+![inline](../media/cjm.png)
 
 
 ---
@@ -323,9 +328,10 @@ Buy a hard-copy of the book if you don't have that. Don't expect to understand t
 
 ## Exam
 
-- May/June 2022?
+- June 2022
 - 4 hours
 - A - F grade (F = Fail)
+- Counts for 55 % of the grade
 
 ---
 <!--pan_skip: -->
@@ -344,7 +350,7 @@ Buy a hard-copy of the book if you don't have that. Don't expect to understand t
 - For the rest, two options:
   - Don't do the exercises, don't get feedback
   - Do the exercises, hand them in within deadline, get feedback
-- The TA's will only support the exercises in the marked weeks
+- The TA will only support the exercises in the marked weeks
 
 ---
 
@@ -411,7 +417,6 @@ The fourth milestone is the report, while the fifth milestone is the layout.
 
 ---
 
-
 ![fit](../media/project_plan.pdf)
 
 
@@ -437,18 +442,28 @@ During the first group session of a milestone, you will
 
 **Check-in (10 minutes)**
 
-Each member of the group says how they feel. Some examples could be:
+Some example questions could be 
+
+- Share one thing that is going on in your life (personal or professional.)
+- What is one thing that you are grateful for right now?
+- What is something funny that happened?
+
+Some examples answers could be:
 - My dog died yesterday, so I'm not feeling great today.
-- I woke up early, had an omelette, and went running, so I feel motivated and fantastic.
+- I woke up early, had an omelet, and went running, so I feel motivated and fantastic.
 - I feel *blaaah* today, motivation is lacking. 
+- I went running yesterday and did not discover before I got home that I'd forgotten to put my pants on, even though it was
+  -10 C.
 
-The point of this excersize is to get to know eachother a bit, and attempt to create pshycological safety in the group.
+The point of this exercise is to get to know each other a bit, and attempt to create psychological safety in the group.
 
-**Ideas (30 minutes)**
+**Ideas (35 minutes)**
 
 Come up with ideas for how the milestone could be implemented. What circuit ideas could work? 
 
-**Plan (10 minutes)**
+**Break (15 minutes)**
+
+**Plan (20 minutes)**
 
 Sketch out who does what the next week. What's the goal for the week. 
 
@@ -467,11 +482,11 @@ Each group member talks about their one word.
 You shall always Check-in, Reflect and Discuss. Although some may consider it a waste of time, it's important to improve the
 group dynamics.
 
-**Review (30 minutes)**
+**Review (35 minutes)**
 
 Go through the plan from last week, what worked, what did not work, what should be done differently.  Discuss.
 
-**Plan (10 minutes)**
+**Plan (20 minutes)**
 
 Sketch out who does what the next week. What's the goal for the week. 
 
@@ -500,7 +515,7 @@ I've made a rather detailed (at least I think so myself) tutorial on how to make
 I strongly recommend you start with that first. 
 -->
 
- [rply\_ex0\_sky130nm](https://wulffern.github.io/rply_ex0_sky130nm)
+ [Skywater 130 nm Tutorial](https://analogicus.com/aic2024/2023/11/16/Tools.html)
  
  
 <!--pan_doc:

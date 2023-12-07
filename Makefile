@@ -8,8 +8,8 @@ FILES = lectures/l00_diode \
 	lectures/l00_refresher \
 	lectures/lp_project_report \
 	lectures/l01_intro \
-#	lectures/l02_esd \
-	lectures/l03_refbias \
+	lectures/l02_esd \
+#	lectures/l03_refbias \
 	lectures/l04_afe \
 	lectures/l05_sc \
 	lectures/l06_adc \

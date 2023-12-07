@@ -4,7 +4,7 @@ autoscale:true
 theme: Plain Jane, 1
 text:  Helvetica
 header:  Helvetica
-
+date: 2024-01-19
 
 <!--pan_title: Lecture 2 - IC and ESD  -->
 
@@ -16,7 +16,7 @@ header:  Helvetica
 
 <!--pan_skip: -->
 
-## [TFE4188 - Introduction to Lecture 2](https://wulffern.github.io/aic2023/2023/01/19/Lecture-2-IC-and-ESD.html)
+## TFE4188 - Introduction to Lecture 2
 # ICs and ESD
 
 ---
@@ -31,13 +31,6 @@ Understand why you must **always handle ESD** on an IC
 
 ---
 
-<!--pan_skip: -->
-
-#[fit] RPLY
-
-The project for 2023 is to design an integrated temperature sensor. The hope is that some will tapeout on the Google/Efabless Open MPW shuttle
-
----
 
 <!--pan_skip: -->
 
@@ -50,7 +43,7 @@ The project for 2023 is to design an integrated temperature sensor. The hope is 
 <!--pan_doc:
 
 
-The project for 2023 is to design an integrated temperature sensor. The hope is that some will tapeout on the Google/Efabless Open MPW shuttle
+The project for 2024 is to design an integrated temperature sensor. 
 
 First, we need to have an idea of what comes in and out of the temperature
 sensor. Before we have made the temperature sensor, we need to think what the signal interface could be, and we need to learn.
@@ -83,6 +76,7 @@ We're using Skywater, and to use the free tapeouts we must use the [Caravel](htt
 test chip harness.
 
 That luckily has two supplies. It can be powered externally by up to 5.0 V, and has an external low dropout regulator (LDO) that provides the digital supply (1.8 V).
+
 See more at [Absolute maximum ratings](https://caravel-harness.readthedocs.io/en/latest/maximum-ratings.html)
 
 ### Ground 
@@ -108,7 +102,7 @@ Even a temperature sensor needs something else on the IC. We need digital input/
 
 I would claim that any System-On-Chip will always need these blocks!
 
-I want you to pause, take a look at the [course plan](https://wulffern.github.io/aic2023/plan/), and now you might understand why I've selected the topics.
+I want you to pause, take a look at the [course plan](https://wulffern.github.io/aic2024/plan/), and now you might understand why I've selected the topics.
 
 ### One more thing
 There is one more function we need when we have digital logic and a power supply. We need a "RESET" system. 
@@ -122,7 +116,6 @@ How would we know?
 
 Most ICs will have a special analog block that can keep the digital logic, bias generators, clock generators, input/output and voltage regulators in a **safe**
 state until the power supply is high enough (for example 1.62 V). 
-
 
 -->
 
@@ -141,12 +134,14 @@ If you make an IC, you must consider Electrostatic Discharge (ESD) Protection ci
 <!--pan_doc: 
 
 ESD events are tricky. They are short (ns), high current (Amps) and poorly modeled in the SPICE model. 
+
 Most SPICE models will not model correctly what happens to an transistor during an ESD event. The SPICE models are not made to
 model what happens during an ESD event, they are made to model how the transistors behave at low fields and lower current.
 
 But ESD design is a must, you have to think about ESD, otherwise your IC will never work. 
 
 Consider a certain ESD specification, for example 1 kV human body model, a requirement for an integrated circuit. 
+
 By requirement I mean if the 1 kV is not met, then the project will be delayed until it is fixed. If it's not fixed, then the
 project will be infinitely delayed, or in other words, canceled.
 
@@ -181,6 +176,7 @@ Standards for testing at [JEDEC](https://www.jedec.org/category/technology-focus
 <!--pan_doc: 
 
 Models a person touching a device with a finger.
+
 -->
 
 **Charged device model (CDM)**
@@ -333,7 +329,7 @@ We want a circuit that most of the time sleeps, and does not affect our normal I
 a huge current comes in on VDD, and the VDD voltage shoots up fast, the circuit must wake up and bring the voltage down.
 
 If the circuit triggers under normal operating condition, when your watching a video on your phone, your battery will 
-drain very fast, and it might even catch fire.
+drain very fast, and your phone might even catch fire.
 
 As such, ESD design engineers have a "ESD design window". Never let the ESD circuit trigger when VDD < normal, but always trigger the ESD circuit 
 before VDD $>$ breakdown of circuit.
@@ -381,7 +377,7 @@ when they scatter off an atom. If you break too many bonds between atoms, your m
 
 Assume a transistor like the one below. The gate, source and bulk is connected to ground. The drain is connected to a high voltage.
 
-![](../media/physics/ggnmos.pdf)
+![](../media/ggnmos.pdf)
 
 
 ### Avalanche 
@@ -472,7 +468,7 @@ Assume we have the circuit below.
 
 We can draw a cross section of the inverter.
 
-![](../media/physics/scr_eh.pdf)
+![](../media/scr_eh.pdf)
 
 ### Electron injection
 
