@@ -422,7 +422,7 @@ def latex(filename,root):
         fo.write(str(p))
 
     flatex = fname.replace(".md",".latex")
-    cmd = f"pandoc -o {flatex} {fname}  "
+    cmd = f"pandoc --citeproc --bibliography=pdf/aic.bib --csl=pdf/ieee-with-url.csl  -o {flatex} {fname}  "
     os.system(cmd)
 
 

@@ -177,11 +177,11 @@ We could rewrite the equation above as
 $$ \widehat{H} \psi(x,t) = i \hbar \frac{\partial}{\partial t}  \psi(x,t)  =
 \widehat{E}  \psi(x,t)$$
 
-where $$\widehat{H}$$ is sometimes called the *Hamiltonian* and is an operator,
+where $\widehat{H}$ is sometimes called the *Hamiltonian* and is an operator,
 or something that act on the wave-function. I recently read [Feynman's
 Lectures on Physics](https://www.feynmanlectures.caltech.edu), and Feynman
 called the Hamiltonian the *Energy Matrix* of a system. I like that better. The
-$$\widehat{E}$$ is the energy operator, something that operates on the
+$\widehat{E}$ is the energy operator, something that operates on the
 wave-function to give the Energy. 
 
 We could re-arrange
@@ -189,7 +189,7 @@ We could re-arrange
 $$ [\widehat{H} - \widehat{E}]\psi(r,t) = 0$$
  
 This is an equation with at least 5 unknowns, the space vector in three dimensions, time, and the
-energy matrix  $$\widehat{H}$$. It turns out, that the energy matrix depends
+energy matrix  $\widehat{H}$. It turns out, that the energy matrix depends
 on the system. The energy matrix further up is for one free electron. For an atom, the
 energy matrix will have more dimensions to describe the possible quantum states.
  
@@ -704,6 +704,7 @@ agree with your equations.
 
 But most of the time, the behavior is similar.
 
+## References
 
 [^1]: It doesn't stop being magic just because you know how it works. Terry Pratchett, The Wee Free Men
 [^2]: Simplify as much as possible, but no more. Einstein

@@ -81,8 +81,8 @@
 \chapter{Diodes}
 \input{diodes_fiximg.tex}
 
-%\chapter{ESD and IC}
-%\input{lecture_2_-_ic_and_esd_fiximg.tex}
+\chapter{ESD and IC}
+\input{lecture_2_-_ic_and_esd_fiximg.tex}
 
 %\chapter{References and bias}
 %\input{lecture_3_-_references_and_bias_fiximg.tex}
@@ -118,8 +118,11 @@
 %\input{what_i_expect_you_to_already_know.latex}
 
 
-\backmatter
+%\bibliographystyle{IEEEtran}
 \bibliography{aic.bib}
+
+\backmatter
+
 
 
 

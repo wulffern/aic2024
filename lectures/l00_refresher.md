@@ -220,7 +220,7 @@ conduction band. The density of available states, and the probability of an
 electron to be in that quantum state. 
 
 The probability is the Fermi-Dirac distribution. The density of available states
-is a complicated calculation from the band-structure of silicon. See [Diodes](https://wulffern.github.io/aic2023/2021/07/08/Diodes.html)
+is a complicated calculation from the band-structure of silicon. 
 for details.
 
 $$ n_e = \int_{E_C}^{\infty} N(E)f(E) dE$$
