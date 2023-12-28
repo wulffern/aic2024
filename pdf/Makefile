@@ -13,10 +13,10 @@ hash:
 
 one: fix hash
 	chmod -R 755  media
-	pdflatex aic.latex
+	pdflatex aic.tex
 	#-pdflatex -interaction nonstopmode --shell-escape aic.latex
 	-bibtex aic
-	pdflatex aic.latex
+	pdflatex aic.tex
 	#-pdflatex -interaction nonstopmode --shell-escape aic.latex
 
 compress:
@@ -24,7 +24,7 @@ compress:
 	-dNOPAUSE -dQUIET -dBATCH -sOutputFile=aic_compress.pdf aic.pdf
 
 ebook:
-	cat aic.latex |perl -pe "s/fiximg/fiximg_png/ig" > aic_epub.latex
+	cat aic.tex |perl -pe "s/fiximg/fiximg_png/ig" > aic_epub.latex
 	pandoc --gladtex -o aic.epub aic_epub.latex
 
 clean:
@@ -46,3 +46,4 @@ clean:
 	-rm *.xml
 	-rm *.pdf
 	-rm *.bcf
+	-rm *fiximg*.tex
