@@ -19,23 +19,10 @@ def toPng(ftype,path):
 def toPdf(ftype,path):
     return imgConvert(ftype,".pdf",path)
 
-#def toPdf(ftype,path):
-#    fopath = "media/"+ os.path.basename(path).replace(ftype,".pdf")
-#    if(not os.path.exists(fopath)):
-#        os.system(f"svg2pdf -o {fopath} {path}")
-#    return fopath
-
 def getPath(line):
     m = re.findall("{([^}]+)}",line)
     path = m[0]
     return path
-
-#tmplta = r"""
-#\begin{figure}[h]
-#\centering
-#\includegraphics[width=\myfigwidth]{#path#}
-#\end{figure}
-#"""
 
 tmplt = r"""
 {
@@ -51,16 +38,8 @@ with open(fname) as fi:
     with open(foname,"w") as fo:
         with open(foname_png,"w") as fo_png:
             for line in fi:
-#            if(re.search("includegraphics.*\.svg}",line)):
-#                path = getPath(line)
-#                fopath = "media/"+ os.path.basename(path).replace(".svg",".pdf")
-#                if(not os.path.exists(fopath)):
-#                    os.system(f"svg2pdf -o {fopath} {path}")
-#                line = line.replace(path,fopath)
-#            elif(re.search("includegraphics.*\.gif",line)):
-#                path = getPath(line)
-#                fopath = "media/"+ os.path.basename(path).replace(".gif",".png")
-#                line = toPng(path,fopath,line)
+                #- Pandoc sometimes uses includesvg instead of includegraphics
+                line = line.replace("includesvg","includegraphics")
                 if(re.search("includegraphics{",line)):
                     path = getPath(line)
                     fopath = path
