@@ -16,13 +16,6 @@ date: 2024-01-12
 
 ---
 
-<!--pan_skip: -->
-
-# <https://analogicus.com/aic2024>
-
----
-
-
 #[fit] Who
 
 ---
@@ -148,6 +141,14 @@ your circuit for free.
 
 -->
 
+---
+
+<!--pan_skip: -->
+
+# <https://analogicus.com/aic2024>
+
+
+
 
 ---
 
@@ -160,7 +161,7 @@ It's not likely that you'll find all the skills in one human, and even if you
 could, one human does not have sufficient bandwidth to design ICs with all it's aspects in a 
 reasonable timeline 
 
-That is, unless we can find a way to ICs  easier to make.
+That is, unless we can find a way to make ICs easier.
 
 The skills needed are
 
@@ -182,33 +183,8 @@ The skills needed are
 - _Physics_: transistor, pn junctions, quantum mechanics
 
 ---
-[.background-color: #000000]
-[.text: #FFFFFF]
 
-<!--pan_doc: 
-# IC design mantra 
-
-To copy an old mantra I have on learning programming 
-
--->
-
-> Find a problem that you really want to solve, and learn programming to solve it. There is  no point in saying "I want to learn programming", then sit down with a book to read about programming, and expect that you will learn programming that way. It will not happen. The only way to learn programming is to do it, a lot. 
--- Carsten Wulff 
-
-<!--pan_doc:
-
-And run the perl program 
-
--->
-
-
-``` perl
-s/programming/analog design/ig
-```
-
----
-
-### Zen of IC design (stolen from Zen of Python)
+## Zen of IC design (stolen from Zen of Python)
 
 <!--pan_doc: 
 
@@ -235,6 +211,31 @@ Here is some guiding principles that you'll likely forget.
 - Although never is often better than *right* now.
 - If the implementation is hard to explain, it's a bad idea.
 - If the implementation is easy to explain, it may be a good idea.
+
+---
+[.background-color: #000000]
+[.text: #FFFFFF]
+
+<!--pan_doc: 
+## IC design mantra 
+
+To copy an old mantra I have on learning programming 
+
+-->
+
+> Find a problem that you really want to solve, and learn programming to solve it. There is  no point in saying "I want to learn programming", then sit down with a book to read about programming, and expect that you will learn programming that way. It will not happen. The only way to learn programming is to do it, a lot. 
+-- Carsten Wulff 
+
+<!--pan_doc:
+
+And run the perl program 
+
+-->
+
+
+``` perl
+s/programming/analog design/ig
+```
 
 ---
 
@@ -285,7 +286,7 @@ The "lectures" will be Q & A's on the topic. If no questions, then I'll ramble o
 **Project Hours:**
 Friday at 10:15 - 12:00
 
-The TA will be in the "project hours", and I will join most days.
+Groups meet, and work on project. 
 
 ---
 
@@ -408,7 +409,7 @@ $$
 D = f_3(t) = f_3(f_2(f_1(T))) = f_0(T)
 $$
 
-The fourth milestone is the report, while the fifth milestone is the layout. 
+The fourth milestone is the layout, while the fifth milestone is the report. 
 
 
 

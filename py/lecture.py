@@ -23,10 +23,6 @@ class Image():
 
         if(re.search("\s*https?://",self.src)):
             self.isUrl = True
-            if("downloadImage" in self.options):
-                self.skip = False
-            else:
-                self.skip = True
 
 
         if(not self.skip and ".pdf" in self.src and "latex" not in self.options):
@@ -44,14 +40,12 @@ class Image():
                 os.system(f"cd /tmp/; wget {url}")
 
 
-
-
         self.filesrc = os.path.basename(self.src)
         self.dirsrc  = os.path.dirname(self.src)
 
 
     def copy(self):
-        if(self.skip):
+        if(self.isUrl and not ("downloadImage" in self.options) ):
             return
 
         if("jekyll" in self.options):
@@ -103,7 +97,7 @@ class Lecture():
     def copyAssets(self):
         with open("images.txt","a") as fo:
             for image in self.images:
-                if(not image.skip):
+                if(not image.skip and not image.isUrl):
                     fo.write(image.orgsrc + "\n")
                     fo.write(image.src +"\n")
                 image.copy()
