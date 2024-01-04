@@ -47,6 +47,9 @@ class Image():
     def copy(self):
         if(self.isUrl and not ("downloadImage" in self.options) ):
             return
+            
+        if(self.skip):
+            return
 
         if("jekyll" in self.options):
             shutil.copyfile(os.path.join(self.options["dir"],self.src), "docs/assets/media/" + self.filesrc)
