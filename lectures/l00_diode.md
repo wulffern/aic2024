@@ -7,9 +7,17 @@ header:  Helvetica
 date: 2023-10-26
 
 
+<!--pan_skip: -->
+
 # Diodes
 
 ---
+
+<!--pan_doc: 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ibByzO02OLY?si=z4kiNzZ16dVcZlhs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+-->
 
 <!--pan_title: Diodes -->
 
