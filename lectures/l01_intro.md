@@ -369,7 +369,7 @@ Counts for 45 % of the grade
 
 No exam without project.
 
-Strict deadline 29 of April. If you hand in 30 of April at 00:00:01, then you fail the course.
+Strict deadline 3'rd of May. If you hand in 4'th of May at 00:00:01, then you fail the course.
 
 ---
 

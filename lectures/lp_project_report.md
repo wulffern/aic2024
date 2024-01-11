@@ -4,7 +4,105 @@ date: 2023-10-26
 
 <!--pan_title: How to write a project report-->
 
-# Introduction
+# Why
+> Them who has a Why? in life can tolerate almost any How?
+
+You're writing the report on the project for me to be able to see inside
+your head, and grade how much of the project you have understood. 
+
+- Have you learned what is to be expected?
+- Do you understand what you're trying to explain? 
+
+You will work on the project in groups, however, on the report, you will write
+on your own.
+
+That means, that there will be 4 projects reports that describe the same
+circuit. You shall not copy someone elses report text. 
+
+It's fine to share figures between reports, and also references. 
+
+I'm also forcing you to use a report format that matches well with what would be
+expected if you were to publish a paper. 
+
+Should you make a fantastic temperature sensor, and maybe even reach close to a
+tapeout I would strongly suggest you submit a paper to 
+[NorCas](https://events.tuni.fi/uploads/2023/12/8af07ce6-norcas2024_cfp.pdf).
+The deadline is August 15 2024.
+
+# On writing English
+
+Writing well is important. I would recommend that you read [On writing
+Well](https://www.amazon.com/Writing-Well-Classic-Guide-Nonfiction/dp/0060891548).
+
+Most of you won't buy the book, as such, a few tips.
+
+## Shorter is better 
+
+I can write the section title idea in many words: 
+
+> A shorter text will more elequently describe the intricacies of your thoughts
+> than a long, distinguished, tirade of carefully, wonderfully, choosen words. 
+
+or 
+
+> Shorter is better 
+
+Describe an idea with as few words as possible. The text will be better, and
+more readable. 
+
+## Be careful with adjectives 
+
+Words like "very, extremely, easily, simply, ..." don't belong in a readable
+text. They serve no purpose. Delete them.
+
+## Use paragraphs
+
+You write a text to place ideas into anothers head. Ideas and thoughts are best
+communicated in chunks. I can write a dense set of text, or I can split a dense
+set of text into multiple paragraphs. The more I try to cram into a paragraph,
+for example, how magical the weather has been the last weeks, with lots of snow,
+and good skiing, the more difficult the paragraph is to read. 
+
+One paragraph, one thought. For example:
+
+You write a text to place ideas into anothers head. Ideas and thoughts are best
+communicated in chunks. 
+
+I can write a dense set of text, or I can split a dense
+set of text into multiple paragraphs. 
+
+The more I try to cram into a paragraph,
+for example, how magical the weather has been the last weeks, with lots of snow,
+and good skiing, the more difficult the paragraph is to read. 
+
+## Don't be afraid of I 
+
+If you did something, then say "I" in the text. If there were more people, then
+use "we". 
+
+## Transitions are important
+
+Sentences within a paragraph are sometimes linked. Use 
+
+- As a result,
+- As such, 
+- Accordingly,
+- Consequently,
+
+And mix them up. 
+
+## However, is not a start of a sentence 
+
+If you have to use "However" it should come in the middle of the sentence. 
+
+I want to go skiing, however, I cannot today due to work. 
+
+# Report Structure
+
+The sections below go through the expected structure of a report, and what the 
+sections should contain.
+
+## Introduction
 
 The purpose of the introduction is to put the reader into the right
 frame of mind. Introduce the problem statement, key references, the key
@@ -16,12 +114,11 @@ chosen to solve the problem in different ways. Explain what you consider
 the problem statement, and tailor the problem statement to what the
 reader will read.
 
-Key references, like [@klein01], is introduced. Don't copy the paper
+Key references are introduced. Don't copy the paper
 text, write why they designed the circuit, how they chose to implement
 it, and what they achieved. The reason we reference other papers in the
 introduction is to show that we understand the current state-of-the-art.
-As such, maybe find other, more recent, image sensors. Provide a summary
-where state-of-the-art has moved since the original paper.
+Provide a summary where state-of-the-art has moved since the original paper.
 
 The outline should be included towards the end of the introduction. The
 purpose of the outline is to make this document easy to read. A reader
@@ -33,70 +130,68 @@ should explain that.
 
 A checklist for all chapters can be seen in table below.
 
-# Theory
+## Theory
 
-It is safe to assume that all readers have read the key reference
-[@klein01], if they have not, then expect them to do so. The purpose of
-the theory section is not to demonstrate that you have read the paper,
-but rather, highlight theory that the reader probably does not know. The
-theory section should give sufficient explanation to bridge the gap
+It is safe to assume that all readers have read the key references,
+if they have not, then expect them to do so. 
+
+The purpose of the theory section is not to demonstrate that you have read the references,
+but rather, highlight theory that the reader probably does not know. 
+
+The theory section should give sufficient explanation to bridge the gap
 between references, and what you apply in this text.
 
-# Implementation
+## Implementation
 
 The purpose of the implementation is to explain what you did. How have
 you chosen to architect the solution, how did you split it up in analog
 and digital parts? Use one subsection per circuit.
 
 For the analog, explain the design decisions you made, how did you pick
-the transistor sizes, and the currents. Use clear figures (i.e.
-circuitikz), don't use pictures from schematic editors. How does the
-circuit work? Did you make other choices than in [@klein01]?
+the transistor sizes, and the currents. Did you make other choices than in the
+references? How does the circuit work?  
 
 For the digital, how did you divide up the digital? What were the design
-choices you made? How did you split it up into finite state machines and
-pixel array control? How did you implement readout of the data? Explain
+choices you made?  How did you implement readout of the data? Explain
 what you did, and how it works. Use state diagrams and block diagrams.
 
-# Result
+Use clear figures (i.e.
+circuitikz), don't use pictures from schematic editors. 
+
+## Result
 
 The purpose of the results is to convince the reader that what you made
 actually works. To do that, explain testbenches and simulation results.
 The key to good results is to be critical of your own work. Do not try
-to oversell the results. Your result should speak for them self.
+to oversell the results. Your result should speak for themself.
 
 For analog circuits, show results from each block. Highlight key
 parameters, like current and delay of comparator. Demonstrate that the
-full analog system works. Show that the correct digital value is stored
-in memory. Check memory value for multiple pixel voltages, either by
-changing the exposure time, or changing the pixel current.
+full analog system works.
 
-Show simulations that demonstrate that the digital works. Show how you
-read out the data from the pixel array.
+Show simulations that demonstrate that the digital works.
 
-# Discussion
+## Discussion
 
 Explain what the circuit and results show. Be critical.
 
-# Future work
+## Future work
 
 Give some insight into what is missing in the work. What should be the
 next steps?
 
-# Conclusion
+## Conclusion
 
 Summarize why, how, what and what the results show.
 
-# Appendix
+## Appendix
 
 Include in appendix the necessary files to reproduce the work. One good
 way to do it is to make a github repository with the files, and give a
 link here.
 
-The SPICE and SystemVerilog for the actual circuit should be included
-into the abstract directly. Testbenches, makefiles etc, can be linked
-via github.
 
+# Checklist
 
 
 | **Item**                                                               | **Description**                                                                                                                                                                                                                                                                           | **OK** |
@@ -122,8 +217,4 @@ via github.
 | Length                                                                 | A report should be concise. Only include what is necessary, but no more. Shorter is almost always better than longer.                                                                                                                                                                     |        |
 | Template                                                               | Use <https://github.com/wulffern/dic2021/tree/main/2021-10-19_project_report> template for the report. Write in LaTeX. You will need LaTeX for your project and master thesis. Use <http://overleaf.com> if you're uncomfortable with local text editors and LaTeX.                       |        |
 | Spellcheck                                                             | Always use a spellchecker. Misspelled words are annoying, and may change content and context (peaked versus piqued)                                                                                                                                                                       |        |
-
-
-
-[@klein01]: Kleinfelder, Lim, Liu, Gamal "A 10 000 Frames/s CMOS Digital Pixel Sensor", JSSC, VOL 36, NO 12, 2001
 
