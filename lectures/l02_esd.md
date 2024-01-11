@@ -10,7 +10,7 @@ date: 2024-01-19
 
 <!--pan_doc:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/PqGt_QmVJeo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6bqHO1iIJw0?si=8BkCgBFiA-bL5S7_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 -->
 
@@ -38,7 +38,7 @@ Understand why you must **always handle ESD** on an IC
 
 ---
 
-## **Q:** What blocks must our IC include?
+## What blocks must our IC include?
 
 <!--pan_doc:
 
@@ -49,10 +49,20 @@ First, we need to have an idea of what comes in and out of the temperature
 sensor. Before we have made the temperature sensor, we need to think what the signal interface could be, and we need to learn.
 
 Maybe we read [Kofi Makinwa's overview of temperature sensors](http://ei.ewi.tudelft.nl/docs/TSensor_survey.xls)
-and find one of the latest papers, [A BJT-based CMOS Temperature Sensor with Duty-cycle-modulated Output and ±0.54 °C (3-sigma) Inaccuracy from -40 °C to 125 °C](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9383810).
+and find one of the latest papers, 
+
+-->
+
+[A BJT-based CMOS Temperature Sensor with Duty-cycle-modulated Output and ±0.54 °C (3-sigma) Inaccuracy from -40 °C to 125 °C](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9383810).
+
+<!--pan_doc:
 
 At this point, you may struggle to understand the details of the paper, but at least it should be possible to see what comes in and out of the module. 
 What I could find is in the table below, maybe you can find more?
+
+-->
+
+---
 
 | Pin      | Function       | in/out | Value    | Unit |
 |:---------|:---------------|:-------|:---------|:-----|
@@ -65,6 +75,8 @@ What I could find is in the table below, maybe you can find more?
 | PHI1_1V2 | digital        | out    | 0 or 1.2 | V    |
 | PHI2_1V2 | digital        | out    | 0 or 1.2 | V    |
 | DCM_1V2  | digital        | out    | 0 or 1.2 | V    |
+
+<!--pan_doc:
 
 This list contains supplies, clocks, digital outputs, bias currents and a ground. Let me explain what they are.
 
@@ -80,31 +92,49 @@ That luckily has two supplies. It can be powered externally by up to 5.0 V, and 
 See more at [Absolute maximum ratings](https://caravel-harness.readthedocs.io/en/latest/maximum-ratings.html)
 
 ### Ground 
+
 Most ICs have a ground, a pin which is considered 0 V. It may have multiple grounds. Remember that a voltage is only defined between two points, so it's actually 
 not true to talk about a voltage in a node (or on a wire). A voltage is always a differential to something. We've (as in global electronics engineers) have just 
 agreed that it's useful to have a "node" or "wire" we consider 0 V. 
 
 ### Clocks 
+
 Most digital need a clock, and the Caravel provide a 40 MHz clock which should suffice for most things. We could probably just use that clock for 
 our temperature sensor.
 
 ### Digital 
+
 We need to read the digital outputs.  We could either feed those off chip, or use a on chip micro-controller. The Caravel includes options to do both. We could connect digital
 outputs to the logic analyzer, and program the RISC-V to store the readings. Or we could connect the digital output to the I/O and use an instrument in the lab.
 
 ### Bias 
+
 The Caravel does not provide bias currents (that I found), so that is something you will need to make. 
 
-
 ### Conclusion
+
 Even a temperature sensor needs something else on the IC. We need digital input/output, clock generation (PLL, oscillators), bias current generators, and voltage regulators
 (which require a constant reference voltage).
 
 I would claim that any System-On-Chip will always need these blocks!
 
-I want you to pause, take a look at the [course plan](https://wulffern.github.io/aic2024/plan/), and now you might understand why I've selected the topics.
+I want you to pause, take a look at the 
+-->
+
+[course plan](https://wulffern.github.io/aic2024/plan/)
+
+<!--pan_doc:
+and now you might understand why I've selected the topics.
+
+--->
+
+---
+
 
 ### One more thing
+
+<!--pan_doc:
+
 There is one more function we need when we have digital logic and a power supply. We need a "RESET" system. 
 
 Digital logic has a fundamental assumption 
@@ -117,7 +147,20 @@ How would we know?
 Most ICs will have a special analog block that can keep the digital logic, bias generators, clock generators, input/output and voltage regulators in a **safe**
 state until the power supply is high enough (for example 1.62 V). 
 
+One of the challenges with a POR is that we want to keep the system in a reset state until we're sure that the power is on. 
+Another challenge is that the POR should not consume current.
+
+If we make a level triggered (triggers when VDD reaches a certain level), then we need a reference, a comparator and maybe other circuits. As a result, potentially high current.
+
+If we make a delay based POR, then we need a long delay, which means large resistors or capacitors. Accordingly, high cost. 
+
+Below is an idea for a [Power-On-Reset](https://patents.google.com/patent/GB2509147A/en?inventor=carsten+wulff&oq=carsten+wulff) (POR) I had way back when. 
+The POR uses a delay based on the tunneling current in a thin oxide transistor (2), and uses a thick-oxide transistor (3) as a capacitor. The output X would go to a Schmitt
+trigger (5).
 -->
+
+
+![inline fit](../media/por.pdf)
 
 
 ---
@@ -183,54 +226,9 @@ Models a person touching a device with a finger.
 
 <!--pan_doc:
 
-> An IC left alone for long enough will equalize the Fermi potential across the whole IC. 
+Models a device in an electric field where one pin is suddenly connected
 
-Not entirely a true statement, but roughly true. One exception is non-volatile memory, like flash, which uses 
-[Fowler-Norheim](https://en.wikipedia.org/w/index.php?title=Field_electron_emission&oldformat=true#Fowler–Nordheim_tunneling) tunneling to charge and discharge a capacitor that keeps it's charge for a very, very long time.
 
-I'm pretty sure that if you leave an SSD hardrive to the [heat death of the universe](https://en.wikipedia.org/wiki/Heat_death_of_the_universe) 
-in maybe $10^{10^{10^{56}}}$ years, then the charges will equalize, and the Fermi level will be the same across the whole IC, so it's just a matter of time.
-
-Assume there is an equal number of electrons and protons on the IC. According to Gauss' law 
-
-$$ \oint_{\partial \Omega} \mathbf{E} \cdot d\mathbf{S} = \frac{1}{\epsilon_0} \iiint_{V} \rho
-\cdot dV$$  
-
-So there is no external electric field from the IC.
-
-If we place an IC in an electric field, the charges inside will redistribute. Flip the IC on it's back, 
-place it on an metal plate with an insulator in-between, and charge the metal plate to 1 kV. 
-
-Inside the IC electrons and holes will redistribute to compensate for the electric field. Closest to the metal plate
-there will be a negative charge, and furthest away there will be a positive charge. 
-
-This comes from the fact that if you leave a metal inside an electric field for long enough the metal will not have any internal field.
-If there was an internal field, the charges would move. Over time the charges will be located at the ends of the metal. 
-
-Take a grounded wire, touch one of the pins on the IC. Since we now have a metal connection between a pin and a low potential the charges 
-inside the IC will redistribute extremely quickly, on the order of a few ns. 
-
-During this Charged Device Model event the internal fields in the IC will be chaotic, but at any given point in time, the voltage across 
-sensitive devices must remain below where the device physically breaks. 
-
-Take the MOSFET transistor. Between the gate and the source there is an thin oxide, maybe a few nm. If the field strength between gate 
-and source is high enough, then the force felt by the electrons in co-valent bonds will be $\vec{F} = q\vec{E}$. At some point the 
-co-valent bonds might break, and the oxide could be permanently damaged. Think of a lighting bolt through the oxide, it's a similar process.
-
-Our job, as electronics engineers, is to ensure we put in additional circuits to prevent the fields during a CDM event from
-causing damage. 
-
-For example, let's say I have two inverters powered by different supply, VDD1 and VDD2. If I in my ESD test ground VDD1, and not VDD2, 
-I will quickly bring VDD1 to zero, while VDD2 might react slower, and stay closer to 1 kV. 
-The gate source of the PMOS in the second inverter will see approximately 1 kV across the oxide, and will break. How could I prevent that?
-
-Assuming some luck, then VDD1 and VDD2 are separate, but the same voltage, or at least close enough, I can take two diodes, connected in opposite
-directions, between VDD1 and VDD2. As such, when VDD1 is grounded, VDD2 will follow but maybe be 0.6 V higher. As a result, the PMOS gate never
-sees more than approximately 0.6 V across the gate oxide, and everyone is happy.
-
-Now imagine an IC will hundreds of supplies, and billions of inverters. How can I make sure that everything is OK?
-
-CDM is tricky, because there are so many details, and it's easy to miss one that makes your circuit break.
 
 -->
 
@@ -265,8 +263,86 @@ We won't go into details on System level ESD, as that is more a PCB type of conc
 ![right fit](../media/esd_hbm_finger.pdf)
 
 ---
+## Charged device model (CDM)
 
-# An ESD zap example 
+
+
+<!--pan_doc: 
+
+> An IC left alone for long enough will equalize the Fermi potential across the whole IC. 
+
+Not entirely a true statement, but roughly true. One exception is non-volatile memory, like flash, which uses 
+[Fowler-Norheim](https://en.wikipedia.org/w/index.php?title=Field_electron_emission&oldformat=true#Fowler–Nordheim_tunneling) tunneling to charge and discharge a capacitor that keeps it's charge for a very, very long time.
+
+I'm pretty sure that if you leave an SSD hardrive to the [heat death of the universe](https://en.wikipedia.org/wiki/Heat_death_of_the_universe) 
+in maybe $10^{10^{10^{56}}}$ years, then the charges will equalize, and the Fermi level will be the same across the whole IC, so it's just a matter of time.
+
+-->
+
+
+
+Assume there is an equal number of electrons and protons on the IC. According to Gauss' law 
+
+$$ \oint_{\partial \Omega} \mathbf{E} \cdot d\mathbf{S} = \frac{1}{\epsilon_0} \iiint_{V} \rho
+\cdot dV$$  
+
+<!--pan_doc:
+
+So there is no external electric field from the IC.
+
+If we place an IC in an electric field, the charges inside will redistribute. Flip the IC on it's back, 
+place it on an metal plate with an insulator in-between, and charge the metal plate to 1 kV. 
+
+-->
+
+![left fit](../media/cdm.pdf)
+
+<!--pan_doc: 
+
+Inside the IC electrons and holes will redistribute to compensate for the electric field. Closest to the metal plate
+there will be a negative charge, and furthest away there will be a positive charge. 
+
+This comes from the fact that if you leave a metal inside an electric field for long enough the metal will not have any internal field.
+If there was an internal field, the charges would move. Over time the charges will be located at the ends of the metal. 
+
+Take a grounded wire, touch one of the pins on the IC. Since we now have a metal connection between a pin and a low potential the charges 
+inside the IC will redistribute extremely quickly, on the order of a few ns. 
+
+During this Charged Device Model event the internal fields in the IC will be chaotic, but at any given point in time, the voltage across 
+sensitive devices must remain below where the device physically breaks. 
+
+Take the MOSFET transistor. Between the gate and the source there is an thin oxide, maybe a few nm. If the field strength between gate 
+and source is high enough, then the force felt by the electrons in co-valent bonds will be $\vec{F} = q\vec{E}$. At some point the 
+co-valent bonds might break, and the oxide could be permanently damaged. Think of a lighting bolt through the oxide, it's a similar process.
+
+Our job, as electronics engineers, is to ensure we put in additional circuits to prevent the fields during a CDM event from
+causing damage. 
+
+For example, let's say I have two inverters powered by different supply, VDD1 and VDD2. If I in my ESD test ground VDD1, and not VDD2, 
+I will quickly bring VDD1 to zero, while VDD2 might react slower, and stay closer to 1 kV. 
+The gate source of the PMOS in the second inverter will see approximately 1 kV across the oxide, and will break. How could I prevent that?
+
+-->
+
+---
+
+![fit](../media/cdm1.pdf)
+
+<!--pan_doc: 
+
+Assuming some luck, then VDD1 and VDD2 are separate, but the same voltage, or at least close enough, I can take two diodes, connected in opposite
+directions, between VDD1 and VDD2. As such, when VDD1 is grounded, VDD2 will follow but maybe be 0.6 V higher. As a result, the PMOS gate never
+sees more than approximately 0.6 V across the gate oxide, and everyone is happy.
+
+Now imagine an IC will hundreds of supplies, and billions of inverters. How can I make sure that everything is OK?
+
+CDM is tricky, because there are so many details, and it's easy to miss one that makes your circuit break.
+
+-->
+
+---
+
+# An HBM ESD zap example 
 
  Imagine a ESD zap between VSS and VDD. How can we protect the device? 
  
@@ -343,7 +419,7 @@ below.
 
 ---
 
-## **Q:** Why does this work?
+## Why does this work?
 
 ![left fit](../media/l02_ggnmos.pdf)
 
@@ -377,8 +453,13 @@ when they scatter off an atom. If you break too many bonds between atoms, your m
 
 Assume a transistor like the one below. The gate, source and bulk is connected to ground. The drain is connected to a high voltage.
 
-![](../media/ggnmos.pdf)
+-->
 
+---
+
+![fit](../media/ggnmos.pdf)
+
+<!--pan_doc: 
 
 ### Avalanche 
 
@@ -400,6 +481,7 @@ Usually the avalanche process does not damage anything, at least initially, but 
 The number of holes in the bulk will be the same as the number of electrons freed in the depletion region.
 
 ### Forward bias of PN-junction 
+
 The extra holes underneath the transistor will increase the local potential. If the substrate contact (5) is far away, then the 
 local potential close to the source/bulk PN-junction (3) might increase enough to significantly increase the number of electrons injected from source.
 
@@ -408,6 +490,7 @@ close to the drain region, and the field in the depletion zone, they will be acc
 further increase the avalanche condition. 
 
 ### Bad things can happen 
+
 For a normal transistor, not designed to survive, the electron flow (4) can cause local damage to the drain. Normally there is nothing 
 that prevents the current from increasing, and the transistor will eventually die.
 
@@ -451,7 +534,7 @@ If you don't do the layout right[^3]
 
 ---
 
-## **Q:** How can current in one place lead to a current somewhere else?
+## How can current in one place lead to a current somewhere else?
 
 <!--pan_doc:
 
@@ -468,7 +551,14 @@ Assume we have the circuit below.
 
 We can draw a cross section of the inverter.
 
-![](../media/scr_eh.pdf)
+-->
+
+---
+
+![fit](../media/scr_eh.pdf)
+
+
+<!--pan_doc: 
 
 ### Electron injection
 
@@ -494,6 +584,7 @@ bulk. If this happens, then we get electron injection into bulk. Some of those e
 
 
 ### Positive-feedback
+
 Now we have a condition where the process accellerates, and locks-up. Once turned on, this circuit will not turn off until the supply is low.
 
 This is a phenomena called latch-up. Similar to ESD circuits, latch-up can short the supply to ground, and make things burn. 
