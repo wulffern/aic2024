@@ -9,8 +9,8 @@ FILES = l00_diode \
 	lp_project_report \
 	l01_intro \
 	l02_esd \
-#	l03_refbias \
-	l04_afe \
+	l03_refbias \
+#	l04_afe \
 	l05_sc \
 	l06_adc \
 	l07_vreg \
