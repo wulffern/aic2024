@@ -814,15 +814,7 @@ where
 
 $$ B_c = 2 \left[\frac{2 \pi  k m_n^*}{h^2}\right]^{3/2} \text{  } B_v = 2 \left[\frac{2 \pi  k m_p^*}{h^2}\right]^{3/2} $$
 
-<!--
-$$ B_c = 2 \left(\frac{ 4 \pi^2 k^2 T^2 m_n^* m_p^*}{h^4}\right)^{3/4}  e^\frac{-E_g}{2 kT} $$
 
-$$ \ln{n_i} = \ln{2} + \frac{3}{4}\ln{\frac{4 \pi^2k^2 m_n^* m_p^*}{h^4}} + \frac{3}{2} \ln T -
-\frac{E_g}{2 kT}$$
-
-or
-
--->
 
 [.column]
 
