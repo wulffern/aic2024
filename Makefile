@@ -10,8 +10,8 @@ FILES = l00_diode \
 	l01_intro \
 	l02_esd \
 	l03_refbias \
-#	l04_afe \
-	l05_sc \
+	l04_afe \
+#	l05_sc \
 	l06_adc \
 	l07_vreg \
 	l08_pll \
