@@ -205,7 +205,7 @@ to the difference of charge at the end of phase 1 and phase 2.
 
 -->
  
-  $$ Z_{I} = \frac{V_{I} - V_{GND}}{\left(Q_{\phi1$} - Q_{\phi2$}\right) f_{\phi}}$$
+  $$ Z_{I} = \frac{V_{I} - V_{GND}}{\left(Q_{\phi1\$} - Q_{\phi2\$}\right) f_{\phi}}$$
   
 <!--pan_doc:
 
@@ -244,7 +244,7 @@ If we compute the impedance.
 
 -->
 
-$$ Z_{I} = \frac{V_{I} - V_{O}}{\left(Q_{\phi1$} - Q_{\phi2$}\right) f_{\phi}}$$
+$$ Z_{I} = \frac{V_{I} - V_{O}}{\left(Q_{\phi1\$} - Q_{\phi2\$}\right) f_{\phi}}$$
 
 $$ Q_{\phi1\$} = C_1 (V_I - V_O)$$
 
@@ -269,7 +269,7 @@ Let's try the circuit below.
 
 ![left fit](../media/l05_fund3.pdf)
 
-$$ Z_{I} = \frac{V_{I} - V_{O}}{\left(Q_{\phi1$} - Q_{\phi2$}\right) f_{\phi}}$$
+$$ Z_{I} = \frac{ V_{I} - V_{O} }{ \left(Q_{\phi1\$} - Q_{\phi2\$}\right) f_{\phi}}$$
 
 $$ Q_{\phi1\$} = C_1 V_I )$$
 
@@ -741,6 +741,9 @@ python example.
 
 There are smarter, and faster ways to do IIR filters (and FIR) in python, see [scipy.signal.iirfilter](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.iirfilter.html)
 
+
+From the plot below we can see the sampled time domain and spectra on the left, and the filtered time domain and spectra on the right.
+
 -->
 
 [iir.py](https://github.com/wulffern/aic2024/blob/main/ex/iir.py)
@@ -764,7 +767,7 @@ for i in range(1,N):
     y[i] = b*x_sn[i-1] + y[i-1]
 ```
 
-From the plot below we can see the sampled time domain and spectra on the left, and the filtered time domain and spectra on the right.
+
 
 The IIR filter we implemented above is a low-pass filter, and the filter partially rejects the copied spectra, as expected. 
 
@@ -1116,7 +1119,7 @@ The resistance mid-rail might be too large.
 
 For switched-capacitor circuits we must settle the voltages to the required accuracy. In general
 
-$$t > -\log{\text{error}} \tau$$
+$$t > -\log(\text{error} ) \tau$$
 
 For example, for a 10-bit ADC we need $t > -\log(1/1024) \tau = 6.9\tau$. This means we need to wait at least 6.9 time constants for the voltage
 to settle to 10-bit accuracy in the switched capacitor circuit.
@@ -1187,7 +1190,7 @@ The non-overlap generator is standard. Use the one shown below. Make sure you si
 In the circuit below there is an example of a switched capacitor circuit used to increase the $\Delta V_{D}$ across the resistor. We can accurately
 set the gain, and thus the equation for the differential output will be 
 
-$$ V_O = 10 \frac{kT}{q} \ln (N) $$
+$$ V_O(z) = 10 \frac{kT}{q} \ln (N)z^{-1} $$
 
 -->
 
