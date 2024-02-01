@@ -11,8 +11,8 @@ FILES = l00_diode \
 	l02_esd \
 	l03_refbias \
 	l04_afe \
-#	l05_sc \
-	l06_adc \
+	l05_sc \
+#	l06_adc \
 	l07_vreg \
 	l08_pll \
 	l09_osc \

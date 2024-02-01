@@ -1,16 +1,17 @@
-footer: Carsten Wulff 2023
+footer: Carsten Wulff 2024
 slidenumbers:true
 autoscale:true
 theme: Plain Jane, 1
 text:  Helvetica
 header:  Helvetica
+date: 2024-02-09
 
 <!--pan_skip: -->
 
 
 <!--pan_title: Lecture 5 - Switched-Capacitor Circuits -->
 
-## TFE4188 - Introduction to Lecture 5
+## TFE4188 - Lecture 5
 # Switched-Capacitor Circuits
 
 ---
@@ -100,12 +101,13 @@ resistors.
 But how large is the on-resistance of the transistor switch? Would that 
 also affect our precision? 
 
-But is the calibration step linear when we add the transistors. If we have a non-linear 
+But is the calibration step linear with addition of the transistors? If we have a non-linear 
 calibration step, then we cannot use gradient decent calibration algorithms, nor can we
 use binary search. 
 
-Analog designers need to deal with an almost infinite series of "But", and 
-the experienced designer will know when to stop, when is the "But what if" not 
+Analog designers need to deal with an almost infinite series of "But".
+
+The experienced designer will know when to stop, when is the "But what if" not 
 a problem anymore. 
 
 The most common error in analog integrated circuit design is a "I did not imagine that 
@@ -113,7 +115,7 @@ my circuit could fail in this manner" type of problem. Or, not following the lin
 
 But if we follow all the "But"'s we will never tapeout!
 
-Although active-RC filters are great for linearity and easy to drive, but if we need accurate time constant, there are better alternatives.
+Active-RC filters are great for linearity, but if we need accurate time constant, there are better alternatives.
 
 -->
 
@@ -148,12 +150,159 @@ Same as Active-RC, Gm-C need calibration to get accurate pole or zero frequency.
 
 ---
 
-# Switched capacitor circuits
+# Switched capacitor
+
+---
 
 <!--pan_doc:
 
-We can make switches and capacitors behave as a resistor. An example of such a
-circuit can be found in 
+The first time you encounter Switched Capacitor (SC) circuits, they do require some brain training. So let's start simple.
+
+Consider the circuit below. Assume that the two transistors are ideal (no-charge injection, no resistance). 
+
+-->
+![left fit](../media/l05_fund1.pdf)
+
+<!--pan_doc:
+
+For SC circuits, we need to consider the charge on the capacitors, and how they change with time. 
+
+The charge on the capacitor at the end [^1] of phase 2 is 
+
+--->
+
+
+
+ $$Q_{\phi2\$} = C_1 V_{GND}  = 0$$
+ 
+<!--pan_doc:
+
+while at the end of phase 1 
+
+-->
+
+ $$Q_{\phi1\$} = C_1 V_{I}$$
+ 
+<!--pan_doc:
+
+The impedance, from [Ohm's law](https://en.wikipedia.org/wiki/Ohm%27s_law) is    
+-->
+
+ $$ Z_{I} = (V_{I} - V_{GND})/I_{I}$$
+ 
+<!--pan_doc:
+
+And from [SI units](https://analogicus.com/aic2024/2023/10/26/A-refresher.html#there-are-standard-units-of-measurement) units we can see current is 
+-->
+
+ $$ I_{I} = \frac{Q}{dt} = Q f_{\phi}$$
+ 
+ 
+<!--pan_doc:
+
+Charge cannot disappear, [charge is conserved](https://en.wikipedia.org/wiki/Charge_conservation).  As such, the charge going out from the input must be equal 
+to the difference of charge at the end of phase 1 and phase 2. 
+
+-->
+ 
+  $$ Z_{I} = \frac{V_{I} - V_{GND}}{\left(Q_{\phi1$} - Q_{\phi2$}\right) f_{\phi}}$$
+  
+<!--pan_doc:
+
+Inserting for the charges, we can see that the impedance is 
+-->
+ 
+ $$ Z_{I} = \frac{V_{I}}{\left(V_{I} C  - 0 \right) f_{\phi}} = \frac{1}{C_1 f_\phi}$$
+ 
+ 
+<!--pan_doc:
+ 
+A common confusion with SC circuits is to confuse the impedance of a capacitor $Z = 1/sC$ with the impedance of a SC circuit $Z = 1/fC$.
+The impedance of a capacitor is complex (varies with frequency and time), while the SC circuit impedance is real (a resistance).
+
+The main difference between the two is that the impedance of a capacitor is continuous in time, while the SC circuit is a discrete time circuit, and 
+has a discrete time impedance. 
+
+-->
+
+
+
+---
+
+<!--pan_doc:
+
+The circuit below is drawn slightly differently, but the same equation applies.
+
+-->
+
+![left fit](../media/l05_fund2.pdf)
+ 
+
+<!--pan_doc:
+
+If we compute the impedance.
+
+-->
+
+$$ Z_{I} = \frac{V_{I} - V_{O}}{\left(Q_{\phi1$} - Q_{\phi2$}\right) f_{\phi}}$$
+
+$$ Q_{\phi1\$} = C_1 (V_I - V_O)$$
+
+$$ Q_{\phi2\$} = 0 $$
+
+$$ Z_{I} = \frac{V_{I} - V_{O}}{\left(C_1 (V_I - V_O)\right) f_{\phi}} = \frac{1}{C_1 f_\phi}$$
+
+<!--pan_doc:
+
+Which should not be surprising, as all I've done is to rotate the circuit and call $V_{GND} = V_0$.
+
+-->
+
+
+
+---
+
+<!--pan_doc:
+
+Let's try the circuit below.
+-->
+
+![left fit](../media/l05_fund3.pdf)
+
+$$ Z_{I} = \frac{V_{I} - V_{O}}{\left(Q_{\phi1$} - Q_{\phi2$}\right) f_{\phi}}$$
+
+$$ Q_{\phi1\$} = C_1 V_I )$$
+
+$$ Q_{\phi2\$} = C_1 V_O $$
+
+<!--pan_doc:
+
+Inserted into the impedance we get the same result. 
+
+-->
+
+$$ Z_{I} = \frac{V_{I} - V_{O}}{\left(C_1 V_I - C_1 V_O)\right) f_{\phi}} = \frac{1}{C_1 f_\phi}$$
+
+
+
+
+<!--pan_doc:
+
+The first time I saw the circuit above it was not obvious to me that the impedance still was $Z = 1/Cf$. It's one of the cases where 
+mathematics is a useful tool. I could follow a set of rules (charge conservation), and as long as I did the mathematics right, then from the equations, I
+could see how it worked. 
+
+-->
+
+---
+
+
+
+<!--pan_doc:
+
+## An example SC circuit 
+
+An example use of an SC circuit is 
 
 -->
 
@@ -167,10 +316,7 @@ to create a gain. Imagine we create a circuit without the switches, and
 with a resistor of $R$ from input to virtual ground, and $4R$ in the feedback. Our Active-R would 
 have a gain of $A = 4$. 
 
-You might not believe it, but the circuit below is almost the same, but we've
-used switched capacitor. The complete amplifier still has a $A = 4$, but not all the time.
-
-The switches disconect the OTA and capacitors for half the time, but for the other half,
+The switches disconnect the OTA and capacitors for half the time, but for the other half,
 at least for the latter parts of $\phi_2$ the gain is four.
 
 -->
@@ -184,18 +330,18 @@ time interval. The circuit is discrete time. As long as all circuits afterwards
 also have a discrete-time input, then it's fine. An ADC can sample the output from the amplifier
 at the right time, and never notice that the output is shorted to a DC voltage in $\phi_1$
 
-Switched capacitor circuits rely on charge transfer. We charge the capacitor $4C$ to the 
+We charge the capacitor $4C$ to the 
 differential input voltage in $\phi_1$
 
 $$ Q_1 = 4 C V_{in} $$
 
 Then we turn off $\phi_1$, which opens all switches. The charge on $4C$ will still be $Q_1$ 
-(except for higher order effects like  charge injection from switches).
+(except for higher order effects like charge injection from switches).
 
-After a short time (overlap), we turn on $\phi_2$, closing some of the switches.
-The OTA will start to force it's two inputs to be the same, and we short the left side of 
+After a short time (non-overlap), we turn on $\phi_2$, closing some of the switches.
+The OTA will start to force its two inputs to be the same voltage, and we short the left side of 
 $4C$. After some time we would have the same voltage on the left side of $4C$ for the
-two capacitors, and another voltage on the left side of the $4C$ capacitors. The two 
+two capacitors, and another voltage on the right side of the $4C$ capacitors. The two 
 capacitors must now have the same charge, so the difference in charge, or differential charge
 must be zero. 
 
@@ -228,8 +374,9 @@ fantastic feature. Assume we make two identical capacitors in our layout. We won
 integrated circuit, whether the $C_1$ is 100 fF or 80 fF, but 
 we can be certain that if $C_1 = 80$ fF, then $C_2 = 80$ fF to a precision of around 0.1 %. 
 
-With switched capacitor amplfiers we can set an accurate gain, and we can set an accurate pole and zero frequency (as long as we have an accurate cloc and a high
+With switched capacitor amplifiers we can set an accurate gain, and we can set an accurate pole and zero frequency (as long as we have an accurate clock and a high
 DC gain OTA).
+
 The switched capacitor circuits do have a drawback. They are discrete time circuits.  As such, we must treat them with caution, and they will always need 
 some analog filter before to avoid a phenomena we call aliasing. 
 
@@ -242,15 +389,14 @@ some analog filter before to avoid a phenomena we call aliasing.
 
 <!--pan_doc:
 
-An random, gaussian, continuous time, continuous value, signal has infinite information. The frequency can be anywhere from zero to infinity, 
-the value have infinite levels, and the time division is infinetly small. We cannot store such a signal. We have to quantize.
+An random, Gaussian, continuous time, continuous value, signal has infinite information. The frequency can be anywhere from zero to infinity, 
+the value have infinite levels, and the time division is infinitely small. We cannot store such a signal. We have to quantize.
 
 If we quantize time to $T = 1\text{ ns}$, such that we only record the value of the signal every 1 ns, 
 what happens to all the other information? The stuff that changes at 0.5 ns or 0.1 ns, or 1 ns.
 
-We can always guess, but it helps to know, as in absolutely know, what happens. That's where mathemathics come in. 
-
-With mathematics we can prove things, and know we're right
+We can always guess, but it helps to know, as in absolutely know, what happens. That's where mathematics come in. 
+With mathematics we can prove things, and know we're correct.
 
 ## The mathematics 
 
@@ -317,7 +463,7 @@ Or $$ X_s(j\omega) = \frac{1}{T}\sum_{k=-\infty}^{\infty} X_c\left(j\omega - \fr
 
 **The spectrum of a sampled signal is an infinite sum of frequency shifted spectra**
 
-or equivalenty
+or equivalently
 
 **When you sample a signal, then there will be copies of the input spectrum at every $$ nf_s$$**
 
@@ -330,7 +476,7 @@ However, if you do an FFT of a sampled signal, then all those infinite spectra w
 If your signal processing skills are a bit thin, now might be a good time to read up on [FFT](https://en.wikipedia.org/wiki/Fast_Fourier_transform),
 [Laplace transform](https://en.wikipedia.org/wiki/Laplace_transform) and [But what is the Fourier Transform?](https://www.youtube.com/watch?v=spUNpyF58BY)
 
-In python we can create a demo and see what happens when we "sample" an "continous time" signal. Hopefully it's obvious that it's impossible to emulate a "continous time"
+In python we can create a demo and see what happens when we "sample" an "continuous time" signal. Hopefully it's obvious that it's impossible to emulate a "continuous time"
 signal on a digital computer. After all, it's digital (ones and zeros), and it has a clock!
 
 We can, however, emulate to any precision we want. 
@@ -338,10 +484,10 @@ We can, however, emulate to any precision we want.
 The code below has four main sections. First is the time vector. I use [Numpy](https://numpy.org), which has a bunch of useful 
 features for creating ranges, and arrays. 
 
-Secondly, I create continuous time signal. The time vector can be used in numpy functions, like `np.sin()`, and I combine three sinusoid plus some onise. 
+Secondly, I create continuous time signal. The time vector can be used in numpy functions, like `np.sin()`, and I combine three sinusoid plus some noise. 
 The sampling vector is a repeating pattern of 11001100, so our sample rate should be 1/2'th of the input sample rate. 
-FFT's can be unweieldy beasts. I like to use [coherent sampling](https://en.wikipedia.org/wiki/Talk%3ACoherent_sampling), however, with 
-mutiple signals and samplerates I did not bother to figure out whether it was possible.
+FFT's can be unwieldy beasts. I like to use [coherent sampling](https://en.wikipedia.org/wiki/Talk%3ACoherent_sampling), however, with 
+multiple signals and samplerates I did not bother to figure out whether it was possible.
 
 The alternative to coherent sampling is to apply a window function before the FFT, that's the reason for the 
 Hanning window below.
@@ -350,7 +496,7 @@ Hanning window below.
 
 ---
 
-[dt.py](https://github.com/wulffern/aic2023/blob/main/ex/dt.py)
+[dt.py](https://github.com/wulffern/aic2024/blob/main/ex/dt.py)
 
 ```python 
 #- Create a time vector
@@ -377,19 +523,18 @@ else:
 X_s = np.fft.fftshift(np.fft.fft(np.multiply(w[0:N],x_s)))
 X_sn = np.fft.fftshift(np.fft.fft(np.multiply(w[0:N],x_sn)))
 ```
-
 ---
 
 <!--pan_doc:
 
 Try to play with the code, and see if you can understand what it does. 
 
-Below are the plots. On the left side is the "continous value, continous time" emulation, on the right side 
-"discrete time, continous value". 
+Below are the plots. On the left side is the "continuous value, continuous time" emulation, on the right side 
+"discrete time, continuous value". 
 
 The top plots are the time domain, while the bottom plots is frequency domain. 
 
-The FFT is complex, so that's why there are six sinusoid's bottom left. The "0 Hz" would be at x-axis index 4096 ($2^{13}/2$). 
+The FFT is complex, so that's why there are six sinusoids bottom left. The "0 Hz" would be at x-axis index 4096 ($2^{13}/2$). 
 
 The spectral copies can be seen bottom right. How many spectral copies, and the distance between them will depend on the sample rate (length of `t_s_unit`). 
 Try to play around with the code and see what happens.
@@ -406,8 +551,8 @@ Try to play around with the code and see what happens.
 I want you to internalize that the spectral copies are real. They are not some "mathematical construct" that we don't have to deal with.
 
 They are what happens when we sample a signal into discrete time. 
-Imagine a signal with a band of interest as shown below in greeen. We sample at $f_s$. The pink and red unwanted signals do
-not dissapear after sampling, even though they are above the Nyquist frequency ($f_s/2$). They fold around $f_s/2$, and in may 
+Imagine a signal with a band of interest as shown below in Green. We sample at $f_s$. The pink and red unwanted signals do
+not disappear after sampling, even though they are above the Nyquist frequency ($f_s/2$). They fold around $f_s/2$, and in may 
 appear in-band. That's why it's important to band limit analog signals before they are sampled. 
 
 -->
@@ -432,13 +577,13 @@ our wanted signal (green) is undisturbed.
 Assume that we we're interested in the red signal. We could still use a sample rate of $f_s$. 
 If we bandpass-filtered all but the red signal the red signal would fold on sampling, as shown in the figure below.
 
-Remember that the [Nyquist-Shannon](https://en.wikipedia.org/wiki/Nyquist–Shannon_sampling_theorem) states that a suffient 
+Remember that the [Nyquist-Shannon](https://en.wikipedia.org/wiki/Nyquist–Shannon_sampling_theorem) states that a sufficient 
 no-loss condition is to sample signals with a sample rate of twice the bandwidth of the signal.
 
 Nyquist-Shannon has been extended for sparse signals, compressed sensing, and non-uniform sampling to demonstrate that it's 
 sufficient for the average sample rate to be twice the bandwidth. 
 One 2009 paper [Blind Multiband Signal Reconstruction: Compressed Sensing for Analog Signal](https://ieeexplore.ieee.org/document/4749297) is 
-a good place to start to devlve into the latest on signal reconstruction.
+a good place to start to delve into the latest on signal reconstruction.
 
 -->
 
@@ -511,7 +656,7 @@ The "x" shows the complex frequency where the fourier transform goes to infinity
 Any real circuit will have complex conjugate, or real, poles/zeros. A combination of two real circuits where one path is shifted 
 90 degrees in phase can have non-conjugate complex poles/zeros.
 
-If the "x" is $a<0$, then any pertubation will eventually die out. 
+If the "x" is $a<0$, then any perturbation will eventually die out. 
 If the "x" is on the $a=0$ line, then we have a oscillator that will ring forever. If the "x" is  $a>0$ then the oscillation amplitude
 will grow without bounds, although, only in Matlab. In any physical circuit an oscillation cannot grow without bounds forever.
 
@@ -556,7 +701,7 @@ Assume a first order filter given by the discrete time equation.
 $$ y[n+1] = bx[n] + ay[n] \Rightarrow Y z = b X + a Y$$
 
 <!--pan_doc:
-The "n" index and the "z" exponent can be choosen freely, which sometimes can help the algebra.
+The "n" index and the "z" exponent can be chosen freely, which sometimes can help the algebra.
 -->
 
 $$ y[n] = b x[n-1] + ay[n-1] \Rightarrow Y = b X z^{-1} + a Y z^{-1}  $$ 
@@ -596,7 +741,16 @@ python example.
 
 There are smarter, and faster ways to do IIR filters (and FIR) in python, see [scipy.signal.iirfilter](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.iirfilter.html)
 
-[iir.py](https://github.com/wulffern/aic2023/blob/main/ex/iir.py)
+-->
+
+[iir.py](https://github.com/wulffern/aic2024/blob/main/ex/iir.py)
+
+---
+
+![ fit ](../media/l5_iir.pdf)
+
+<!--pan_doc:
+
 ```python
 #- IIR filter
 b = 0.3
@@ -614,8 +768,6 @@ From the plot below we can see the sampled time domain and spectra on the left, 
 
 The IIR filter we implemented above is a low-pass filter, and the filter partially rejects the copied spectra, as expected. 
 
-![](../media/l5_iir.svg)
-
 -->
 
 ---
@@ -624,7 +776,7 @@ The IIR filter we implemented above is a low-pass filter, and the filter partial
 
 <!--pan_doc:
 
-FIR filters are unconditionaly stable, since the impulse response
+FIR filters are unconditionally stable, since the impulse response
 will always die out. FIR filters are a linear sum of delayed inputs.
 
 In my humble opinion, there is nothing wrong with an IIR. Yes, the could become unstable, however, they can be designed safely.
@@ -634,7 +786,6 @@ But be wary of rules like "IIR are always better than FIR" or visa versa. Especi
 the book was probably written a decade ago, and based on papers two decades old, which were based on three decades old state of the art. 
 Our abilities to use computers for design has improved a bit the last three decades.
 
-Try to modify the IIR filter, and implement the FIR below instead.
 -->
 
 $$ H(z) = \frac{1}{3}\sum_{i=0}^2 z^{-1}$$
@@ -645,60 +796,87 @@ $$ H(z) = \frac{1}{3}\sum_{i=0}^2 z^{-1}$$
 
 #[fit] Switched-Capacitor
 
-
 ---
 
-<!--pan_skip: -->
-
-## **Q:** How do switched capacitor circuits work?
-
----
 
 <!--pan_doc:
 
-Below is an example of a switched-capacitor circuit. It's drawn twice, because there are usually at least 2 phases to a switched-capacitor circuit.
+Below is an example of a switched-capacitor circuit during phase 1.
 Think of the two phases as two different configurations of a circuit, each with a specific purpose.
 
-On the left we have the SC circuit during the sampling phase. Imagine that we somehow have stored a voltage $V_1 = \ell$ on capacitor $C_1$ (the switches for
-that sampling or storing are not shown). The charge on $C_1$ is $Q_1 = C_1 V_1 = C_1 \ell$
+--->
 
-The $C_2$ capacitor is shorted, as such, $V_2 = 0$, which must mean that the charge on $C_2$ given by $Q_2 = 0$.
+![left fit](../media/l5_scintro1.pdf)
+
+<!--pan_doc:
+
+This is the SC circuit during the sampling phase. Imagine that we somehow have stored a voltage 
+$V_1 = \ell$ on capacitor $C_1$ (the switches for
+that sampling or storing are not shown). The charge on $C_1$ is 
+
+-->
+
+$$Q_{1\phi_1\$} = C_1 V_1$$
+
+<!--pan_doc:
+
+The $C_2$ capacitor is shorted, as such, $V_2 = 0$, which must mean that the charge on $C_2$ given by 
+
+-->
+
+$$Q_{2\phi_1\$} = 0$$
+
+<!--pan_doc:
 
 The voltage at the negative input of the OTA must be 0 V, as the positive input is 0 V, and we assume the circuit has settled all transients.
 
-Imagine we (very carefully) open the circuit around $C_2$ and close the circuit from the negative side of $C_1$ to the OTA negative input. 
-It's the OTA that ensures that the negative input is the same as the positive input, but the OTA cannot be infinetly fast. 
-At the same time, the voltage across $C_1$ cannot change instantaniously. 
-Neither can the voltage across $C_2$. As such, the voltage at the negative input must immediately go to $-\ell$ (ignoring any parasitic capacitance at the negative input). 
+Imagine we (very carefully) open the circuit around $C_2$ and close the circuit from the negative side of $C_1$ to the OTA negative input, as shown below.
+
+-->
+---
+
+![left fit](../media/l5_scintro2.pdf)
+
+<!--pan_doc:
+
+It's the OTA that ensures that the negative input is the same as the positive input, but the OTA cannot be infinitely fast. 
+At the same time, the voltage across $C_1$ cannot change instantaneously. 
+Neither can the voltage across $C_2$. As such, the voltage at the negative input must immediately go to $-V_1$ (ignoring any parasitic capacitance at the negative input). 
 
 The OTA does not like it's inputs to be different, so it will start to charge $C_2$ to increase the voltage at the negative input to the OTA.
-When the negative input reaches 0 V the OTA is happy again. 
+When the negative input reaches 0 V the OTA is happy again.  At that point the charge on $C_1$ is
+
+-->
+
+$$Q_{1\phi_2\$} = 0$$
+
+<!--pan_doc:
 
 A key point is, that even the voltages now have changed, there is zero volt across $C_1$, and thus there cannot be any charge across $C_1$ the charge that 
-was there cannot have dissapeared. The negative input of the OTA is a high impedance node, and cannot supply charge. The charge must have gone somewhere, but where?
+was there cannot have disappeared. The negative input of the OTA is a high impedance node, and cannot supply charge. The charge must have gone somewhere, but where?
 
 In process of changing the voltage at the negative input of the OTA we've changed the voltage across $C_2$. The voltage change must exactly match 
 the charge that was across $C_1$, as such
 
-$$ Q_1 = C_1 \ell =  Q_2 = C_2 V_O$$
+-->
+
+$$ Q_{2\phi_2\$} = Q_{1\phi_1\$} = C_1 V_1 = C_2 V_2$$
+
+<!--pan_doc:
 
 thus
 
-$$ \frac{V_O}{\ell} = \frac{C_1}{C_2}$$
-
 -->
 
+$$ \frac{V_2}{V_1} = \frac{C_1}{C_2}$$
 
-![original fit](../media/l5_scintro.pdf)
 
----
 
-<!--pan_skip: -->
 
-#[fit] Principles
 
 
 ---
+
 
 ## Switched capacitor gain circuit
 
@@ -706,7 +884,7 @@ $$ \frac{V_O}{\ell} = \frac{C_1}{C_2}$$
 
 <!--pan_doc:
 
-Redrawing the previous circuit, and adding a few more swithces we can create a switched capacitor gain circuit.
+Redrawing the previous circuit, and adding a few more switches we can create a switched capacitor gain circuit.
 
 There is now a switch to sample the input voltage across $C_1$ during phase 1 and reset $C_2$. 
 During phase 2 we configure the circuit to leverage the OTA to do the charge transfer from $C_1$ to $C_2$.
@@ -880,18 +1058,12 @@ Switched-capacitor circuits are so common that it's good to delve a bit deeper, 
 
 ---
 
-<!--pan_skip: --->
-
-## **Q:** How many different OTAs do you know?
-
----
-
 <!--pan_doc:
 
 ### OTA
 
-At the heart of the SC circuit we usually find an OTA. Maybe a current mirror, folded cascode, recycling cascode, or my favorite: a fully differential current 
-mirror OTA with cascoded, gain boosted, output stage using a parallel common mode feedback.
+At the heart of the SC circuit we usually find an OTA. Maybe a current mirror, folded cascode, recycling cascode, or my favorite: [a fully differential current 
+mirror OTA with cascoded, gain boosted, output stage using a parallel common mode feedback](https://github.com/wulffern/cnr_ota_sky130nm/tree/main).
 
 Not all SC circuits use OTAs, there are also [comparator based SC circuits](https://link.springer.com/article/10.1007/s10470-010-9576-3). 
 
@@ -949,7 +1121,7 @@ $$t > -\log{\text{error}} \tau$$
 For example, for a 10-bit ADC we need $t > -\log(1/1024) \tau = 6.9\tau$. This means we need to wait at least 6.9 time constants for the voltage
 to settle to 10-bit accuracy in the switched capacitor circuit.
 
-Assume the capacitors are large due to noise, then the switches must be low resistance for a resonable time constant. Larger switches have 
+Assume the capacitors are large due to noise, then the switches must be low resistance for a reasonable time constant. Larger switches have 
 smaller resistance, however, they also have more charge in the inversion layer, which leads to charge injection when the switches are turned of.
 Accordingly, larger switches are not always the solution.
 
@@ -965,10 +1137,20 @@ as shown on the right.
 
 <!--pan_doc:
 
-The switch I used in my [JSSC SAR](https://ieeexplore.ieee.org/document/7906479) looks like the one below.
+The switch I used in my [JSSC SAR](https://ieeexplore.ieee.org/document/7906479) is a fully differential boostrapped switch with 
+cross coupled dummy transistors. The JSSC SAR I've also ported to GF130NM, as shown below. The switch is at the bottom. 
 
-Do not underestimate the amount of work that the switches requires. I know a case where 3 really good designers spent 6 months on trying to design the input
-switches for an ADC. 
+-->
+
+[wulffern/sun\_sar9b\_sky130nm](https://github.com/wulffern/sun_sar9b_sky130nm)
+
+![original fit](../media/l00_SAR9B_CV.png)
+
+---
+
+<!--pan_doc:
+
+looks like the one below.
 
 -->
 
@@ -995,37 +1177,28 @@ The non-overlap generator is standard. Use the one shown below. Make sure you si
 
 ---
 
-<!--pan_skip: --->
 
-#[fit] Example
-
----
-
-<!--pan_skip: --->
-
-## **Q:** What is the gain?
+##[fit] Example
 
 ---
 
-<!--pan_skip: --->
+<!--pan_doc:
+
+In the circuit below there is an example of a switched capacitor circuit used to increase the $\Delta V_{D}$ across the resistor. We can accurately
+set the gain, and thus the equation for the differential output will be 
+
+$$ V_O = 10 \frac{kT}{q} \ln (N) $$
+
+-->
 
 ![fit](../media/l5_scex.pdf)
 
----
 
-<!--pan_skip: --->
+<!--pan_doc:
 
-# In the book that you really should read
+[^1]: I use the \$ to mark the end of the period. It comes from [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression).
 
-Parasitic sensitive integrator
-
-Gain circuit that zero's OTA offset
-
-Correlated double sampling
-
-VCO
-
-Peak detectors
+-->
 
 ---
 <!--pan_skip: --->
