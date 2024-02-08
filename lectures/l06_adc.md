@@ -1,14 +1,15 @@
-footer: Carsten Wulff 2023
+footer: Carsten Wulff 2024
 slidenumbers:true
 autoscale:true
 theme: Plain Jane, 1
 text:  Helvetica
 header:  Helvetica
+date: 2024-02-16
 
 
 <!--pan_skip: -->
 
-## TFE4188 - Introduction to Lecture 6
+## TFE4188 - Lecture 6
 # Oversampling and Sigma-Delta ADCs
 
 <!--pan_title: Lecture 6 - Oversampling and Sigma-Delta ADCs -->
@@ -29,6 +30,8 @@ Understand **why** there are different ADCs
 
 Introduction to **oversampling** and  **delta-sigma** modulators
 
+A few **examples**
+
 ---
 
 <!--pan_doc:
@@ -36,8 +39,7 @@ Introduction to **oversampling** and  **delta-sigma** modulators
 # ADC state-of-the-art
 
 The performance of an analog-to-digital converter is determined by the effective number of bits (ENOB), the power consumption, and the maximum bandwidth. 
-
-The effective number of bits contains information on the linearity of the ADC. The power consumption shows 
+The effective number of bits contain information on the linearity of the ADC. The power consumption shows 
 how efficient the ADC is. The maximum bandwidth limits what signals we can sample and reconstruct in
 digital domain.
 
@@ -59,24 +61,25 @@ impossible, according to Walden.
 ---
 <!--pan_doc:
 
-I would take those fundamental limits with a grain of salt. The uncertainty principle states that the precision
+The uncertainty principle states that the precision
 we can determine position and the momentum of a particle is
-$$\sigma_x \sigma_p \ge \frac{\hbar}{2}$$
-In the paper, however, Walden quickly states that 
+$$\sigma_x \sigma_p \ge \frac{\hbar}{2}$$. There is a similar relation of energy and time, given by 
 $$\Delta E \Delta t > \frac{h}{2 \pi}$$
-where $\Delta E$ is the difference in energy, and $\Delta t$ is the difference in time. Whether that is a valid reformulation of the uncertainty principle, I'm not sure.
-Also, the plot assumes 50 Ohm and 1 V full-scale. As a result, the "Heisenberg" line that appears to be unbreakable certainly is breakable. Just change the voltage to 
-100 V, and the number of bits can be much higher. Always check the assumptions. 
+where $\Delta E$ is the difference in energy, and $\Delta t$ is the difference in time. 
 
+You should take these limits with a grain of salt. The plot assumes 50 Ohm and 1 V full-scale. 
+As a result, the "Heisenberg" line that appears to be unbreakable certainly is breakable. Just change the voltage to 
+100 V, and the number of bits can be much higher. Always check the assumptions. 
 
 A more recent survey of ADCs comes from Boris Murmann. He still maintains a list of the best ADCs from ISSCC and VLSI Symposium.
 
 -->
-[B. Murmann, ADC Performance Survey 1997-2022 (ISSCC & VLSI Symposium)](https://web.stanford.edu/~murmann/adcsurvey.html)
+[B. Murmann, ADC Performance Survey 1997-2023](https://github.com/bmurmann/ADC-survey)
 
 <!--pan_doc:
 
 A common figure of merit for low-to-medium resolution ADCs is the Walden figure of merit, defined as 
+
 -->
 
 $$ FOM_W = \frac{P}{2^B f_s}$$ 
@@ -88,15 +91,24 @@ Below 1 fJ/conv.step is extreme.
 <!--pan_doc:
 
 In the plot below you can see the ISSCC and VLSI ADCs. 
+
 -->
 
 ![left fit](../media/l6_mwald.pdf) 
 
 ---
 
+<!--pan_doc:
+
+## What makes a state-of-the-art ADC
+
+-->
+
 People from NTNU have made some of the worlds best ADCs
 
 <!--pan_doc:
+
+
 
 If you ever want to make an ADC, and you want to publish the measurements, then you must be better than most. 
 A good algorithm for state-of-the-art ADC design is to first pick a sample rate with low number of data (blank spaces in the plot above), then read the papers in the vicinity of the blank space
@@ -106,18 +118,183 @@ That's pretty much the algorithm I, and others, have followed to make state-of-t
 
 -->
 
-[A Compiled 9-bit 20-MS/s 3.5-fJ/conv.step SAR ADC in 28-nm FDSOI for Bluetooth Low Energy Receivers](https://ieeexplore.ieee.org/document/7906479)
+[1] [A Compiled 9-bit 20-MS/s 3.5-fJ/conv.step SAR ADC in 28-nm FDSOI for Bluetooth Low Energy Receivers](https://ieeexplore.ieee.org/document/7906479)
 
-[A 68 dB SNDR Compiled Noise-Shaping SAR ADC With On-Chip CDAC
+[2] [A 68 dB SNDR Compiled Noise-Shaping SAR ADC With On-Chip CDAC
 Calibration](https://ieeexplore.ieee.org/document/9056925)
-
 
 
 ![left fit](../media/our_work.png) 
 
 ---
+[.background-color: #000000]
+[.text: #FFFFFF]
+
+<!--pan_skip: -->
+
+## What makes a state-of-the-art ADC
+
+---
 
 <!--pan_doc:
+
+In order to publish, there must be something new. Preferably a new circuit. 
+Below is the circuit from [1]. It's a standard successive-approximation register (SAR) analog-to-digital converter. 
+
+The differential input signal is sampled on a capacitor array where the bottom plate is connected to either VSS or VREF. Once the voltage is sampled,
+the comparator will decide whether the differential voltage is larger, or smaller than 0.  Depending on the decision, the MSB capacitors (left-most) in figure
+will switch the bottom plate in order to effectively subtract a voltage equivalent to half the VREF voltage. 
+
+The comparator makes another decision, and 1/4'th the VREF voltage is subtracted or added. Then 1/8'th and so on implementing a binary search 
+to find the input voltage. 
+
+The "bit-cycling" (binary-search) loop is self-timed, as such, when the comparator has made a decision, the next cycle starts.
+
+In (b) we can see the enable flip-flop for the next stage. The CK bar is the sample clock, as such, 
+A is high during sampling. The output of the comparator (P and N) is low. 
+
+As soon as the comparator makes a decision, P or N goes high, A will be pulled low, if EI is enabled. 
+
+In (c) we can see that the bottom plate of the capacitors $D_{P0}$, $D_{P1}$, $D_{N0}$, and $D_{N1}$, are controlled by P and N. 
+
+In (d) we can see that the bottom plate of the capacitors also used to set the comparator clock low again (CO), resetting the comparator, and 
+pulling P and N low, which in (b) enables the next SAR logic state. 
+
+How fast the $D_{XX}$ settle depend on the size of the capacitors, as such, the comparator clock will be slow for the MSB, and very fast for the LSB. 
+This was my main circuit contribution in the paper. I think it's quite clever, because both the VDD and the capacitor corner will change the 
+settling time. It's important that the capacitor values fully settle before the next comparator decision, and as a result of the circuit in (c,d) the delay
+is automatically adjusted. 
+
+For further details see the paper. 
+
+-->
+
+![inline](../media/fig_sar_logic.pdf)
+
+---
+
+<!--pan_doc: 
+
+For state-of-the-art ADC papers it's not sufficient with the idea, and simulation. There must be proof that it actually works. 
+No-one will really believe that the ADC works until there is measurements of an actual taped out IC. 
+
+Below you can see the layout of the IC I made for the paper. Notice that there are 9 ADCs. I had many ideas that I wanted to try out, and 
+I was not sure what would actually be state of the art. As a result, I taped out multiple ADCS. 
+
+-->
+
+![200%](../media/l06_fig_layout.pdf)
+
+---
+
+<!--pan_doc:
+
+The two aDCs that I ended up using in the paper is shown below. The one on the left was made with 180 nm IO transistors, while the one on the right
+was made with core-transistors. Notice that the layout of the two is quite similar. 
+
+-->
+
+![inline](../media/l06_fig_toplevel.pdf)
+
+---
+
+<!--pan_doc:
+
+Once taped out, and many months of waiting, a few months of measurement in the lab, I had some results that would be good enough to qualify 
+for the best conference, and luckily the best journal. 
+
+-->
+
+![inline](../media/l06_fig_core_meas.pdf)
+
+---
+
+<!--pan_doc:
+
+Comparing my ADCs to others, we can see that the FOM is similar to others. Based on the FOM it might not be clear why the paper was 
+considered state-of-the-art. 
+
+The circuit technique mentioned above would not have been enough to qualify. The big thing was the "Compiled" line. Compared to the 
+other "Compiled" mine was 300 times better, and on par with other state-of-the-art. 
+
+-->
+
+![inline](../media/l06_jssc_table.pdf)
+
+---
+
+<!--pan_doc:
+
+The big thing was how I made the ADC. I started with a definition of a transistor, as shown below
+
+-->
+
+![inline](../media/l06_fig_dmos.pdf)
+
+---
+
+<!--pan_doc:
+
+And then wrote a compiler (in Perl, later C++ [ciccreator](https://github.com/wulffern/ciccreator)) to compile a object definition  file, a SPICE netlist 
+and a technology rule file into the full ADC layout. 
+
+In (a) you can see one of the cells in the SAR logic, (b) is the spice file, and (c) is the definition of the routing. The numbers
+to the right in the routing creates the paths shown in (d).
+
+-->
+
+![inline](../media/l06_fig_saremx.pdf)
+
+---
+
+<!--pan_doc:
+
+The implementation is the [SPICE netlist](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/ip.spi), and the [object definition file](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/ip.json) (JSON)
+and the [rule file](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/sky130.tech).
+
+What I really like is the fact that the compilation could generate GDSII or SKILL, or these days, Xschem schematics and Magic layout. 
+
+-->
+
+![inline](../media/l06_fig_process.pdf)
+
+---
+
+<!--pan_doc:
+
+The cool thing with a compiled ADC is that it's easy to port between technologies. 
+Since the original ADC Since then, I've ported the ADC to multiple closed PDKs (22 nm FDSOI, 22 nm, 28 nm, 55 nm, 65 nm and 130nm). 
+In the summer of 2022 I made an open source port to skywater 130nm.
+
+-->
+
+[SUN\_SAR9B\_SKY130NM](https://github.com/wulffern/sun_sar9b_sky130nm/)
+
+![right fit](../media/l00_SAR9B_CV.png)
+
+---
+
+
+<!--pan_doc:
+
+One of my Ph.D students built on-top on my work, and made a noise-shaped compiled SAR ADC, shown below, more on that later. 
+
+-->
+
+![inline fit](../media/harald_layout.pdf)
+
+---
+
+<!--pan_skip: -->
+
+[.background-color: #000000]
+[.text: #FFFFFF]
+
+---
+
+<!--pan_doc:
+
+## High resolution FOM
 
 For high-resolution ADCs, it's more common to use the Schreier figure of merit, which can also be found in 
 
@@ -173,10 +350,8 @@ Those that have lied to you may say "yes, sure, but for high number of bits it c
 I would say that's similar to saying "when you look at the earth from the moon, the surface looks pretty smooth without bumps, so let's say the earth is smooth
  with no mountains".
  
-I would claim that it's an unnecessary simplification. It's obvious to most that the earth would appear smooth from really far away, but they would not 
-surprised by Mount Everest, since they know it's not smooth. 
-
-An Alien that has been told that the earth is smooth, would be surprised to see Mount Everest.
+I would claim that it's an unnecessary simplification. It's obvious to most that the earth would appear smooth from really far away, 
+but they would not be surprised by Mount Everest, since they know it's not smooth. An Alien that has been told that the earth is smooth, would be surprised to see Mount Everest.
 
 But if Quantization noise is not white, what is it?
 
@@ -192,7 +367,7 @@ The figure below shows the input signal x and the quantized signal y.
 <!--pan_doc:
 
 To see the quantization noise, first take a look at the sample and held version of $x$ in green in the figure below. The difference between the green ($x$ at time n) and the red ($y$)
-would be our quantization noise $e$.
+would be our quantization noise $e$ 
 
 The quantization noise is contained between $+\frac{1}{2}$ Least Significant Bit (LSB) and $-\frac{1}{2}$ LSB. 
 
@@ -275,9 +450,14 @@ the amplitude of the harmonics is determined by a sum of a [Bessel function](htt
 
 A Bessel function of the first kind looks like this 
 
+-->
 
-![](../media/Bessel.svg)
+---
 
+![fit](../media/Bessel.pdf)
+
+
+<!--pan_doc:
 
 So I would expect the amplitude to show signs of oscillatory behavior for the harmonics. 
 That's the important thing to remember. The quantization noise is **odd harmonics of the input signal** 
@@ -325,7 +505,7 @@ You may have seen the last equation before, now you know where it comes from.
 
 Below I've tried to visualize the quantization process [q.py](https://github.com/wulffern/aic2023/blob/main/ex/q.py). 
 
-The left most plot is a sinusoid signal and random Gaussian noise. The signal is not a continuous time signal, since that's not possible on a digital computer, but it's an approximation. 
+The left most plot is a sinusoid signal and random      Gaussian noise. The signal is not a continuous time signal, since that's not possible on a digital computer, but it's an approximation. 
 
 The plots are FFTs of a sinusoidal signal combined with noise. These are complex FFTs, so they show both negative and positive frequencies. The x-axis is the FFT bin (not the frequency). Notice that there are two spikes, which should not be surprising, since a sinusoidal signal is a combination of two frequencies.
 
@@ -510,7 +690,10 @@ There are probably more elegant (and faster) ways of implementing oversampling i
 Below you can see an example of oversampling. The `oversample` function takes in a 
 vector and the OSR. For each index it sums OSR future values. 
 
+
 -->
+
+
 
 ```python
 def oversample(x,OSR):
@@ -838,9 +1021,41 @@ If we compare to pure oversampling, where the SQNR improves by $10 \log(OSR)$, a
 
 
 -->
+---
 
+## SQNR and ENOB  
+
+<!--pan_doc: 
+
+Below is the signal-to-quantization noise ratio's for Nyquist up to second order sigma-delta. 
+
+-->
+
+$$SQNR_{nyquist} \approx 6.02B + 1.76 $$ 
+
+$$SQNR_{oversample} \approx 6.02B + 1.76 + 10 \log(OSR)$$ 
+
+$$SQNR_{\Sigma\Delta 1} \approx 6.02 B + 1.76 - 5.17 + 30 \log(OSR)$$ 
+
+$$SQNR_{\Sigma\Delta 2} \approx 6.02 B + 1.76 - 12.9 + 50 \log(OSR)$$
+
+<!--pan_doc:
+
+We could compute an effective number of bits, as shown below. 
+
+-->
+
+$$ ENOB = (SQNR - 1.76)/6.02 $$
 
 ---
+
+<!--pan_doc:
+
+The table below shows the effective number of bits for oversampling, and sigma-delta modulators.  For a 1-bit quantizer, pure oversampling
+does not make sense at all. For first-order and second-order sigma delta modulators, and a OSR of 1024 we can get high resolution ADCs.
+
+-->
+
 
 Assume 1-bit quantizer, what would be the maximum ENOB?
 
@@ -850,12 +1065,12 @@ Assume 1-bit quantizer, what would be the maximum ENOB?
 | 64   | 4            | 9.1         | 13.9         |
 | 1024 | 6            | 15.1        | 23.9         |
 
-<!--pan_doc:
+---
 
-The table above shows the effective number of bits for oversampling, and sigma-delta modulators.  For a 1-bit quantizer, pure oversampling
-does not make sense at all. For first-order and second-order sigma delta modulators, and a OSR of 1024 we can get high resolution ADCs.
+[.background-color: #000000]
+[.text: #FFFFFF]
 
--->
+#[fit] Examples
 
 ---
 
@@ -868,7 +1083,7 @@ to show some code. You can find the code at [sd_1st.py](https://github.com/wulff
 
 Below we can see an excerpt. Again pretty stupid code, and I'm sure it's possible to make a faster version (for loops in python are notoriously slow).
 
-For each sample in the input vector $x_{sn}$ I compute the input to the quantizer $x$, which is the sum of the previous input to the quantizer and the difference between the current input and the previous output $y_{sd}$.
+For each sample in the input vector $u$ I compute the input to the quantizer $x$, which is the sum of the previous input to the quantizer and the difference between the current input and the previous output $y_{sd}$.
 
 The quantizer generates the next $y_{sd}$ and I have the option to add dither. 
 
@@ -876,24 +1091,26 @@ The quantizer generates the next $y_{sd}$ and I have the option to add dither.
 
 
 ```python
-# x_sn is discrete time, continuous value input
-dither = 0
-M = len(x_sn)
+# u is discrete time, continuous value input
+M = len(u)
 y_sd = np.zeros(M)
 x = np.zeros(M)
 for n in range(1,M):
-    x[n] = x[n-1] + (x_sn[n]-y_sd[n-1])
+    x[n] = x[n-1] + (u[n]-y_sd[n-1])
     y_sd[n] = np.round(x[n]*2**bits  
-        + dither*np.random.randn()/4)/2**bits
+    + dither*np.random.randn()/4)/2**bits
+
 ```
 ---
 
 <!--pan_doc:
 
 The right-most plot is the one with noise-shaping. We can observe that the noise seems to tend towards zero at zero frequency, as we would expect. 
-The accumulator above would have an infinite gain at infinite time (it's the sum of all previous values), as such, the NTF goes towards zero. 
+The accumulator above would have an infinite gain at infinite time (it's the sum of all previous values), as such, the NTF goes towards zero at 0 frequency. 
 
-If we look at the noise we can also see the non-white quantization noise, which will degrade our performance, which I hope by now, you've grown tired of me harping on the point that **quantization noise is not white**
+If we look at the noise we can also see the non-white quantization noise, which will degrade our performance. I hope by now, you've grown tired of me harping on the point that **quantization noise is not white**
+
+
 
 -->
 
@@ -913,7 +1130,116 @@ In the figure below I've turned on dither, and we can see how the noise looks "b
 
 <!--pan_doc:
 
-## Sigma-Delta examples
+In papers it's common to use a logarithmic x-axis for the power spectral density, as shown below. In the plot I only show the positive 
+frequencies of the FFT. From the shape of the quantization noise we can also see the first order behavior. 
+
+-->
+
+![fit](../media/l6_sdlog_d1_b5.pdf)
+
+---
+
+
+
+<!--pan_doc:
+
+## The wonderful world of SD modulators
+
+### Open-Loop Sigma-Delta
+
+On my Ph.D I did some work on  which was a pure theoretical work. 
+The idea was to use  modulo integrators (local control of integrator output swing) in front of large latency multi-bit quantizers to achieve a high SNR. 
+
+-->
+
+[Resonators in Open-Loop Sigma-Delta Modulators](https://ieeexplore.ieee.org/document/4783042)
+
+<!--pan_doc:
+
+The plot below shows a fifth order NFT where there are two complex conjugate  zeros, and a zero at zero frequency. With a higher 
+order filter one can use a lower OSR, and still achieve high ENOB. 
+
+-->
+
+![inline](../media/l06_osd21.pdf)
+
+
+<!--pan_doc:
+
+### Noise Shaped SAR
+
+One of my Ph.d students made a 
+
+-->
+
+---
+
+[A 68 dB SNDR Compiled Noise-Shaping SAR ADC With On-Chip CDAC Calibration](https://ieeexplore.ieee.org/document/9056925/)
+
+
+<!--pan_doc:
+
+In a SAR ADC, once the bit-cycling is complete, the analog value on the capacitors is the actual quantization error. 
+That error can be fed to a loop filter, H(z), and amplified in the next conversion, accordingly a combination of SAR and noise-shaping. 
+
+In the paper the SD modulator was also used to calibrate the non-linearity in the CDAC, as the MSB capacitor won't be exactly N times larger
+than the smallest capacitor. 
+
+-->
+
+![inline](../media/l6_harald_arch.gif)
+
+---
+
+<!--pan_doc:
+
+The loop filter was a switched cap loop filter, and we can see the NTF below. The first OTA made use of chopping to reduce the offset. 
+
+-->
+
+![inline](../media/l6_fig_harald_circuit.gif)
+
+    
+---
+
+<!--pan_doc:
+
+### Control-Bounded ADCs
+
+One of my current Ph.D students is working an even more advanced type of sigma-delta ADC. Actually, it's more a super-set of SD ADCs called
+control-bounded ADCs. 
+
+-->
+
+[Design Considerations for a Low-Power Control-Bounded A/D Converter](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2824253)
+
+<!--pan_doc: 
+
+A block diagram of a Leapfrog ADC version of a control-bounded ADC is shown below. 
+
+Here we're walking into advanced maths territory, but to simplify, I think it's correct to say that a control-bounded ADC seeks 
+to control the local analog state, $x_n(t)$ such that no voltage is saturated. The digital control signals $s_n(t)$ are used to 
+infer the state of the input $u(t)$ using a form of [Bayesian Statistics](https://en.wikipedia.org/wiki/Bayesian_statistics).
+
+-->
+
+![inline](../media/l6_fredrik_arch.pdf)
+
+---
+
+<!--pan_doc:
+
+Below we can see a power spectral density plot of the ADC, and we can observe how the quantization noise is shaped. I think it's 
+a third order NTF with a zero at zero frequency and a complex conjugate pole at 8 MHzish.
+-->
+
+![inline](../media/l6_fredrik_psd.pdf)
+
+---
+
+<!--pan_doc:
+
+### Complex Sigma-Delta
 
 There are cool sigma-delta modulators with crazy configurations 
 and that may look like an exercise in "Let's make something complex", however, most of them have a reasonable application. One example is the one below for radio recievers 
@@ -929,9 +1255,9 @@ and that may look like an exercise in "Let's make something complex", however, m
 
 <!--pan_doc:
 
-## My first Sigma-Delta
+### My first Sigma-Delta
 
-The first sigma-delta modulator I made in "real-life" was for the nRF51. The ADC was similar to the one shown below.
+The first sigma-delta modulator I made in "real-life"  was similar to the one shown below.
 
 The input voltage is translated into a current, and the current is integrated on capacitor $C$. The $R_{offset}$ is to change the mid-level voltage, while $R_{ref}$ is the 1-bit feedback DAC. The comparator is the quantizer. When the clock strikes the comparator compares the $V_o$ and $V_{ref}/2$ and outputs a 1-bit digital output $D$
 
