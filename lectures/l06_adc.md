@@ -1147,14 +1147,16 @@ frequencies of the FFT. From the shape of the quantization noise we can also see
 
 ### Open-Loop Sigma-Delta
 
-On my Ph.D I did some work on  which was a pure theoretical work. 
-The idea was to use  modulo integrators (local control of integrator output swing) in front of large latency multi-bit quantizers to achieve a high SNR. 
+On my Ph.D I did some work on  
 
 -->
 
 [Resonators in Open-Loop Sigma-Delta Modulators](https://ieeexplore.ieee.org/document/4783042)
 
 <!--pan_doc:
+
+which was a pure theoretical work. 
+The idea was to use  modulo integrators (local control of integrator output swing) in front of large latency multi-bit quantizers to achieve a high SNR. 
 
 The plot below shows a fifth order NFT where there are two complex conjugate  zeros, and a zero at zero frequency. With a higher 
 order filter one can use a lower OSR, and still achieve high ENOB. 
