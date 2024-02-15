@@ -189,7 +189,7 @@ I was not sure what would actually be state of the art. As a result, I taped out
 
 <!--pan_doc:
 
-The two aDCs that I ended up using in the paper is shown below. The one on the left was made with 180 nm IO transistors, while the one on the right
+The two ADCs that I ended up using in the paper is shown below. The one on the left was made with 180 nm IO transistors, while the one on the right
 was made with core-transistors. Notice that the layout of the two is quite similar. 
 
 -->
@@ -263,7 +263,7 @@ What I really like is the fact that the compilation could generate GDSII or SKIL
 <!--pan_doc:
 
 The cool thing with a compiled ADC is that it's easy to port between technologies. 
-Since the original ADC Since then, I've ported the ADC to multiple closed PDKs (22 nm FDSOI, 22 nm, 28 nm, 55 nm, 65 nm and 130nm). 
+Since the original ADC, I've ported the ADC to multiple closed PDKs (22 nm FDSOI, 22 nm, 28 nm, 55 nm, 65 nm and 130nm). 
 In the summer of 2022 I made an open source port to skywater 130nm.
 
 -->
