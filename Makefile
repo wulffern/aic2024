@@ -13,8 +13,8 @@ FILES = l00_diode \
 	l04_afe \
 	l05_sc \
 	l06_adc \
-#	l07_vreg \
-	l08_pll \
+	l07_vreg \
+#	l08_pll \
 	l09_osc \
 	l10_lpradio \
 	l11_aver \
