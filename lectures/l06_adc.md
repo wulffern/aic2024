@@ -189,7 +189,7 @@ I was not sure what would actually be state of the art. As a result, I taped out
 
 <!--pan_doc:
 
-The two aDCs that I ended up using in the paper is shown below. The one on the left was made with 180 nm IO transistors, while the one on the right
+The two ADCs that I ended up using in the paper is shown below. The one on the left was made with 180 nm IO transistors, while the one on the right
 was made with core-transistors. Notice that the layout of the two is quite similar. 
 
 -->
@@ -263,7 +263,7 @@ What I really like is the fact that the compilation could generate GDSII or SKIL
 <!--pan_doc:
 
 The cool thing with a compiled ADC is that it's easy to port between technologies. 
-Since the original ADC Since then, I've ported the ADC to multiple closed PDKs (22 nm FDSOI, 22 nm, 28 nm, 55 nm, 65 nm and 130nm). 
+Since the original ADC, I've ported the ADC to multiple closed PDKs (22 nm FDSOI, 22 nm, 28 nm, 55 nm, 65 nm and 130nm). 
 In the summer of 2022 I made an open source port to skywater 130nm.
 
 -->
@@ -1147,14 +1147,16 @@ frequencies of the FFT. From the shape of the quantization noise we can also see
 
 ### Open-Loop Sigma-Delta
 
-On my Ph.D I did some work on  which was a pure theoretical work. 
-The idea was to use  modulo integrators (local control of integrator output swing) in front of large latency multi-bit quantizers to achieve a high SNR. 
+On my Ph.D I did some work on  
 
 -->
 
 [Resonators in Open-Loop Sigma-Delta Modulators](https://ieeexplore.ieee.org/document/4783042)
 
 <!--pan_doc:
+
+which was a pure theoretical work. 
+The idea was to use  modulo integrators (local control of integrator output swing) in front of large latency multi-bit quantizers to achieve a high SNR. 
 
 The plot below shows a fifth order NFT where there are two complex conjugate  zeros, and a zero at zero frequency. With a higher 
 order filter one can use a lower OSR, and still achieve high ENOB. 
