@@ -14,8 +14,8 @@ FILES = l00_diode \
 	l05_sc \
 	l06_adc \
 	l07_vreg \
-#	l08_pll \
-	l09_osc \
+	l08_pll \
+#	l09_osc \
 	l10_lpradio \
 	l11_aver \
 	lx_energysrc

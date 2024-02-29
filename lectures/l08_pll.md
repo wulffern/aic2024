@@ -1,11 +1,12 @@
-footer: Carsten Wulff 2023
+footer: Carsten Wulff 2024
 slidenumbers:true
 autoscale:true
 theme:Plain Jane,1
+date: 2024-03-08
 
 <!--pan_skip: -->
 
-## TFE4188 - Introduction to Lecture 8
+## TFE4188 - Lecture 8
 # Clocks and PLLs
 
 <!--pan_title: Lecture 8 - Clocks and PLLs -->
@@ -35,6 +36,21 @@ Introduction to **PLLs**
 
 ---
 
+<!--pan_skip: -->
+
+[.column]
+## Digital 
+## Radio
+## Energy harvesters
+## Switched regulators
+
+[.column]
+## ADCs
+## Accurate delay
+## SC filters
+## ...
+
+---
 <!--pan_doc: 
 
 
@@ -51,7 +67,6 @@ The implementation is not necessarily simple.
 
 The key parameters of a clock are the frequency of the fundamental, noise of the frequency spectrum, and stability over 
 process and enviromental conditions.
-
 
 When I start a design process, I want to know why, how, what (and sometimes who). If I understand the problem from first principles
 it's more likely that the design will be suitable. 
@@ -76,7 +91,7 @@ photons transmitted is defined by $E = \hbar \omega = h f$.
 I also know that quantum electro dynamics is the most precise theory in 
 physics, so we know what's going on. 
 
-I know that as long as the Rubidium crystal is clean (few energy states in the vicinity of the hyperfine transition), the distance between atoms stay constant, the temperature 
+As long as the Rubidium crystal is clean (few energy states in the vicinity of the hyperfine transition), the distance between atoms stay constant, the temperature 
 does not drift too much, then the frequency will be precise. So I buy a [rubidium oscillator](https://www2.mouser.com/ProductDetail/IQD/LFRBXO059244Bulk?qs=iw0hurA%2FaD0K8weKx%2Fu2ow%3D%3D) at 
 a cost of \$ 3k.
 
@@ -139,15 +154,17 @@ Each "clock problem" will have different frequency, noise and stability requirem
 On the [nRF52832 development kit](https://www.nordicsemi.com/Products/Development-hardware/nrf52-dk) you can see some components that indicate what type of clock system must be inside the IC. 
 
 In the figure below you can see the following items.
--->
+
 
 1. 32 MHz crystal
 2. 32 KiHz crystal
-3. In PCB antenna
+3. PCB antenna
 4. DC/DC inductor 
+-->
 
 
-![left](../media/l10_dk.pdf)
+
+![fit](../media/l08_nrf53.png)
 
 <!--pan_doc:
 
@@ -257,19 +274,59 @@ is too low we force the oscillator to a higher frequency.
 
 If we design the $H(s)$ correctly, then we have $f_o = N \times f_{in}$
 
-Sometimes you want a finer freuqnecy resolution, in that case you'd add a divider on the reference and get $f_o = N \times \frac{f_{in}}{M}$.. 
-
 -->
 
 ![fit](../media/l10_freq_fb.pdf)
 
 ---
 
+<!--pan_doc: 
+Sometimes you want a finer frequency resolution, in that case you'd add a divider on the reference and get $f_o = N \times \frac{f_{in}}{M}$.. 
+
+-->
+
+![fit](../media/l08_pll_m.pdf)
+
+---
+
+<!--pan_doc: 
+
+Trouble is that dividing down the input frequency will reduce your loop bandwidth, as the low-pass filter needs to be about 1/10'th of the reference frequency. As such, the PLL will respond slower to a frequency change.
+
+We can also use a fractional divider, where we swap between two, or more, integeres in a sigma-delta fashion.
+
+-->
+
+![fit](../media/l08_pll_sd.pdf)
+
+---
+
+
+$$ A_m(t) \times cos\left( 2 \pi f_{carrier}t + \phi_{m}(t)\right)$$
+
+---
+
+![fit](../media/l08_pll_mod.pdf)
+
+
+---
+
+![fit](../media/l08_pll_2mod.pdf)
+
+
+---
+<!--pan_doc: -->
+
+#[fit] PLL Example
+
+---
+
+
 <!--pan_doc:
 
 I've made an example [PLL](https://github.com/wulffern/sun_pll_sky130nm) that you can download and play with. I make no claims that 
 it's a good PLL. Actually, I know it's a bad PLL. The ring-oscillator frequency varies to fast with the voltage control.  But it does give you a starting point.
-
+    
 A PLL can consist of a oscillator (SUN\_PLL\_ROSC) that generates our output frequency. A divider (SUN\_PLL\_DIVN) that generates a feedback frequency that we can compare to the reference. A Phase and Frequency Detector (SUN\_PLL\_PFD) and a charge-pump (SUN\_PLL\_CP) that model the $+$, or the comparison function in our previous picture. And a loop filter (SUN\_PLL\_LPF and SUN\_PLL\_BUF) that is our $H(s)$.
 
 -->
@@ -492,7 +549,9 @@ $$ L(s) = \frac{ K_{osc} K_{pd} K_{lp} H_{lp}(s) }{N s} $$
 
 I've made a python model of the loop, you can find it at
 -->
-[sun\_pll\_sky130nm/py/pll.py](https://github.com/wulffern/sun_pll_sky130nm/blob/main/py/pll.py)
+[sun\_pll\_sky130nm/jupyter/pll](https://github.com/wulffern/sun_pll_sky130nm/blob/main/jupyter/pll.ipynb)
+
+[sun\_pll\_sky130nm/jupyter/pfd](https://github.com/wulffern/sun_pll_sky130nm/blob/main/jupyter/pfd.ipynb)
 
 
 ---
@@ -536,7 +595,7 @@ Below are a couple layout images of the finished PLL
 
 
 
----
+
 
 ![left fit](../media/sun_pll_layout0.png)
 ![right fit](../media/sun_pll_layout1.png)
@@ -568,40 +627,6 @@ thesis to learn more, and to get inspired [Ultra Low Power Frequency Synthesizer
 
 ## [SUN\_PLL\_SKY130NM](https://github.com/wulffern/sun_pll_sky130nm)
 
----
-<!--pan_skip: -->
-
-#[fit] JSSC PLLs
-
----
-<!--pan_skip: -->
-
-![fit](../ip/l10_jssc_pll1.pdf)
-
----
-<!--pan_skip: -->
-
-![fit](../ip/l10_jssc_pll1_1.pdf)
-
----
-<!--pan_skip: -->
-
-![fit](../ip/l10_jssc_pll2_0.pdf)
-
----
-<!--pan_skip: -->
-
-![fit](../ip/l10_jssc_pll2_1.pdf)
-
----
-<!--pan_skip: -->
-
-![fit](../ip/l10_jssc_pll3_0.pdf)
-
----
-<!--pan_skip: -->
-
-![fit](../ip/l10_jssc_pll3_1.pdf)
 
 ---
 
