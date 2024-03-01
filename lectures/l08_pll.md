@@ -111,7 +111,7 @@ And both my manager and I would be correct.
 ### Imagine a better world
 
 Most people in this world have no idea how things work. Very few people are able to understand the full stack. Everyone of us must
-simplify what we know to some extent. As such, as a designer, it's your responsibility to fully understand what is asked of you. 
+simplify what we know to some extent. As such, as a circuit designer, it's your responsibility to fully understand what is asked of you. 
 
 When someone says 
 
@@ -171,7 +171,7 @@ In the figure below you can see the following items.
 ## 32 MHz crystal 
 
 Any Bluetooth radio will need a frequency reference. We need to generate an accurate 2.402 MHz - 2.480 MHz carrier frequency for the 
-gaussian frequency shift keying (GFSK) modulation. The Bluetooth Standard requires a +- 50 ppm accurate timing refrence, and carrier frequency offset accuracy.
+gaussian frequency shift keying (GFSK) modulation. The Bluetooth Standard requires a +- 50 ppm accurate timing reference, and carrier frequency offset accuracy.
 
 I'm not sure it's possible yet to make an IC that does not have some form of frequency reference, like a crystal. The ICs I've seen 
 so far that have "crystal less radio" usually have a resonator (crystal or bulk-accustic-wave or MEMS resonator) on die. 
@@ -225,17 +225,16 @@ Most of the digital blocks on an IC will be synchronous logic, see figure below.
 The sequence of transitions in the combinatorial logic is of no consequence, as long as the B 
 inputs are correct when the clock goes high next time.
 
-The registers, or flip-flops, are your SystemVerilog "always_ff" code. While the blue cloud is your "always_comb" code. 
+The registers, or flip-flops, are your SystemVerilog "always\_ff" code. While the blue cloud is your "always\_comb" code. 
 
-In a SoC we have to check, for all paths between a Y[N] and B[M] that the path is fast enough for all transients to settle until the clock
+In a SoC we have to check, for all paths between a Y[N] and B[M] that the path is fast enough for all transients to settle before the clock
 strikes next time. How early the B data must arrive in relation to the clock edge is the setup time of the DFFs.
 
 We also must check for all paths that the B[M] are held for long enough after the clock strikes such that our flip-flop does not change 
 state. The hold time is the distance from the clock edge to where the data is allowed to change. Negative hold times are common in DFFs, so the data can start to change before the clock edge.
 
 In an IC with millions of flip-flops there can be billions of paths. The setup and hold time for every single one must be checked. One could imagine a simulation 
-of all the paths on a netlist with parasitics (capacitors and resistors from layout) to check the delays, but there are so many combinations
-that the simulation time becomes unpractical. 
+of all the paths on a netlist with parasitics (capacitors and resistors from layout) to check the delays, but there are so many combinations that the simulation time becomes unpractical. 
 
 Static Timing Analysis (STA) is a light-weight way to check all the paths. For the STA we make a model of the delay in each cell (captured in a liberty file), the setup/hold times of all flip-flops, wire propagation delays, clock frequency (or period), and the variation in the clock frequency. The process, voltage, temperature variation must also be checked for all components, so the number of liberty files can quickly grow large. 
 
@@ -264,6 +263,8 @@ as we make $H(s)$ infinite we can force the output to be an exact copy of the in
 
 <!--pan_doc:
 
+## Integer PLL
+
 For a frequency loop the figure looks a bit different. If we want a higher output frequency we can divide the frequency by a number (N) 
 and compare with our reference (for example the 32 MHz reference from the crystal oscillator). 
 
@@ -291,9 +292,11 @@ Sometimes you want a finer frequency resolution, in that case you'd add a divide
 
 <!--pan_doc: 
 
+## Fractional PLL
+
 Trouble is that dividing down the input frequency will reduce your loop bandwidth, as the low-pass filter needs to be about 1/10'th of the reference frequency. As such, the PLL will respond slower to a frequency change.
 
-We can also use a fractional divider, where we swap between two, or more, integeres in a sigma-delta fashion.
+We can also use a fractional divider, where we swap between two, or more, integeres in a sigma-delta fashion in the divider. 
 
 -->
 
@@ -301,8 +304,25 @@ We can also use a fractional divider, where we swap between two, or more, intege
 
 ---
 
+<!--pan_doc:
+
+## Modulation in PLLs
+
+From your signal processing, or communication courses, you may recognize the equation below. 
+
+-->
+
 
 $$ A_m(t) \times cos\left( 2 \pi f_{carrier}t + \phi_{m}(t)\right)$$
+
+
+<!--pan_doc:
+
+The $A_m$ is the amplitude modulation, while the $\phi_m$ is the phase modulation. Bluetooth Low Energy is constant envelope, so the $A_m$ is a constant. The phase modulation is applied to the carrier, but how is it done?
+
+One option is shown below. We could modulate our frequency reference directly. That could maybe be a sigma-delta divider on the reference, or directly modulating the oscillator. 
+
+-->_
 
 ---
 
@@ -311,11 +331,17 @@ $$ A_m(t) \times cos\left( 2 \pi f_{carrier}t + \phi_{m}(t)\right)$$
 
 ---
 
+<!--pan_doc:
+
+Most modern radios, however, will have a two-point modulation. The modulation signal is applied to the VCO (or DCO), and the opposite signal is applied to the feedback divider. As such, the modulation is not seen by the loop. 
+
+-->
+
 ![fit](../media/l08_pll_2mod.pdf)
 
 
 ---
-<!--pan_doc: -->
+
 
 #[fit] PLL Example
 
@@ -335,9 +361,15 @@ A PLL can consist of a oscillator (SUN\_PLL\_ROSC) that generates our output fre
 
 ---
 
+<!--pan_skip: -->
+
 #[fit]PLLs need calculation!
 
  \#noCowboyDesign
+
+
+
+---
 
 <!--pan_doc:
 
@@ -348,12 +380,11 @@ setup a linear model of the feedback loop, and calculate the loop transfer funct
 But how can we make a linear model of a non-linear system? The voltages inside a PLL must be non-linear, they are clocks. A PLL is not linear 
 in time-domain!
 
-I have no idea who first thought of the idea, but it turns out, that one can model a PLL as a linear system if one consider the phase of the voltages inside the PLL. Where the phase is defined as
+I have no idea who first thought of the idea, but it turns out, that one can model a PLL as a linear system if one consider the phase of the voltages inside the PLL, especially when the PLL is locked (phase of the output and reference is mostly aligned). Where the phase is defined as
 
 -->
 
 
----
 
 $$ \phi(t) = 2 \pi \int_0^t f(t) dt$$
 
@@ -367,7 +398,6 @@ The phase of our input is $\phi_{in}(s)$, the phase of the output is $\phi(s)$, 
 
 The $K_{pd}$ is the gain of our phase-frequency detector and charge-pump. The $K_{lp}H_{lp}(s)$ is our loop filter $H(s)$. 
 The $K_{osc}/s$ is our oscillator transfer function. And the $1/N$ is our feedback divider. 
-
 
 -->
 
@@ -430,7 +460,7 @@ $$K_{osc} = 2 \pi\frac{ df}{dV_{cntl}}$$
 
 <!--pan_doc:
 
-I simulate the ring oscillator in ngspice with a transient simulation and get the oscilator frequency as a function of voltage. 
+I simulate the ring oscillator in ngspice with a transient simulation and get the oscillator frequency as a function of voltage. 
 
 **tran.spi**
 ```spice
@@ -551,6 +581,12 @@ I've made a python model of the loop, you can find it at
 -->
 [sun\_pll\_sky130nm/jupyter/pll](https://github.com/wulffern/sun_pll_sky130nm/blob/main/jupyter/pll.ipynb)
 
+<!--pan_doc:
+
+In the jupyter notbook below you can find some more information on the phase/frequency detector, and charge pump.
+
+-->
+
 [sun\_pll\_sky130nm/jupyter/pfd](https://github.com/wulffern/sun_pll_sky130nm/blob/main/jupyter/pfd.ipynb)
 
 
@@ -574,7 +610,7 @@ The closed loop transfer function $\phi_{div}/\phi_{in}$ shows us that the divid
 
 The top testbench for the PLL is [tran.spi](https://github.com/wulffern/sun_pll_sky130nm/blob/main/sim/SUN_PLL/tran.spi).
 
-I power up the PLL and wait for the output clock to settle. I use [freq.py](https://github.com/wulffern/sun_pll_sky130nm/blob/main/sim/SUN_PLL/freq.py) to plot the frequency as a function of time. The orange curve is the average frequency. We can see that the output frequency settles to 512 MHz.
+I power up the PLL and wait for the output clock to settle. I use [freq.py](https://github.com/wulffern/sun_pll_sky130nm/blob/main/sim/SUN_PLL/freq.py) to plot the frequency as a function of time. The orange curve is the average frequency. We can see that the output frequency settles to 256 MHz.
 
 
 -->
@@ -592,11 +628,6 @@ Below are a couple layout images of the finished PLL
 ---
 
 
-
-
-
-
-
 ![left fit](../media/sun_pll_layout0.png)
 ![right fit](../media/sun_pll_layout1.png)
 
@@ -604,7 +635,7 @@ Below are a couple layout images of the finished PLL
 
 <!--pan_doc:
 
-## Want to learn more?
+# Want to learn more?
 
 Back in 2020 there was a Master student at NTNU on PLL. I would recommend looking at that 
 thesis to learn more, and to get inspired [Ultra Low Power Frequency Synthesizer](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2778127).
