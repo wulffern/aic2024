@@ -1,20 +1,25 @@
-footer: Carsten Wulff 2023
+footer: Carsten Wulff 2024
 slidenumbers:true
 autoscale:true
 theme:Plain Jane,1
+date: 2024-03-14
 
 <!--pan_skip: -->
 
-## TFE4188 - Introduction to Lecture 9
+## TFE4188 -  Lecture 9
 # Oscillators
 
 <!--pan_title: Lecture 9 - Oscillators -->
 
 ---
 
+<!--pan_skip: -->
+
 # Goal
 
-<!--pan_skip: -->
+
+
+Why
 
 Introduction to **Crystal Oscillators**
 
@@ -26,15 +31,23 @@ Introduction to **Relaxation-oscillators**
 
 <!--pan_doc: 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/V8VYUI_scNM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/r4uFIJd6OCE?si=OFZPpQD071ihe1k1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 
 -->
 
-# Crystal oscillators
+<!--pan_skip: -->
+#[fit] Why
 
 ---
 
-<!--pan_doc:
+<!--pan_skip: -->
+
+# I just want the most precise clock that can be made !!!
+
+---
+
+<!--pan_doc: 
 
 The world depends on accurate clocks. From the timepiece on your wrist, to the
 phone in your pocket, they all have a need for an accurate
@@ -45,8 +58,96 @@ we even correct for [Special and General
 Relativity](https://en.wikipedia.org/wiki/Error_analysis_for_the_Global_Positioning_System)
 to the tune of about $+38.6 \mu\text{s/day }$.
 
-The most accurate clocks, like [Rubidium standard](https://en.wikipedia.org/wiki/Rubidium_standard), use the hyper-fine splitting of energy levels in atoms,
-however, most clocks don't need to be accurate to parts per billion. 
+Let's have a look at the most accurate clocks first. 
+
+-->
+
+# Cesium clocks
+
+[Cesium standard](https://en.wikipedia.org/wiki/Caesium_standard)
+
+The second is defined by taking the fixed numerical value of the cesium frequency Cs, the unperturbed ground-state hyper-fine transition frequency of the cesium 133 atom, to be 9 192 631 770 when expressed in the unit Hz, which is equal to s–1
+
+<!--pan_doc:
+
+As a result, by definition, the cesium clocks are exact. That's how the second is defined. When we make a real circuit, however, we never get a perfect, unperturbed system. 
+
+-->
+
+---
+
+## Microchip 5071B Cesium Primary Time and Frequency Standard
+
+<!--pan_doc:
+
+One example of a ultra precise time piece is shown below. The bullets in the list below is from the marketing blurb. 
+
+Why would the thing take 30 minutes to start up? Does the temperature need to settle? Is it the loop bandwidth of the PLL that is low? Who knows, but 30 minutes is too long for a IC startup time.
+And we can't really pack the big box onto a chip. 
+
+
+
+-->
+
+- < 5E-13 accuracy high-performance models
+- Accuracy levels achieved within 30 minutes of startup
+- < 8.5E-13 at 100s high-performance models
+- < 1E-14 flicker floor high-performance models
+
+<!--pan_doc:
+
+Also, when they say 
+-->
+
+"Ask for a quote" => The price is really high, and we don't want to tell you yet
+
+![left fit](../media/microchip_cesium.jpeg)
+
+
+---
+
+## Rubidium standard
+
+
+
+[Rubidium standard](https://en.wikipedia.org/wiki/Rubidium_standard), use the rubidium hyper-fine transition of 6.8 GHz (6834682610.904 Hz)
+
+
+<!--pan_doc:
+and can actually be made quite small. Below is a picture of a tiny atomic clock. According to the marketing blurb: 
+
+-->
+
+_The MAC is a passive atomic clock, incorporating the interrogation technique of Coherent Population Trapping (CPT) and operating upon the D1 optical resonance of atomic Rubidium Isotope 87._
+
+__A rubidium clock is basically a crystal oscillator locked to an atomic reference.__
+
+![left fit](https://cdn.sparkfun.com/r/455-455/assets/parts/1/3/1/0/0/14830-Atomic_Clock-04.jpg)
+
+---
+
+<!--pan_doc:
+
+But how do the clocks work? According to Wikipedia, the picture below, is a common way to operate a rubidium clock.
+
+A light passing through the Rubidium gas will be affected if the frequency injected is at the hyper-fine energy levels (E = hf). The change in brightness can be detected by the photo detector, and we can 
+adjust the frequency of the crystal oscillator, we'll see later how that can be done. The crystal oscillator is used as reference for a PLL (freqency synthesizer) to generate the exact frequency needed. 
+
+The negative feedback loop ensures that the 5 MHz clock coming out is proportional to the hyper-fine energy levels in the Rubidium atoms. Negative feedback is cool! Especially when we have a pole at DC and infinite gain. 
+
+-->
+
+![ fit](https://upload.wikimedia.org/wikipedia/commons/0/0a/Rubidium-oscillator.jpg)
+
+---
+
+
+# Crystal oscillators
+
+---
+
+<!--pan_doc:
+
 
 For accuracy's of parts per million, which is sufficient for your wrist watch, or
 most communication, it's possible to use crystals.
@@ -88,7 +189,7 @@ Our job is to make a circuit that we can connect to the two pins and provide the
 
 -->
 
-![left fit](../media/xosc_model.svg)
+![left fit](../media/xosc_model.pdf)
 
 Assuming zero series resistance
 
@@ -121,6 +222,7 @@ I would encourage you to read [The Crystal Oscillator](https://ieeexplore.ieee.o
 
 ---
 
+
 <!--pan_doc: 
 
 ## Circuit
@@ -141,7 +243,9 @@ The XC1 and XC2 will oscillate in opposite directions. As XC1 increases, XC2 wil
 <!--pan_doc: 
 
 -->
+
 **Negative transconductance compensate crystal series resistance**
+
 <!--pan_doc:
 
 The transconductance of the inverter must compensate for the energy loss caused by $R_s$ in the crystal model. 
@@ -243,7 +347,7 @@ $$ R \approx \frac{1}{gm} \approx \frac{1}{\mu_n C_{ox} \frac{W}{L} (VDD - V_{th
 
 $$ C \approx \frac{2}{3} C_{ox} W L$$
 
-![left](../media/osc_ring.svg)
+![left fit](../media/osc_ring.pdf)
 
 ---
 
@@ -308,7 +412,7 @@ the power consumption.
 
 -->
 
-![left](../media/osc_ring_c.svg)
+![left fit](../media/osc_ring_c.pdf)
 
 ---
 ## Realistic 
@@ -359,7 +463,9 @@ and have a independent $K_{vco}$ based on the sizing of the $V_{control}$ transi
 
 -->
 
+
 $$ I = C \frac{dV}{dt}$$
+
 
 $$ f \approx \frac{ I_{control}  + \frac{1}{2}\mu_p C_{ox} \frac{W}{L} (VDD - V_{control} -
 V_{th})^2}{C \frac{VDD}{2} N}$$
@@ -395,11 +501,7 @@ the frequency can go up. We could measure the free-running frequency in producti
 
 <!--pan_doc:
 
-Differential circuits are 
--->
-potentially less sensitive to supply noise
-<!--pan_doc:
-. 
+Differential circuits are  potentially less sensitive to supply noise
 
 Imagine a single ended ring oscillator. If I inject a voltage onto the input of one of the inverters that was just about to flip, I can either delay the flip, or 
 speed up the flip, depending on whether the voltage pulse increases or decreases the input voltage for a while. Such voltage pulses will lead to jitter. 
@@ -427,7 +529,15 @@ Most ring oscillators are too high noise for radio's, we must use a inductor and
 Inductors are huge components on a IC. Take a look at the nRF51822 below, the two round inductors are easily identifiable. Actually, based on the die image we can
 guess that there are two oscillators in the nRF51822. Maybe it's a [multiple conversion superheterodyne reciever](https://en.wikipedia.org/wiki/Superheterodyne_receiver#Multiple_conversion)
 
-![](https://s.zeptobars.com/nRF51822.jpg) 
+
+-->
+---
+
+![fit](https://s.zeptobars.com/nRF51822.jpg) 
+
+---
+
+<!--pan_doc:
 
 Below is a typical LC oscillator. The main resonance is set by the L and C, while the tunability is provided by a varactor, a voltage variable capacitor. Or with
 less fancy words, the gate capacitance of a transistor, since the gate capacitance of a transistor depends on the effective voltage, and is thus a "varactor"
@@ -437,7 +547,7 @@ The NMOS at the bottom provide the "negative transconductance" to compensate for
 -->
 
 
-![left](../media/lcosc.svg)
+![left](../media/lcosc.pdf)
 
 
 $$ f \propto \frac{1}{\sqrt{LC}}$$
@@ -449,23 +559,37 @@ $$ f \propto \frac{1}{\sqrt{LC}}$$
 
 <!--pan_doc:
 
-A last common oscillator is the relaxation oscillator, or "RC" oscillator. By know you should be proficient enough in circuits to figure out how the below circuit works.
-
-If you can't figure it out, then ask me.
+A last common oscillator is the relaxation oscillator, or "RC" oscillator. By now you should be proficient enough to work through the equations below, and understand how the circuit works. If not, ask me. 
 
 -->
-
-![inline](../media/rcosc.svg)
 
 ---
 
 <!--pan_skip: -->
-
-##[fit]Q: Show that Fo is 1/(2RC)
+![inline](../media/rcosc.pdf)
 
 ---
 
+![left fit](../media/rcosc.pdf)
+
+$$ V_1 = I R $$
+
+$$ I = C \frac{dV}{dt}$$
+
+$$ dt = \frac{C V_2}{I} = \frac{C I R}{I}$$
+
+$$ f = \frac{1}{dt} = \frac{1}{RC}$$
+
+$$ f_o = \frac{1}{2}f =  \frac{1}{2RC}$$
+
+
+---
+
+<!--pan_doc:
+
 # Additional material
+
+-->
 
 ## Crystal oscillators
 
@@ -477,14 +601,18 @@ If you can't figure it out, then ask me.
 
 [A Sub-nW Single-Supply 32-kHz Sub-Harmonic Pulse Injection Crystal Oscillator](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9173539)
 
+
+---
+
 ## CMOS oscillators
 
-[The Ring Oscillator - A Circuit for All Seasons
-](https://ieeexplore.ieee.org/document/8901474)       
+[The Ring Oscillator - A Circuit for All Seasons](https://ieeexplore.ieee.org/document/8901474)
 
 [A Study of Phase Noise in CMOS Oscillators](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=494195)
 
 [An Ultra-Low-Noise Swing-Boosted Differential Relaxation Oscillator in 0.18-um CMOS](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9081906)
+
+[Ultra Low Power Frequency Synthesizer](https://hdl.handle.net/11250/2778127)
 
 ---
 
