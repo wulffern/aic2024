@@ -13,6 +13,22 @@ date: 2024-03-14
 
 ---
 
+<!--
+
+Lecture Notes: https://analogicus.com/aic2024/2024/03/14/Lecture-9-Oscillators.html
+
+00:00 Introduction
+01:28 Cesium clocks
+05:17 Rubidium clocks
+10:20 Crystal Oscillators
+31:53 Pierce inverter
+41:23 Controlled oscillators
+42:00 Ring oscillator
+58:26 LC oscillators
+1:07:03 Relaxation Oscillators
+
+-->
+
 <!--pan_skip: -->
 
 # Goal
@@ -31,7 +47,7 @@ Introduction to **Relaxation-oscillators**
 
 <!--pan_doc: 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/r4uFIJd6OCE?si=OFZPpQD071ihe1k1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Y7EkdvkB43M?si=tK4vCz4N3wuK90NV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 -->
@@ -62,7 +78,7 @@ Let's have a look at the most accurate clocks first.
 
 -->
 
-# Cesium clocks
+# Atomic clocks
 
 [Cesium standard](https://en.wikipedia.org/wiki/Caesium_standard)
 
@@ -131,7 +147,7 @@ __A rubidium clock is basically a crystal oscillator locked to an atomic referen
 But how do the clocks work? According to Wikipedia, the picture below, is a common way to operate a rubidium clock.
 
 A light passing through the Rubidium gas will be affected if the frequency injected is at the hyper-fine energy levels (E = hf). The change in brightness can be detected by the photo detector, and we can 
-adjust the frequency of the crystal oscillator, we'll see later how that can be done. The crystal oscillator is used as reference for a PLL (freqency synthesizer) to generate the exact frequency needed. 
+adjust the frequency of the crystal oscillator, we'll see later how that can be done. The crystal oscillator is used as reference for a PLL (freqency synthesizer   ) to generate the exact frequency needed. 
 
 The negative feedback loop ensures that the 5 MHz clock coming out is proportional to the hyper-fine energy levels in the Rubidium atoms. Negative feedback is cool! Especially when we have a pole at DC and infinite gain. 
 
