@@ -1,7 +1,8 @@
-footer: Carsten Wulff 2023
+footer: Carsten Wulff 2024
 slidenumbers:true
 autoscale:true
 theme:Plain Jane,1
+date: 2024-03-22
 
 [.background-color: #00A9CE]
 
@@ -19,8 +20,6 @@ theme:Plain Jane,1
 # Goal
 
 Let's make a radio (or at least, let's **pretend**)
-
-
 
 ---
 
@@ -67,10 +66,12 @@ There are a few key concepts we would have to know before we decide on a radio t
 
 <!--pan_doc:
 
-A mouse reports on the relative displacement of the mouse as a function of time, some X and Y displacement. A mouse has buttons. There can be many mice in a room, so 
-PCs would like to tell them apart, they must have an address. 
+A mouse reports on the relative X and Y displacement of the mouse as a function of time. A mouse has buttons. There can be many mice in a room, as such, they must have an address , so 
+PCs can tell them apart. 
 
-A mouse must be low-power. As such, the radio cannot be on all the time. The radio must start up and be ready to receive quickly. We don't know how far 
+A mouse must be low-power. As such, the radio cannot be on all the time. The radio must start up and be ready to receive quickly. 
+
+We don't know how far 
 away from the PC the mice might be, as such, we don't know the dB loss in the communication channel. As a result, the radio needs to have a high dynamic range, from weak signals
 to strong signals. In order for the radio to adjust the gain of the reciever we should include a pre-amble, a known sequence, for example 01010101, such that the radio can 
 adjust the gain, and also, recover the symbol timing. 
@@ -84,7 +85,7 @@ All in all, the packets we send from the mouse may need to have the following bi
 | X displacement | 8 | |
 | Y displacement | 8 | |
 | CRC | 4 | Bit errors|
-| Buttons| 16 | On-hot coding. Most mice have buttons|
+| Buttons| 16 | One-hot coding. Most mice have buttons|
 | Preamble| 8 | Synchronization|
 | Address | 32 | Unique identifier |
 | Total | 76 | |
@@ -123,7 +124,8 @@ Round to nearest nice number = 1Mbps
 
 <!--pan_doc:
 
-The above statements are a exact copy of what happens in industry when we start design of something. We make an educated guess. More optimistic people would multiply with $e$. 
+The above statements are a exact copy of what happens in industry when we start design of something. We make an educated guess and multiply by a number.
+More optimistic people would multiply with $e$. 
 
 -->
 
@@ -140,11 +142,37 @@ The above statements are a exact copy of what happens in industry when we start 
 There are rules and regulations that prevent us from transmitting and receiving at any frequency we want. We need to pick one of the ISM bands, or 
 we need to get a license from governments around the world.
 
-But how should we pick? There are at least two criteria that should be investigated. Antenna and Range. 
+For the ISM bands, there are regions, as seen below.
+
 
 -->
 
-![inline](../media/ism.png)
+
+
+![left fit](https://upload.wikimedia.org/wikipedia/commons/9/9b/International_Telecommunication_Union_regions_with_dividing_lines.svg)
+
+- Yellow: Region 1
+- Blue: Region 2
+- Pink: Region 3
+
+---
+
+<!--pan_doc:
+
+Below is a table of the available frequencies, but how should we pick which one to use? There are at least two criteria that should be investigated. Antenna and Range. 
+
+-->
+
+| Flow| Fhigh | Bandwidth | Description|
+|:---|:---|:---|:---|
+|40.66 MHz|40.7 MHz|40 kHz|Worldwide| 
+|433.05 MHz|434.79 MHz|1.74 MHz|Region 1|
+|902 MHz|928 MHz|26 MHz|Region 2| 
+|2.4 GHz|2.5 GHz|100 MHz|Worldwide|
+|5.725 GHz|5.875 GHz|150 MHz|Worldwide|
+|24 GHz|24.25 GHz|250 MHz|Worldwide|
+|61 GHz|61.5 GHz|500 MHz|Subject to local acceptance|
+
 
 ---
 
@@ -152,7 +180,7 @@ But how should we pick? There are at least two criteria that should be investiga
 
 <!--pan_doc:
 
-For a mouse we want to hold in our hand, there is a size limit to the antenna. There are many types of antenna, but a
+For a mouse we want to hold in our hand, there is a size limit to the antenna. There are many types of antenna, but 
 -->
 [.column]
 assume $$\lambda/4$$ is an OK antenna size ($$\lambda = c/f$$)
@@ -297,9 +325,21 @@ Next we need to decide what modulation scheme we want for our light. How should 
 
 ---
 
-## Modulation scheme
+## Modulation 
 
 <!--pan_doc:
+
+Any modulation can be described by the function below. 
+
+-->
+
+$$ A_m(t) \times cos\left( 2 \pi f_{carrier}(t)t + \phi_{m}(t)\right)$$
+
+---
+
+<!--pan_doc:
+
+The amplitude of the carrier can be modulated, or the phase of the carrier. 
 
 People have been creative over the last 50 years in terms of encoding bits onto carriers. Below is a small excerpt of some common schemes. 
 
@@ -371,7 +411,7 @@ Standards like Zigbee used offset quadrature phase shift keying, with a constell
 
 -->
 
-![left fit](../media/l7_qpsk.pdf)
+![inline fit](../media/l7_qpsk.pdf)
 
 <!--pan_doc:
 
@@ -381,20 +421,31 @@ is actually done with a constant envelope.
 The nice thing about constant envelope is that the radio transmitter can be simple. We don't need to change the amplitude. 
 If we have a PLL as a local oscillator, where we can change the phase (or frequency), then we only need a power amplifier before the antenna.
 -->
+
+---
+
 ![inline fit](../media/l7_const_env.pdf)
+
+---
+
 <!--pan_doc:
 
 For phase and amplitude modulation, or complex transmitters, we need a way to change the amplitude and phase. What a shocker. There are two ways to do that. A polar architecture 
 where phase change is done in the PLL, and amplitude in the power amplifier. 
 
 -->
+
 ![inline fit](../media/l7_polar.pdf)
+
+---
+
 <!--pan_doc:
 
 Or a Cartesian architecture where we make the in-phase component, and quadrature-phase 
 components in digital, then use two digital to analog converters, and a set of complex mixers to encode onto the carrier. The power amplifier would not need to change
-the amplitude. 
+the amplitude, but it does need to be linear. 
 -->
+
 ![inline fit](../media/l8_cartesian.pdf)
 
 ---
@@ -461,21 +512,42 @@ If you wanted to research "new fancy modulation schemes" I'd think about [Sphere
 
 ![original fit](../media/l8_16qam.pdf)
 
-<!--pan_doc:
+---
 
 ## Single carrier, or multi carrier?
 
+
+<!--pan_doc:
+
+
 Assume we wanted to send 1024 Mbps over the air. We could choose a bandwidth of a about 1 GHz with 1-bit per symbol, or  have a bandwidth of 1 MHz if
-we sent 1024 QAM at 1MS/s. 
+we sent 1024 QAM at 1MS/s. Both cases would look like the figure below.
 
 In both cases we get problems with the physical communication channel, the change in phase and amplitude affect what is received. 
 For a 1 GHz bandwidth at 2.4 GHz carrier we'd have problems with the phase. At 1024 QAM we'd have problems with the amplitude. 
 
-Back in 1966 [Orthogonal frequency division multiplexing](https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing#:~:text=OFDM%20is%20a%20frequency%2Ddivision,is%20divided%20into%20multiple%20streams.)
-was introduced to deal with the communication channel. 
+-->
 
-In OFDM we modulate a number of sub-carriers in the frequency space with our wanted modulation scheme (BPSK, PSK, QAM), then do an inverse fourier transform to 
-get the time domain signal, mix on to the carrier, and transmit. At the reciever we take an FFT and do demodulation in the frequency space. 
+---
+
+![inline fit](../media/l10_single_carrier.pdf)
+
+
+<!--pan_doc:
+
+Back in 1966 [Orthogonal frequency division multiplexing](https://en.wikipedia.org/wiki/Orthogonal_frequency-division_multiplexing#:~:text=OFDM%20is%20a%20frequency%2Ddivision,is%20divided%20into%20multiple%20streams.)
+was introduced to deal with the communication channel. In OFDM we modulate a number of sub-carriers in the frequency space with our wanted modulation scheme (BPSK, PSK, QAM), then do an inverse fourier transform to 
+get the time domain signal, mix on to the carrier, and transmit. At the reciever we take an FFT and do demodulation in the frequency space. See example in figure below.
+
+The name "multiple carriers" is a bit misleading. Although there are multiple carriers on the left and right side of the figure, there is normally still just one carrier in the TX/RX. 
+
+-->
+
+---
+
+![inline fit](../media/l10_multiple_carrier.pdf)
+
+<!--pan_doc:
 
 There are more details in OFDM than the simple statement above, but the details are just to fix challenges, such as "How do I recover the symbol timing? 
 How do I correct for frequency offset? How do I ensure that my time domain signal terminates correctly for every FFT chunk"
@@ -492,18 +564,6 @@ the phase and amplitude, do an IFFT and demodulate the time-domain signal as nor
 In radio design there are so many choices it's easy to get lost. 
 
 -->
-
----
-
-<!--pan_skip: -->
-
-## Single carrier, or multi carrier?
-
-Bluetooth, 802.15.4, ANT all use one carrier
-- Simple TX, constant envelope
-
-WiFi, LTE ++ all use Orthogonal frequency division multiplexing (OFDM)
-- Complex TX, non-constant envelope
 
 
 ---
@@ -523,7 +583,7 @@ WiFi, LTE ++ all use Orthogonal frequency division multiplexing (OFDM)
 For our mouse, what radio scheme should we choose? One common instances of "how to make a choice" in industry is "Delay the choice as long as possible so
 your sure the choice is right". 
 
-Maybe the best would be to integrated a software defined radio reciever? Something like the picture below, an antenna, low noise amplifier, and a 
+Maybe the best would be to use a software defined radio reciever? Something like the picture below, an antenna, low noise amplifier, and a 
 analog-to-digital converter. That way we could support any transmitter. Fantastic idea, right?
 
 -->
@@ -550,57 +610,10 @@ State of the art FOM $$\approx 5 \text{ fJ/step}$$
 
 <!--pan_doc:
 
-At 1.6 W our mouse would only last for 2 hours. That's too short. Maybe we could use a WiFi 6 radio, those are good! [#racetoidle](https://en.wikipedia.org/wiki/Dynamic_frequency_scaling) 
+At 1.6 W our mouse would only last for 2 hours. That's too short. It will never be a low power idea to convert the full 2.5 GHz bandwidth to digital, we need some bandwidth selectivity 
+in the receive chain. 
 
 -->
-
----
-
-
-## WiFi 6 
-
-<!--pan_doc:
-
-It's fun sometimes to read really high end radio papers. The complexity of the radios are so high it's hard to understand how it could be made. 
-
-One example is the one below
-
--->
-
-[An 802.11ax 4 × 4 High-Efficiency WLAN AP Transceiver SoC Supporting 1024-QAM With Frequency-Dependent IQ Calibration and Integrated Interference Analyzer](https://ieeexplore.ieee.org/document/8528383)
-
----
-
-<!--pan_doc:
-
-There are multiple PLLs, multiple recievers, multiple ADCs and dacs, with a bunch of calibration and compensation loops. 
-
--->
-
-![ fit](../media/wifi6_arch.gif)
-
-
----
-
-<!--pan_doc:
-
-And an insane 1024 QAM constellation. Notice how small space there is between the points. 
-
--->
-
-
-![inline](../media/wifi6_qam.gif)
-
----
-
-<!--pan_doc:
-
-Again, though, the current consumption is a bit too high. Almost 1 Watt. Maybe something simpler is needed for our wireless mouse?
-
--->
-
-
-![inline](../media/wifi6_power.gif)
 
 
 ---
@@ -712,9 +725,11 @@ Bluetooth LE is the perfect standard for wireless mice.
 
 For further information [Building a Bluetooth application on nRF Connect SDK](https://devzone.nordicsemi.com/guides/nrf-connect-sdk-guides/b/software/posts/building-a-ble-application-on-ncs-comparing-and-contrasting-to-softdevice-based-ble-applications)
 
+[Bluetooth Specifications in Development](https://www.bluetooth.com/specifications/specifications-in-development/) 
+
 <!--pan_skip: -->
 
-![right](../media/bluetooth_future.png)
+![right fit](../media/bluetooth_future.png)
 
 ---
 [.background-color: #00A9CE]
@@ -734,11 +749,18 @@ For further information [Building a Bluetooth application on nRF Connect SDK](ht
 
 <!--pan_doc: 
 
-A typical Bluetooth radio may look something like the picture below. 
+A typical Bluetooth radio may look something like the picture below. There would be a single antenna for both RX and Tx. There will be 
+some way to combine the transmit and receive path in a match, or balun. 
+
+The receive chain would have a LNA, mixer, anti-alias filter and analog-to-digital converters. It's likely that the receive path would be complex (in-phase and quadrature phase) after mixer. 
+
+There would be a local oscillator (all-digital phase-locked-loop) to provide the frequency to the mixers and transmit path, which could 
+be either polar or Cartesian. 
+
 
 -->
 
-![](../media/sony_architecture.png)
+![inline fit](../media/l10_lprxarch.pdf)
 
 ---
 
@@ -750,13 +772,13 @@ In the typical radio we'll need the blocks below. I've added a column for how ma
 
 | Blocks            | Key parameter                         | Architecture  | Complexity (nr people) |
 |-------------------|---------------------------------------|---------------|------------------------|
-| Antenna           | Gain, impedance                       | ??            | <1                     |
-| RF match          | loss, input impedance                 | PI-match?     | <1                     |
+| Antenna           | Gain, impedance                       | lambda/4      | <1                     |
+| RF match          | loss, input impedance                 | PI-match      | <1                     |
 | Low noise amp     | NF, current, linearity                | LNTA          | 1                      |
 | Mixer             | NF, current, linearity                | Passive       | 1                      |
-| Anti-alias filter | NF, linearity                         | TIA + AFIR    | 1                      |
+| Anti-alias filter | NF, current, linearity                | Active-RC     | 1                      |
 | ADC               | Sample rate, dynamic range, linearity | NS-SAR        | 1 - 2                  |
-| PLL               | Freq accuracy, phase noise, current   | AD-PLL        | 2-3                    |
+| PLL               | Phase noise, current                  | AD-PLL        | 2-3                    |
 | Baseband          | Eb/N0, gate count, current.           | SystemVerilog | > 10                   |
 
 ---
@@ -773,41 +795,50 @@ The earlier we can amplify the input noise, the less contribution there will be 
 The challenges in the low noise amplifier is to provide the right gain. If there is a strong input signal, then reduce the gain. If there is a low input signal, then 
 increase the gain. 
 
-One way to implement variable gain is to reconfigure the LNA. 
-
-The example below combines a NMOS common gate, common source and a PMOS common source. Depending on the required gain there is also attenuation introduced. 
-
-One second challenge in the LNA is that the gain must be tuned without change to the input impedance. At RF it matters that the impedances are matched, otherwise 
-power would be lost to reflections. 
+One way to implement variable gain is to reconfigure the LNA. For an example, see 
 
 -->
 
-![](../media/lnta1.png)
+[30.5 A 0.5V BLE Transceiver with a 1.9mW RX Achieving -96.4dBm Sensitivity and 4.1dB Adjacent Channel Rejection at 1MHz Offset in 22nm FDSOI](https://ieeexplore.ieee.org/document/9063021) 
 
----
 
-![](../media/lnta2.png)
+<!--pan_doc:
 
----
+A typical Low Noise Transconductance Amplifier is seen below. It's a combination of both a common source, and a common gate amplifier. The current in the NMOS and PMOS is controlled by Vgp and Vgn. Keep in mind that at RF frequencies the signals are weak, so it's easy to provide the DC for the LNA with a resistor to a diode connected PMOS or NMOS.
 
-![](../media/lnta3.png)
+In a LNA the input impedance must be matched to what is required by the antenna/match in order to have maximum power transfer, that's the role of the inductors/capacitors.
+
+
+-->
+
+![left](../media/l10_lna.pdf)
 
 ---
 
 ## [fit] MIXER
 
+---
+
 <!--pan_doc:
 
 In the mixer we multiply the input signal with our local oscillator. Most often a complex mixer is used. There is nothing complex about complex signal processing, 
-just read [Complex signal processing is not complex](https://ieeexplore.ieee.org/document/1333231).
-
-In order to reduce power, it's most common with a passive mixer as shown below. A passive mixer is just MOS that we turn on and off with 25% duty-cycle.
+just read
 
 -->
 
----
+[Complex signal processing is not complex](https://ieeexplore.ieee.org/document/1333231)
 
-![](../media/mixer.png)
+<!--pan_doc:
+
+In order to reduce power, it's most common with a passive mixer as shown below. A passive mixer is just MOS that we turn on and off with 25% duty-cycle. See example in 
+
+-->
+
+[A 370uW 5.5dB-NF BLE/BT5.0/IEEE 802.15.4-Compliant Receiver with >63dB Adjacent Channel Rejection at >2 Channels Offset in 22nm FDSOI](https://ieeexplore.ieee.org/document/9062973/)
+
+
+
+![left fit](../media/l10_mix.pdf)
 
 
 ---
@@ -816,8 +847,6 @@ In order to reduce power, it's most common with a passive mixer as shown below. 
 
 To generate the quadrature and in-phase clock signals, which must be 90 degrees phase offset, it's common to generate twice the frequency in the 
 local oscillator (4.8 GHz), and then divide down to 4 2.4 GHz clock signals. 
-
-I liked the "Windmill" divider in the picture below (I have not tried it though, but it looked cool).
 
 If the LO is the same as the carrier, then the modulation signal 
 will be at DC, often called direct conversion. 
@@ -836,17 +865,16 @@ These days most de-modulation happens in digital, and we need to convert the ana
 -->
 
 
-![](../media/divider.png)
 
----
+
 
 ## [fit] AAF
 
 <!--pan_doc:
 
 
-The anti alias filter rejects frequencies that can fold into the band of interest due to sampling. Below is a fancy anti-alias filter, but quite often, simple active-RC 
-filters are perfect. 
+The anti alias filter rejects frequencies that can fold into the band of interest due to sampling. A simple active-RC 
+filters is often good enough. 
 
 We often need gain in the AAF, as the LNA does not have sufficient gain for the weakest signals. -100 dBm in 50 ohm is 6.2 nV RMS, while input 
 range of an ADC may be 1 V. Assume we place the lowest input signal at 0.1 V, so we need a voltage gain of $20\log(0.1/6.2e-9) = 76$dB in the reciever.
@@ -855,17 +883,8 @@ range of an ADC may be 1 V. Assume we place the lowest input signal at 0.1 V, so
 
 ---
 
-![](../media/aaf1.png)
+![inline fit](../media/l4_activebiquad.pdf)
 
----
-
-![](../media/aaf2.png)
-
----
-
-
-
-![](../media/aaf4.png)
 
 ---
 
@@ -879,32 +898,28 @@ At NTNU there have been multiple students through the years that have made world
 
 These days, a good option is a SAR, or a Noise-Shaped SAR. 
 
-If I were to pick, I'd make something like [A 68 dB SNDR Compiled Noise-Shaping SAR ADC With On-Chip CDAC Calibration](https://ieeexplore.ieee.org/document/9056925).
+If I were to pick, I'd make something like [A 68 dB SNDR Compiled Noise-Shaping SAR ADC With On-Chip CDAC Calibration](https://ieeexplore.ieee.org/document/9056925) as shown in the figure below.
 
 -->
 
 ---
 
-![fit](../media/garvik.png)
+![fit](../media/l6_harald_arch.gif)
 
 ---
 
 <!--pan_doc:
 
 Or if I did not need high resolution, I'd choose my trusty [A Compiled 9-bit 20-MS/s 3.5-fJ/conv.step SAR ADC in 28-nm FDSOI for Bluetooth Low Energy Receivers](https://ieeexplore.ieee.org/document/7906479).
-That particular ADC have been ported to multiple technologies (22 nm FDSOI, 22 nm, 28 nm, 55 nm, 65 nm and 130nm),
-and can be found at [sun_sar9b_sky130nm](https://github.com/wulffern/sun_sar9b_sky130nm/tree/main).
+
 
 -->
 
 
-![fit](../media/wulff.png)
-
----
 
 <!--pan_doc:
 
-The main selling point of the ADC was that it's compiled from a [JSON](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/ip.json) file, a [SPICE](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/ip.spi) file 
+The main selling point of that ADC was that it's compiled from a [JSON](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/ip.json) file, a [SPICE](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/ip.spi) file 
 and a [technology](https://github.com/wulffern/sun_sar9b_sky130nm/blob/main/cic/sky130.tech) file into a DRC/LVS clean layout.
 
 I also included a few circuit improvements. The bottom plate of the SAR capacitor is in the clock loop for the comparator (DN0, DP1 below), as such, the 
@@ -925,7 +940,7 @@ I have a completed ADC.
 -->
 
 
-![fit](../media/fig_toplevel.pdf)
+![fit](../media/l06_fig_toplevel.pdf)
 
 
 ---
@@ -934,21 +949,17 @@ I have a completed ADC.
 
 <!--pan_doc:
 
-The phase locked loop is the heart of the radio, and it's probably the most difficult part to make. Depends a bit on technology, but these days, All Digital PLLs are cool.
+The phase locked loop is the heart of the radio, and it's probably the most difficult part to make. Depends a bit on technology, but these days, All Digital PLLs are cool. Start by reading Razavi's PLL book. 
 
 You can spend your life on PLLs. 
 
 -->
 
 ---
-#Phase Locked loops
 
-[.column]
 
-![inline](../media/basic_pll.png)
+![inline](../media/l08_pll_2mod.pdf)
 
-[.column]
-- Read Razavi's PLL book 
 
 ---
 AD-PLL with Bang-Bang phase detector for steady-state 
@@ -1021,7 +1032,7 @@ I hope you understand now that it's actually complicated.
 
 <!--pan_skip: -->
 
-![150%](../media/nRF52832 CIAA.png)
+![150%](../media/nrf52832.png)
 
 ---
 
@@ -1031,19 +1042,19 @@ I hope you understand now that it's actually complicated.
 
 # References
 
-"A 0.5V BLE Transceiver with a 1.9mW RX Achieving -96.4dBm Sensitivity and 4.1dB Adjacent Channel Rejection at 1MHz Offset in 22nm FDSOI", M. Tamura, Sony Semiconductor Solutions, Atsugi, Japan, 30.5, ISSCC 2020
+[A 0.5V BLE Transceiver with a 1.9mW RX Achieving -96.4dBm Sensitivity and 4.1dB Adjacent Channel Rejection at 1MHz Offset in 22nm FDSOI](https://ieeexplore.ieee.org/document/9063021), M. Tamura, Sony Semiconductor Solutions, Atsugi, Japan, 30.5, ISSCC 2020
 
-"A 370uW 5.5dB-NF BLE/BT5.0/IEEE 802.15.4-Compliant Receiver with >63dB Adjacent Channel Rejection at >2 Channels Offset in 22nm FDSOI", B. J. Thijssen, University of Twente, Enschede, The Netherlands
+[A 370uW 5.5dB-NF BLE/BT5.0/IEEE 802.15.4-Compliant Receiver with >63dB Adjacent Channel Rejection at >2 Channels Offset in 22nm FDSOI](https://ieeexplore.ieee.org/document/9062973/), B. J. Thijssen, University of Twente, Enschede, The Netherlands
 
-"A 68 dB SNDR Compiled Noise-Shaping SAR ADC With On-Chip CDAC Calibration", H. Garvik, C. Wulff, T. Ytterdal
+[A 68 dB SNDR Compiled Noise-Shaping SAR ADC With On-Chip CDAC Calibration](https://ieeexplore.ieee.org/document/9056925), H. Garvik, C. Wulff, T. Ytterdal
 
-"A Compiled 9-bit 20-MS/s 3.5-fJ/conv.step SAR ADC in 28-nm FDSOI for Bluetooth Low Energy Recievers", C. Wulff, T. Ytterdal
+[A Compiled 9-bit 20-MS/s 3.5-fJ/conv.step SAR ADC in 28-nm FDSOI for Bluetooth Low Energy Recievers](https://ieeexplore.ieee.org/document/7906479), C. Wulff, T. Ytterdal
 
 Cole Nielsen, <https://github.com/nielscol/thesis_presentations>
 
 "Python Framework for Design and Simulation of Integer-N ADPLLs", Cole Nielsen, <https://github.com/nielscol/tfe4580-report/blob/master/report.pdf>
 
-Design of CMOS Phase-Locked Loops, Behzad Razavi, University of California, Los Angeles
+[Design of CMOS Phase-Locked Loops](https://doi.org/10.1017/9781108626200), Behzad Razavi, University of California, Los Angeles
 
 
 

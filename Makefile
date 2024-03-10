@@ -16,8 +16,8 @@ FILES = l00_diode \
 	l07_vreg \
 	l08_pll \
 	l09_osc \
-#	l10_lpradio \
-	l11_aver \
+	l10_lpradio \
+#	l11_aver \
 	lx_energysrc
 
 all: posts latex book
