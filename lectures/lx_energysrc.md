@@ -1,7 +1,8 @@
-footer: Carsten Wulff 2023
+footer: Carsten Wulff 2024
 slidenumbers:true
 autoscale:true
 theme:Plain Jane,1
+date: 2024-04-12
 
 <!--pan_skip: -->
 
@@ -52,47 +53,42 @@ Introduction to **Energy Harvesting**
 
 ---
 
-<!--pan_skip: -->
-
-
-![fit](../ip/l11_teg2_0.pdf)
-
----
-
-<!--pan_skip: -->
-
- ![fit](../ip/l11_teg2_1.pdf)
-
----
-
-
 <!--pan_doc:
 
-Electronic circuits are wasteful of energy. Digital circuits charge transistor gates to change states, and when
+Integrated circuits are wasteful of energy. Digital circuits charge transistor gates to change states, and when
 discharged, the charges are dumped to ground. In analog circuits the transconductance requires a DC current,
 a continuous flow of charges from positive supply to ground. 
 
-Electronic circuits are incredibly useful though. Life without would be different. 
+Integrated circuits are incredibly useful though. Life without would be different. 
 
 A continuous effort from engineers like me have reduced the power consumption of both digital and analog circuits by
 order of magnitudes since the invention of the transistor 75 years ago. 
 
-One of the first commercial ADCs, the [DATRAC](https://www.analog.com/media/en/training-seminars/design-handbooks/Data-Conversion-Handbook/Chapter1.pdf), was a 11-bit 50 kSps that consumed 500 W. That's Walden figure of merit of 
+One of the first commercial ADCs, the [DATRAC](https://www.analog.com/media/en/training-seminars/design-handbooks/Data-Conversion-Handbook/Chapter1.pdf) on page 24, was a 11-bit 50 kSps that consumed 500 W. That's Walden figure of merit of 
 4 $\mu$J/conv.step. Today's state-of-the-art ADCs in the same sampling range have a Walden figure of merit of [0.6 fJ/conv.step](https://ieeexplore.ieee.org/document/8310273).
 
 4 $\mu$ / 0.6 f = 8.1e9, a difference in power consumption of almost 10 billion times !!!
 
-Improvements to power consumption become harder and harder, but I believe there is still far to go before we 
+Improvements to power consumption have become harder and harder, but I believe there is still far to go before we 
 cannot reduce power consumption any more. 
 
 
-[Towards a Green and Self-Powered Internet of Things Using Piezoelectric Energy Harvesting](https://ieeexplore.ieee.org/document/8762143)
-has a nice overview of power consumption of technologies, seen below.
+[Towards a Green and Self-Powered Internet of Things Using Piezoelectric Energy Harvesting](https://ieeexplore.ieee.org/document/8762143) [1]
+has a nice overview of power consumption of technologies, seen in the next figures below.
 
-As devices approach average power consumption of $\mu W$ it becomes possible to harvest the energy from the environment.
+In the context of energy harvesting, there is energy in electromagnetic fields, temperature, and mechanical stress, and there are ways to translate between them the energy forms.
 
-I'd like to give you an introduction to harvesting sources, and my opinion on the circuits needed. There are at least 
-5 sources, thermoelectric, photovoltaic, piezoelectric, ambient RF and triboelectric.
+-->
+
+![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv5-2928523-large.gif)
+
+---
+
+<!--pan_doc:
+
+Below we can see a figure of the potential energy that can be harvested per volume, and the type power consumption of technologies [1]. 
+
+As devices approach average power consumption of $\mu W$ it becomes possible to harvest the energy from the environment, and do away with the battery.
 
 -->
 
@@ -100,9 +96,29 @@ I'd like to give you an introduction to harvesting sources, and my opinion on th
 
 ---
 
-<!--pan_skip: -->
+<!--pan_doc:
 
- ![fit](../ip/l11_eh_src.pdf)
+
+For wireless standards, there are some that can be run on energy harvesting. Below is an overview from [1]. Many of us will have a NFC card in our pocket for payment, or entry to buildings. NFC card has a integrated circuit that is powered from the electromagnetic field from the NFC reader. 
+
+Other standards, like Bluetooth, WiFi, LTE are harder to run battery less, because the energy requirement above 1 mW. 
+
+Technologies like Bluetooth LE, however, can approach < 10 $\mu$W for some applications, although the burst power may still be 10 mW to 100 mW. As such, although the average power is low, the energy harversting cannot support peak loads and a charge storage device is required (battery, super-capacitor, large capacitor).
+
+-->
+
+![inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv11-2928523-large.gif)
+
+
+<!--pan_doc:
+
+I'd like to give you an introduction to the possible ways of harvesting energy. I know of five methods: 
+- thermoelectric
+- photovoltaic
+- piezoelectric
+- electromagnetic 
+- triboelectric 
+-->
 
 ---
 
@@ -115,7 +131,7 @@ I'd like to give you an introduction to harvesting sources, and my opinion on th
 
 ## Piezoelectric
 
-## Ambient RF
+## Electromagnetic 
 
 ## Triboelectric 
 
@@ -125,14 +141,12 @@ I'd like to give you an introduction to harvesting sources, and my opinion on th
 
 #[fit] [Thermoelectric](https://en.wikipedia.org/wiki/Thermoelectric_effect)
 
----
-
 
 <!--pan_doc:
 
 Apply heat to one end of a metal wire, what happens to the free electrons? As we heat the material we must increase 
-the energy of the free electrons at the hot end of the wire. Think of the electrons at the hot side as high energy
-electrons, while on the cold side there are low energy electrons. 
+the energy of the free electrons at the hot end of the wire. The atoms wiggle more, and when the free electrons scatter off the atomic structure there should be an exchange of energy. Think of the electrons at the hot side as high energy
+electrons, while on the cold side there are low energy electrons, I think. 
 
 There will be diffusion current of electrons 
 in both directions in the material, however, if the mobility of electrons in the material is dependent on 
@@ -143,36 +157,65 @@ which would give a difference in voltage.
 Take a copper wire, bend it in half, heat the end with the loop, and measure the voltage at the cold end. Would we
 measure a voltage difference? 
 
-**NO**, there would be no voltage difference between the two ends of the wire. The voltage 
+**NO**, there would not be a voltage difference between the two ends of the wire. The voltage 
 on the loop side would be different, but on the cold side, where we have the ends, there would be no voltage difference. 
 
 Gauss law tell us that inside a conductor there cannot be a static field without a current. As such, if there was 
 a voltage difference between the cold ends, it would quickly dissipated, and no DC current would flow. 
 
 The voltage difference in the material between the hot and cold end will create currents, but we can't use them if we
-only have one type of material. The voltage difference at the hot and cold end
-is described by the [Seebeck coefficient](https://en.wikipedia.org/wiki/Seebeck_coefficient).
+only have one type of material. 
+
+Imagine we have Iron and copper wires, as shown below, and we heat one end. In that case, we can draw current between the cold ends. 
+
+-->
+
+---
+
+![fit](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Thermoelectric_effect.svg/2560px-Thermoelectric_effect.svg.png)
+
+<!--pan_doc:
+
+The voltage difference at the hot and cold end
+is described by the 
+-->
+
+---
+
+[Seebeck coefficient](https://en.wikipedia.org/wiki/Seebeck_coefficient)
+
+<!--pan_doc:
 
 Imagine two parallel wires with different Seebeck coefficients, one of copper ($6.5\text{ } \mu V/K$) and one of iron ($19\text{ } \mu/K$).
 We connect them at the hot end. The voltage difference between hot and cold would be higher in the iron, than in the copper. 
 At the cold end, we would now measure a difference in voltage between the wires! 
 
 In silicon, the Seebeck coefficient can be modified through doping. A model of Seebeck coefficient is shown below. 
-The value of the Seebeck coefficient depends on the location of the Fermi level in relation to the Conduction band or the Valence band. 
+The value of the Seebeck coefficient depends on the location of the Fermi level in relation to the Conduction band or the V
+valence band. 
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Mott_Seebeck_silicon.svg/440px-Mott_Seebeck_silicon.svg.png)
+-->
+
+![inline fit](https://upload.wikimedia.org/wikipedia/commons/e/e5/Absolute_Seebeck_coefficients_of_various_metals_up_to_high_temperatures.svg)
 
 
-In the picture below we have a material doped with acceptors, and one with donors. 
 
-Assume we dope with acceptors, that shifts the Fermi level closer to the Valence band ($E_V$), and the dominant
+![right fit](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Mott_Seebeck_silicon.svg/440px-Mott_Seebeck_silicon.svg.png)
+
+---
+
+<!--pan_doc:
+
+In the picture below we have a silicon (the cyan and yellow colors).
+
+Assume we dope with acceptors (yellow, p-type), that shifts the Fermi level closer to the Valence band ($E_V$), and the dominant
 current transport will be by holes, maybe we get 1 mV/K from the picture above.
 
-For the material doped with donors the Fermi level is shifted towards the Conduction band ($E_C$), and the dominant 
+For the material doped with donors (cyan, n-type) the Fermi level is shifted towards the Conduction band ($E_C$), and the dominant 
 charge transport is by electrons, maybe we get -1 mV/K from the picture above. 
 
 Assume we have a temperature difference of 50 degrees, then maybe we could get a voltage difference at the cold end of 
-100 mV, not much, but possible to use.
+100 mV. That's a low voltage, but is possible to use.
 --->
 
 ![fit](https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Thermoelectric_Generator_Diagram.svg/440px-Thermoelectric_Generator_Diagram.svg.png)
@@ -181,11 +224,15 @@ Assume we have a temperature difference of 50 degrees, then maybe we could get a
 <!--pan_doc:
 
 The process can be run in reverse. In the picture below we force a current through the material, 
-we heat one end, and cool the other. Maybe you've heard of Peltier elements.
+we heat one end, and cool the other. Maybe you've heard of [Peltier elements](https://en.wikipedia.org/wiki/Thermoelectric_cooling).
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Thermoelectric_Cooler_Diagram.svg/440px-Thermoelectric_Cooler_Diagram.svg.png)
+-->
 
---->
+---
+
+![fit](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Thermoelectric_Cooler_Diagram.svg/440px-Thermoelectric_Cooler_Diagram.svg.png)
+
+
 
 ---
 
@@ -233,49 +280,13 @@ In silicon, it is tricky to make anything work below some thermal voltages (kT/q
 
 The key enabler for an efficient, low temperature differential, energy harvester is an oscillator that works at low voltage (i.e 75 mV). If we have a clock, then we can boost with capacitors 
 
-In [A 3.5-mV Input Single-Inductor Self-Starting Boost Converter With Loss-Aware MPPT for Efficient Autonomous Body-Heat Energy Harvesting](https://ieeexplore.ieee.org/document/9302641)
-they use a combination of both switched capacitor and switched inductor boost. 
-
 -->
 
+In [A 3.5-mV Input Single-Inductor Self-Starting Boost Converter With Loss-Aware MPPT for Efficient Autonomous Body-Heat Energy Harvesting](https://ieeexplore.ieee.org/document/9302641) they use a combination of both switched capacitor and switched inductor boost. 
+
+
+
 ![left fit](../media/l11_teg_mdl.pdf)
-
----
-
-<!--pan_skip:-->
-
-![fit](../ip/l11_teg1_0.pdf)
-
----
-
-<!--pan_skip:-->
-
-![fit](../ip/l11_teg1_1.pdf)
-
----
-
-<!--pan_skip:-->
-
-![fit](../ip/l11_teg1_2.pdf)
-
----
-
-<!--pan_skip:-->
-
-![fit](../ip/l11_teg1_3.pdf)
-
----
-
-<!--pan_skip:-->
-
-
-![fit](../ip/l11_teg1_4.pdf)
-
----
-
-<!--pan_skip:-->
-
-![fit](../ip/l11_teg1_5.pdf)
 
 ---
 
@@ -381,23 +392,22 @@ of 0.9 mA in the model above.
 
 -->
 
-![right fit](../py/pv.pdf)
+![right fit](../media/pv.pdf)
 
 <!--pan_doc:
 
 Most photovoltaic energy harvesting circuits will include a maximum power point tracker 
 as the optimum changes with light conditions.
 
-In [A Reconfigurable Capacitive Power Converter With Capacitance Redistribution for Indoor Light-Powered Batteryless Internet-of-Things Devices](https://ieeexplore.ieee.org/abstract/document/9423810)
-they include a maximum power point tracker and a reconfigurable charge pump to optimize efficiency.
-
 -->
 
 ---
 
+
+
 <!--pan_skip: -->
 
-![left original fit](../py/pv.pdf)
+![left original fit](../media/pv.pdf)
 
 [ANYSOLAR](https://www.digikey.no/en/products/detail/anysolar-ltd/KXOB25-03X4F-TB/13999196)
 
@@ -405,21 +415,8 @@ they include a maximum power point tracker and a reconfigurable charge pump to o
 
 ---
 
-<!--pan_skip: -->
+In [A Reconfigurable Capacitive Power Converter With Capacitance Redistribution for Indoor Light-Powered Batteryless Internet-of-Things Devices](https://ieeexplore.ieee.org/abstract/document/9423810) they include a maximum power point tracker and a reconfigurable charge pump to optimize efficiency.
 
-![fit](../ip/l11_pv1_0.pdf)
-
----
-
-<!--pan_skip: -->
-
-![fit](../ip/l11_pv1_1.pdf)
-
----
-
-<!--pan_skip: -->
-
-![fit](../ip/l11_pv1_2.pdf)
 
 ---
 
@@ -427,9 +424,26 @@ they include a maximum power point tracker and a reconfigurable charge pump to o
 
 <!--pan_doc:
 
-A property of some materials is that they polarize when placed under physical stress, 
-and although I don’t exactly understand the physics, this somehow induces a current. 
+I'm not sure I  understand the piezoelectric effect, but I think it goes something like this.
 
+Consider a crystal made of a combination of elements, for example [Gallium Nitride](http://lampx.tugraz.at/~hadley/ss1/crystalstructure/structures/semiconductors/GaN.html). In GaN it's possible to get a polarization of the unit cell, with a more negative charge on one side, and a positive charge on the other side. The polarization comes from an asymmetry in the electron and nucleus distribution within the material. 
+
+In a polycrystaline substance the polarization domains will usually be random, and no electric field will observable. The polarization domains can be aligned by heating the material and applying a electric field. Now all the small electric fields point in the same direction. 
+
+From Gausses law we know that the electric field through a surface is determined by the volume integral of the charges inside. 
+
+$$ \oint_{\partial \Omega} \mathbf{E} \cdot d\mathbf{S} = \frac{1}{\epsilon_0} \iiint_{V} \rho
+\cdot dV$$  
+
+Although there is a net zero charge inside the material, there is an uneven distribution of charges, as such, some of the field lines will cross through the surface. 
+
+Assume we have a polycrystaline GaN material with polarized domains. If we measure the voltage across the material we will read 0 V. Even though the domains are polarized, and we should observe an external electric field, the free charges in the material will redistribute if there is a field inside, such that there is no current flowing, and thus no external field. 
+
+If we apply stress, however, all the domains inside the material will shift. Now the free charges do not exactly cancel the electric field in the material, the free charges are in the wrong place. If we have a material with low conductivity, then it will take time for the free charges to redistribute. As such, for a while, we can measure an voltage across the material.
+
+Assuming the above explanation is true, then there should not be piezoelectric materials with high conductivity, and indeed, most peizoelectric materials have resistance of [$10^{12}$ to $10^{14}$ Ohm](https://www.f3lix-tutorial.com/piezo-materials). 
+
+Vibrations on a piezoelectric material will result in a AC voltage across the surface, which we can harvest. 
 -->
 
 ---
@@ -450,36 +464,44 @@ The voltage on the transducer can be on the order of a few volts,
 but the current is usually low (nA – µA). The key challenge is to rectify the AC signal into a DC signal.
 It is common to use tricks to reduce the energy waste due to the rectifier.
 
-An example of piezoelectric energy harvester can be found in [A Fully Integrated Split-Electrode SSHC Rectifier for Piezoelectric Energy Harvesting](https://ieeexplore.ieee.org/document/8642406)
 
 -->
 
-![fit](../media/lx_piezo_mdl.pdf)
+An example of piezoelectric energy harvester can be found in [A Fully Integrated Split-Electrode SSHC Rectifier for Piezoelectric Energy Harvesting](https://ieeexplore.ieee.org/document/8642406)
 
+
+![left fit](../media/lx_piezo_mdl.pdf)
+
+---
+
+
+#[fit] Electromagnetic 
+
+---
+
+## "Near field" harvesting 
+
+Near Field Communcation (NFC) operates at close physical distances
+
+![left fit](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/FarNearFields-USP-4998112-1.svg/618px-FarNearFields-USP-4998112-1.svg.png)
+
+Reactive near field or inductive near field 
+
+$$ \text{Inductive} < \frac{\lambda}{2 \pi}$$
+
+---
+
+|Standard|Frequency [MHz] | Inductive [m]|
+|:---|:---:|:---:|
+|AirFuel Resonant| 6.78 | 7.03 |
+|NFC| 13.56 | 3.52 |
+|Qi| 0.205 | 232|
+|Bluetooth| 2400 | 0.02|
 
 
 ---
 
-<!--pan_skip: -->
-
-![fit](../ip/l11_pc2_0.pdf)
-
----
-
-<!--pan_skip: -->
-
-
-![fit](../ip/l11_pc2_1.pdf)
-
----
-
-<!--pan_skip: -->
-
-#[fit] Ambient RF
-
----
-
-# Ambient RF Harvesting
+## Ambient RF Harvesting
 
 [.column]
 
@@ -498,7 +520,7 @@ There are companies that think RF harvesting is a good idea.
 
 -->
 
-[AirFuel](https://airfuel.org/airfuel-rf/)
+[AirFuel RF](https://airfuel.org/airfuel-rf/)
 
 
 <!--pan_doc:
@@ -585,51 +607,34 @@ Although the current is  low (nA) the voltage can be high,
 tens to hundreds of volts. 
 
 The key circuit challenge is the rectifier, and the high voltage output of the triboelectric generator. 
-Take a look in [A Fully Energy-Autonomous Temperature-to-Time Converter Powered by a Triboelectric Energy Harvester for Biomedical Applications](https://ieeexplore.ieee.org/document/9441315)
-for more details.
+
+
 
 -->
 
 ---
 
-![fit](../media/lx_trib_mdl.pdf)
+Take a look in [A Fully Energy-Autonomous Temperature-to-Time Converter Powered by a Triboelectric Energy Harvester for Biomedical Applications](https://ieeexplore.ieee.org/document/9441315)
+for more details.
+
+
+![right](../media/lx_trib_mdl.pdf)
 
 ---
 
-<!--pan_skip: -->
-
-![fit](../ip/l11_teng0_0.pdf)
+![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo6ab-3080383-large.gif)
 
 ---
 
-<!--pan_skip: -->
-
-![fit](../ip/l11_teng0_1.pdf)
+![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo1ab-3080383-large.gif)
 
 ---
 
-<!--pan_skip: -->
-
-![fit](../ip/l11_teng2_0.pdf)
-
----
-
-<!--pan_skip: -->
-
-![fit](../ip/l11_teng2_4.pdf)
+![inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo2-3080383-large.gif)
 
 
----
+![inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo3-3080383-large.gif)
 
-<!--pan_skip: -->
-
-![fit](../ip/l11_teng2_1.pdf)
-
----
-
-<!--pan_skip: -->
-
-![fit](../ip/l11_teng2_2.pdf)
 
 ---
 
@@ -667,7 +672,7 @@ a charge storage device, either a battery, or a capacitor.
 # References
 
 
-[Towards a Green and Self-Powered Internet of Things Using Piezoelectric Energy Harvesting](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8762143)
+[1] [Towards a Green and Self-Powered Internet of Things Using Piezoelectric Energy Harvesting](https://ieeexplore.ieee.org/document/8762143)
 
 [A 3.5-mV Input Single-Inductor Self-Starting Boost Converter With Loss-Aware MPPT for Efficient Autonomous Body-Heat Energy Harvesting](https://ieeexplore.ieee.org/document/9302641)
 

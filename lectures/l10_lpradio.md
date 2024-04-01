@@ -4,7 +4,7 @@ autoscale:true
 theme:Plain Jane,1
 date: 2024-03-22
 
-[.background-color: #00A9CE]
+
 
 <!--pan_skip: -->
 
@@ -23,7 +23,6 @@ Let's make a radio (or at least, let's **pretend**)
 
 ---
 
-[.background-color: #00A9CE]
 
 <!--pan_skip: -->
 
@@ -311,9 +310,9 @@ Mouse is maybe AA,  3000 mAh
 
 
 ---
-[.background-color: #00A9CE]
 
-# Decisions we must make
+
+#[fit] Decisions 
 
 <!--pan_doc:
 
@@ -624,7 +623,7 @@ in the receive chain.
 ## [fit] Crap, too high power!
 
 ---
-[.background-color: #00A9CE]
+
 
 <!--pan_skip: -->
 
@@ -732,7 +731,7 @@ For further information [Building a Bluetooth application on nRF Connect SDK](ht
 ![right fit](../media/bluetooth_future.png)
 
 ---
-[.background-color: #00A9CE]
+
 
 <!--pan_skip: -->
 
@@ -863,9 +862,6 @@ There is no "one correct choice", there are trade-offs that both ways. KISS (Kee
 These days most de-modulation happens in digital, and we need to convert the analog signal to digital, but first AAF.
 
 -->
-
-
-
 
 
 ## [fit] AAF

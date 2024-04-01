@@ -21,7 +21,7 @@ class Image():
         if("/ip/" in self.src and "allowIP" not in self.options):
             self.skip = True
 
-        if(re.search("\s*https?://",self.src)):
+        if(re.search(r"\s*https?://",self.src)):
             self.isUrl = True
 
 
@@ -84,15 +84,15 @@ class Lecture():
         self.images = list()
 
         self.filters = {
-            "^\s*---\s*$" : "",
-            "\[.column\]" : "",
-            "\[\.background.*\]" : "",
-            "\[\.text.*\]" : "",
-            "\[\.table  *\]" : "",
-            "\#\s*\[\s*fit\s*\]" : "# ",
-            "\*\*Q:\*\*" : "",
-            "^[.table.*]$": "",
-            "#(.*) Thanks!" : ""
+            r"^\s*---\s*$" : "",
+            r"\[.column\]" : "",
+            r"\[\.background.*\]" : "",
+            r"\[\.text.*\]" : "",
+            r"\[\.table  *\]" : "",
+            r"\#\s*\[\s*fit\s*\]" : "# ",
+            r"\*\*Q:\*\*" : "",
+            r"^[.table.*]$": "",
+            r"#(.*) Thanks!" : ""
         }
 
         self._read()
@@ -166,11 +166,11 @@ class Lecture():
             return None
 
         #- Go back to normal mode
-        if(self.removeComment and re.search("-->",line)):
+        if(self.removeComment and re.search(r"-->",line)):
             self.removeComment = False
             return None
 
-        if(self.skipslide and re.search("^\s*---\s*$",line)):
+        if(self.skipslide and re.search(r"^\s*---\s*$",line)):
             self.output = True
         return line
 
@@ -181,7 +181,7 @@ class Lecture():
             imgsrc = m.groups()[1]
 
             if(not "downloadImage" in self.options):
-                if(re.search("\s*https://",imgsrc)):
+                if(re.search(r"\s*https://",imgsrc)):
                     return f"![]({imgsrc})"
 
             i = Image(imgsrc,self.options)
@@ -240,14 +240,14 @@ class Presentation(Lecture):
         self.images = list()
 
         self.filters = {
-            "\[\.background.*\]" : "",
-            "\[\.text.*\]" : "",
-            "\[\.table  *\]" : "",
-            "\#\s*\[\s*fit\s*\]" : "## ",
-            "^[.table.*]$": "",
-            "\!\[[^\]]+\]" : "![]",
-            "^# ":"## ",
-            "\[.column\]" : "",
+            r"\[\.background.*\]" : "",
+            r"\[\.text.*\]" : "",
+            r"\[\.table  *\]" : "",
+            r"\#\s*\[\s*fit\s*\]" : "## ",
+            r"^[.table.*]$": "",
+            r"\!\[[^\]]+\]" : "![]",
+            r"^# ":"## ",
+            r"\[.column\]" : "",
             #"^---":"#",
 
         }
@@ -280,7 +280,7 @@ class Presentation(Lecture):
                 if(key == "title"):
                     self.title = val.replace("-->","")
 
-                if(re.search("^<!--",line)):
+                if(re.search(r"^<!--",line)):
                     self.output = False
 
                 line = self._filterLine(line)
@@ -289,7 +289,7 @@ class Presentation(Lecture):
                 if(line is not None and self.output):
                     self.buffer.append(line)
 
-                if(re.search("-->",line)):
+                if(re.search(r"-->",line)):
                     self.output = True
 
     def __str__(self):
@@ -324,19 +324,19 @@ class Latex(Lecture):
         self.images = list()
 
         self.filters = {
-             "^\s*---\s*$" : "",
-            "\[.column\]" : "",
-            "\[\.background.*\]" : "",
-            "\[\.text.*\]" : "",
-            "\[\.table  *\]" : "",
-            "\#\s*\[\s*fit\s*\]" : "# ",
-            "\#\#\s*\[\s*fit\s*\]" : "## ",
+             r"^\s*---\s*$" : "",
+            r"\[.column\]" : "",
+            r"\[\.background.*\]" : "",
+            r"\[\.text.*\]" : "",
+            r"\[\.table  *\]" : "",
+            r"\#\s*\[\s*fit\s*\]" : "# ",
+            r"\#\#\s*\[\s*fit\s*\]" : "## ",
             #"^## \*\*Q:\*\*.*$" : "",
-            "^[.table.*]$": "",
-            "^\* TOC":"",
-            "^{:toc }":"",
-            "\*\*Q:\*\*" : "",
-            "#(.*) Thanks!" : ""
+            r"^[.table.*]$": "",
+            r"^\* TOC":"",
+            r"^{:toc }":"",
+            r"\*\*Q:\*\*" : "",
+            r"#(.*) Thanks!" : ""
             #"^---":"#",
         }
 
