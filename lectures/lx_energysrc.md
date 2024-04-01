@@ -55,6 +55,8 @@ Introduction to **Energy Harvesting**
 
 <!--pan_doc:
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Tb2CFHLmkzw?si=4f29EI_Hwj3My9fn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 Integrated circuits are wasteful of energy. Digital circuits charge transistor gates to change states, and when
 discharged, the charges are dumped to ground. In analog circuits the transconductance requires a DC current,
 a continuous flow of charges from positive supply to ground. 
@@ -80,7 +82,8 @@ In the context of energy harvesting, there is energy in electromagnetic fields, 
 
 -->
 
-![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv5-2928523-large.gif)
+<!--[fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv5-2928523-large.gif)-->
+![fit](../media/shirv5-2928523-large.gif)
 
 ---
 
@@ -92,7 +95,8 @@ As devices approach average power consumption of $\mu W$ it becomes possible to 
 
 -->
 
-![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv6-2928523-large.gif)
+<!--[fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv6-2928523-large.gif)-->
+![fit](../media/shirv6-2928523-large.gif)
 
 ---
 
@@ -107,7 +111,8 @@ Technologies like Bluetooth LE, however, can approach < 10 $\mu$W for some appli
 
 -->
 
-![inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv11-2928523-large.gif)
+<!--[inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/6287639/8600701/8762143/shirv11-2928523-large.gif)-->
+![inline fit](../media/shirv11-2928523-large.gif)
 
 
 <!--pan_doc:
@@ -641,7 +646,8 @@ Below is a custom triboelectric material that converts friction into a sparse el
 
 -->
 
-![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo6ab-3080383-large.gif)
+<!--[fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo6ab-3080383-large.gif)-->
+![fit](../media/yoo6ab-3080383-large.gif)
 
 ---
 
@@ -652,7 +658,9 @@ Once the voltage is high enough, then a temperature sensor is started.
 
 -->
 
-![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo1ab-3080383-large.gif)
+<!--[fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo1ab-3080383-large.gif)-->
+
+![fit](../media/yoo1ab-3080383-large.gif)
 
 ---
 
@@ -669,10 +677,15 @@ It's academia's job to prove that something could be possible. It's industry's j
 
 -->
 
-![inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo2-3080383-large.gif)
+<!--
+[inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo2-3080383-large.gif)
 
+[inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo3-3080383-large.gif)
+-->
 
-![inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo3-3080383-large.gif)
+![inline fit](../media/yoo2-3080383-large.gif)
+
+![inline fit](../media/yoo3-3080383-large.gif)
 
 
 ---
@@ -703,7 +716,8 @@ a charge storage device, either a battery, or a capacitor.
 
 -->
 
-![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo4-3080383-large.gif)
+<!--[fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo4-3080383-large.gif)-->
+![fit](../media/yoo4-3080383-large.gif)
 
 
 ---
