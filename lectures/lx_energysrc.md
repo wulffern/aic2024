@@ -103,7 +103,7 @@ For wireless standards, there are some that can be run on energy harvesting. Bel
 
 Other standards, like Bluetooth, WiFi, LTE are harder to run battery less, because the energy requirement above 1 mW. 
 
-Technologies like Bluetooth LE, however, can approach < 10 $\mu$W for some applications, although the burst power may still be 10 mW to 100 mW. As such, although the average power is low, the energy harversting cannot support peak loads and a charge storage device is required (battery, super-capacitor, large capacitor).
+Technologies like Bluetooth LE, however, can approach < 10 $\mu$W for some applications, although the burst power may still be 10 mW to 100 mW. As such, although the average power is low, the energy harvesting cannot support peak loads and a charge storage device is required (battery, super-capacitor, large capacitor).
 
 -->
 
@@ -441,7 +441,7 @@ Assume we have a polycrystaline GaN material with polarized domains. If we measu
 
 If we apply stress, however, all the domains inside the material will shift. Now the free charges do not exactly cancel the electric field in the material, the free charges are in the wrong place. If we have a material with low conductivity, then it will take time for the free charges to redistribute. As such, for a while, we can measure an voltage across the material.
 
-Assuming the above explanation is true, then there should not be piezoelectric materials with high conductivity, and indeed, most peizoelectric materials have resistance of [$10^{12}$ to $10^{14}$ Ohm](https://www.f3lix-tutorial.com/piezo-materials). 
+Assuming the above explanation is true, then there should not be piezoelectric materials with high conductivity, and indeed, most piezoelectric materials have resistance of [$10^{12}$ to $10^{14}$ Ohm](https://www.f3lix-tutorial.com/piezo-materials). 
 
 Vibrations on a piezoelectric material will result in a AC voltage across the surface, which we can harvest. 
 -->
@@ -481,13 +481,29 @@ An example of piezoelectric energy harvester can be found in [A Fully Integrated
 
 ## "Near field" harvesting 
 
-Near Field Communcation (NFC) operates at close physical distances
+Near Field Communication (NFC) operates at close physical distances
 
 ![left fit](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/FarNearFields-USP-4998112-1.svg/618px-FarNearFields-USP-4998112-1.svg.png)
 
-Reactive near field or inductive near field 
+
+Reactive near field or inductive near field
 
 $$ \text{Inductive} < \frac{\lambda}{2 \pi}$$
+
+<!--pan_doc: 
+
+Within the inductive near field the antenna's can "feel" each other. The NFC reader inside the card reader can "feel" the antenna of the NFC tag. When the tag get's
+close it will load down the NFC reader by presenting a load impedance. As the circuit inside the tag is powered, it can change the impedance of it's antenna, which is 
+sensed by the reader, and thus the reader can get data from the tag. The tag could lock in on the 13.56 MHz frequency and decode both amplitude and phase modulation 
+from the reader. 
+
+Since the NFC or Qi system operates at close distances, then the coupling factor between antenna's, or really, inductors, can be decent, and it's 
+possible to achieve efficiencies of maybe 70 %.
+
+At Bluetooth frequencies, as can be seen below, it does not really make sense to couple inductors, as they need to be within 2 cm to be in the inductive near field. 
+The inductive near field is a significant problem for the coupling between inductors on chip, but I don't think I would use it to transfer power. 
+
+-->
 
 ---
 
@@ -497,7 +513,6 @@ $$ \text{Inductive} < \frac{\lambda}{2 \pi}$$
 |NFC| 13.56 | 3.52 |
 |Qi| 0.205 | 232|
 |Bluetooth| 2400 | 0.02|
-
 
 ---
 
@@ -608,8 +623,6 @@ tens to hundreds of volts.
 
 The key circuit challenge is the rectifier, and the high voltage output of the triboelectric generator. 
 
-
-
 -->
 
 ---
@@ -622,13 +635,39 @@ for more details.
 
 ---
 
+<!--pan_doc: 
+
+Below is a custom triboelectric material that converts friction into a sparse electric field. 
+
+-->
+
 ![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo6ab-3080383-large.gif)
 
 ---
 
+<!--pan_doc: 
+
+The key idea of the triboelectric circuit below is to rectify the sparse voltage pulses and store the charge on a capacitor. 
+Once the voltage is high enough, then a temperature sensor is started. 
+
+-->
+
 ![fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo1ab-3080383-large.gif)
 
 ---
+
+<!--pan_doc:
+
+Below is some more details on the operation of the harvesting circuit, and the temperature sensor. Notice how the temperature sensor part of the circuit (PTAT bandgap, capacitor and comparator)
+produce a pulse width modulated signal that depends on temperature. 
+
+Also notice the "VDD_ext" in the figure. That means the system is not fully harvested. The paper is a prime example on how we in academia can ignore key portions of 
+a system. They've focused on the harvesting part, and making the temperature dependent pulse width modulated signal. Maybe they've completely ignored how the data
+is transmitted from the system to where it would be used, and that's OK. 
+
+It's academia's job to prove that something could be possible. It's industry's job to make some that could be possible actually work.
+
+-->
 
 ![inline fit](https://ieeexplore.ieee.org/mediastore_new/IEEE/content/media/4/9546917/9441315/yoo2-3080383-large.gif)
 

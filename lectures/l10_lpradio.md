@@ -44,6 +44,8 @@ Let's make a radio (or at least, let's **pretend**)
 
 <!--pan_doc:
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_hgmxi3F5Ew?si=vVYy8txyCYsAZ7oD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 Radio's are all around us. In our phone, on our wrist, in our house, there is Bluetooth, WiFi, Zigbee, LTE, GPS and many more. 
 
 A radio is a device that receives and transmits light encoded with information. The frequency of the light depends on the standard. How the information is encoded onto 
