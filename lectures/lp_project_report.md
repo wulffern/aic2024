@@ -16,7 +16,7 @@ your head, and grade how much of the project you have understood.
 You will work on the project in groups, however, on the report, you will write
 on your own.
 
-That means, that there will be 4 projects reports that describe the same
+That means, that there will be X projects reports that describe the same
 circuit. You shall not copy someone elses report text. 
 
 It's fine to share figures between reports, and also references. 

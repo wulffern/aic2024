@@ -1,7 +1,8 @@
-footer: Carsten Wulff 2023
+footer: Carsten Wulff 2024
 slidenumbers:true
 autoscale:true
 theme:Plain Jane,1
+date: 2024-04-19
 
 <!--pan_skip: -->
 
@@ -60,13 +61,10 @@ When we mix analog and digital designs, we have two choices, analog on top, or d
 
 In analog on top we take the digital IP, and do the top level layout by hand in analog tools.
 
-In digital on top we include the analog IPs in the SystemVerilog, 
-and allow the digital tools to do the layout. 
-The digital layout is still orchestrated by people. 
+In digital on top we include the analog IPs in the SystemVerilog, and allow the digital tools to do the layout. The digital layout is still orchestrated by people. 
 
 Which strategy is chosen depends on the complexity of the integrated circuit. For medium to low level 
 of complexity, analog on top is fine. For high complexity ICs, then digital on top is the way to go.
-
 
 Below is a description of the open source digital-on-top flow. The analog is included into GDSII 
 at the OpenRoad stage of the flow. 
@@ -80,6 +78,7 @@ of the analog circuit must be described in a SystemVerilog file.
 
 But how do we describe an analog function in SystemVerilog? SystemVerilog is simulated 
 in an digital simulator. 
+
 -->
 
 ![](../media/dig_des.svg)
@@ -199,9 +198,9 @@ endmodule // counter
 In the context of a digital simulator, we can think through how the event queue will look. 
 
 When the clk or reset changes from zero to 1, then schedule an event where if the reset is 1, then 
-out will be zero in the next time step. If reset is 0, then out will be count in the next time step. 
+out will be zero in the next time step. If reset is 0, then out will be `count` in the next time step. 
 
-In a time-step where out changes, then schedule an event to set count to out plus one. As such, each 
+In a time-step where `out changes, then schedule an event to set `count` to `out` plus one. As such, each 
 positive edge of the clock at least 2 events must be scheduled in the register transfer level (RTL) simulation. 
 
 For example: 
@@ -246,7 +245,7 @@ are more events.
 
 <!--pan_doc:
 
-Analog simulation are different. There is no quantized time step. How fast "things" 
+Analog simulation is different. There is no quantized time step. How fast "things" 
 happen in the circuit is entirely determined by the time constants, change in voltage, 
 and change in current in the system. 
 
@@ -381,7 +380,7 @@ To orchestrate the time between simulators there must be a global event and time
 Most often, the digital simulator will end up waiting for the analog simulator.
 
 The challenge with mixed-mode simulation is that if the digital circuit becomes to large,
-and the digital simulation must wait for analog solver, then it does not work. 
+and the digital simulation must wait for analog solver, then the simulation would take too long. 
 
 Most of the time, it's stupid to try and simulate complex system-on-chip with mixed-signal
 , full detail, simulation. 
