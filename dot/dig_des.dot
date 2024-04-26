@@ -6,7 +6,7 @@ node [margin=0.5 color=blue fontcolor=black fontsize=20 width=0.5 shape=box font
 I [label="Idea",shape=egg]
 D [label="Digital Design \n SystemVerilog"]
 S [label="Digital Simulation \n iverilog/vpp/verilator/gtkwave"]
-PNR [label="RTL to GDSII \nOpenRoad"]
+PNR [label="RTL to GDSII \nOpenLane"]
 TO [label="Tapeout",shape=egg]
 
 AD [label="Analog Design \nXschem" color=red]

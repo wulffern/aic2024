@@ -79,9 +79,13 @@ of the analog circuit must be described in a SystemVerilog file.
 But how do we describe an analog function in SystemVerilog? SystemVerilog is simulated 
 in an digital simulator. 
 
+![](../media/dig_des.svg)
+
 -->
 
-![](../media/dig_des.svg)
+<!--pan_skip: -->
+
+![](../media/dig_des_lr.svg)
 
 ---
 
@@ -401,201 +405,224 @@ But if we can't run mixed simulation, how do we verify analog with digital?
 
 ---
 
-[.column]
 
-<!--pan_skip: -->
-
-# TFE4152 2021 - Project
-
-
-Be inspired by the ISSCC paper, and design a similar system. 
-
-Design analog circuits in SPICE 
-
-Design digital circuits in SystemVerilog
-
-
-[A 10 000 Frames/s CMOS Digital Pixel Sensor](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=972156)
-
-[.column]
-
-![inline fit](../ip/block_diagram_modified.pdf)
-
+## TinyTapeout TT06_SAR
 
 ---
 
-<!--pan_skip: -->
-
-![left fit](../ip/pixelSensor.png)
-
-![right fit](../ip/timing_diagram.png)
+![](../media/tt_um_TT06_SAR_wulffern.svg)
 
 ---
 
-<!--pan_doc:
+
+
+![left fit](../media/tt06_sar_anawave.png)
+
+## SAR operation
+
+<!--pan_doc: 
 
 The key idea is to model the analog behavior to sufficient detail such that we can
 verify the digital code. I think it's best to have a look at a concrete example.
 
-Take a high-speed camera IC, as illustrated below. Each pixel consists of a sensor, comparator and a memory,
-which are analog functions.
-
-The control of each pixel, and the readout of each pixel is digital. 
-
-The image below is a model of the system in [A 10 000 Frames/s CMOS Digital Pixel Sensor](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=972156).
-
-The principle of the paper is as follows:
-- in each pixel, sample the output of the light sensor
-- from top level, feed a digital ramp, and an analog ramp to all pixels at the same time 
-- in each pixel, use comparator to lock the memory when the analog ramp matches the sampled 
-output from the sensor 
-
-As such, the complete image is converted from analog to digital in parallel. 
-
 -->
 
-![original fit](../media/pixelSensorModel.pdf)
+- Analog input is sampled when clock goes low (sarp/sarn)
+- uio_out[0] goes high when bit-cycling is done
+- Digital output (ro) changes when uio_out[0] goes high
 
 ---
 
-<!--pan_skip: -->
-
-# What you got
 
 
-
-[github.com/wulffern/dicex](https://github.com/wulffern/dicex)
+```verilog
+//tt06-sar/src/project.v
+module tt_um_TT06_SAR_wulffern (
+                                input wire        VGND,
+                                input wire        VPWR,
+                                input wire [7:0]  ui_in,
+                                output wire [7:0] uo_out,
+                                input wire [7:0]  uio_in,
+                                output wire [7:0] uio_out,
+                                output wire [7:0] uio_oe,
+`ifdef ANA_TYPE_REAL
+                                input real        ua_0,
+                                input real        ua_1,
+`else
+                                inout wire [7:0]  ua, // analog pins
+`endif
+                                input wire        ena,
+                                input wire        clk,
+                                input wire        rst_n
+                                );
 
 ```
-project/
-├── spice/
-│   ├── Makefile                # See https://www.gnu.org/software/make/manual/html_node/Introduction.html
-│   ├── pixelSensor.cir         # Almost empty circuit for pixelSensor
-│   └── pixelSensor_tb.cir      # SPICE testbench for pixelSensor, emulates verilog
-└── verilog/
-    ├── Makefile                
-    ├── pixelSensor.fl          # Verilog file list
-    ├── pixelSensor_tb.gtkw     # Save file for GTKWave
-    ├── pixelSensor_tb.v        # Verilog testbench for pixelSensor
-    └── pixelSensor.v           # Verilog model of analog pixelSensor circuit
-```
-
 
 ---
 
-<!--pan_doc: 
+[.column]
 
-The verilog below shows how the "Analog SystemVerilog" can be written.
+```verilog
+//tt06-sar/src/tb_ana.v
+`ifdef ANA_TYPE_REAL
+   real        ua_0  = 0;
+   real        ua_1 = 0;
 
-In SystemVerilog there are "real" values for signals and values, or floating point. 
+`else
+   tri [7:0]   ua;
+   logic       uain = 0;
+   assign ua = uain;
+`endif
 
-The output of the sensor is modeled as the `tmp`` variable. First tmp is reset to 
-`v_erase` on the `ERASE` signal.
--->
+`ifdef ANA_TYPE_REAL
+   always #100 begin
+      ua_0 = $sin(2*3.14*1/7750*$time);
+      ua_1 = -$sin(2*3.14*1/7750*$time);
+   end
+`endif
+
+
+```
+
+[.column]
+
+```verilog
+//tt06-sar/src/tb_ana.v
+   tt_um_TT06_SAR_wulffern dut (
+                                .VGND(VGND),
+                                .VPWR(VPWR),
+                                .ui_in(ui_in),
+                                .uo_out(uo_out),
+                                .uio_in(uio_in),
+                                .uio_out(uio_out),
+                                .uio_oe(uio_oe),
+`ifdef ANA_TYPE_REAL
+                                .ua_0(ua_0),
+                                .ua_1(ua_1),
+`else
+                                .ua(ua),
+`endif
+                                .ena(ena),
+                                .clk(clk),
+                                .rst_n(rst_n)
+                                );
+```
+
+---
+
+```makefile
+#tt06-sar/src/Makefile
+runa:
+	iverilog  -g2012 -o my_design -c tb_ana.fl -DANA_TYPE_REAL
+	vvp -n my_design
+
+rund:
+	iverilog  -g2012 -o my_design -c tb_ana.fl
+	vvp -n my_design
+```
+
+---
 
 [.column]
 
 ```verilog 
+   //tt06-sar/src/project.v
+   //Main SAR loop
+   always_ff @(posedge clk or negedge clk) begin
+      if(~ui_in[0]) begin
+         state <= OFF;
+         tmp = 0;
+         dout = 0;
+      end
+      else begin
+         if(OFF) begin
 
-module PIXEL_SENSOR
-  (
-   input logic      VBN1,
-   input logic      RAMP,
-   input logic      RESET,
-   input logic      ERASE,
-   input logic      EXPOSE,
-   input logic      READ,
-   inout [7:0] DATA
+         end
+         else if(clk == 1) begin
+            state = SAMPLE;
+         end
+         else if(clk == 0) begin
+            state = CONVERT;
+      `ifdef ANA_TYPE_REAL
+            smpl = ua_0 - ua_1;
+            tmp = smpl;
 
-   );
+            for(int i=7;i>=0;i--) begin
+               if(tmp >= 0) begin
+                  tmp = tmp - lsb*2**(i-1);
+                  if(i==7)
+                    dout[i] <= 0;
+                  else
+                    dout[i] <= 1;
+               end
+```
 
-   real             v_erase = 1.2;
-   real             lsb = v_erase/255;
-   parameter real   dv_pixel = 0.5;
+[.column]
 
-   real             tmp;
-   logic            cmp;
-   real             adc;
+```verilog
 
-   logic [7:0]      p_data;
+               else begin
+                  tmp = tmp + lsb*2**(i-1);
+                  if(i==7)
+                    dout[i] = 1;
+                  else
+                    dout[i] = 0;
+               end
+            end
+`else
+            if(tmp == 0) begin
+               dout[7] <= 1;
+               tmp <= 1;
 
-   //----------------------------------------------------------------
-   // ERASE
-   //----------------------------------------------------------------
-   // Reset the pixel value on pixRst
-   always @(ERASE) begin
-      tmp = v_erase;
-      p_data = 0;
-      cmp  = 0;
-      adc = 0;
+            end
+            else begin
+               dout[7] <= 0;
+               tmp  = 0;
+            end
+`endif
+
+         end
+         state = next_state;
+      end // else: !if(~ui_in[0])
+   end // always_ff @ (posedge clk)
+```
+
+---
+
+```verilog
+   //tt06-sar/src/project.v
+   always @(posedge done) begin
+      state = DONE;
+      sampled_dout = dout;
    end
 
+   always @(state) begin
+      if(state == OFF)
+        #2 done = 0;
+      else if(state == SAMPLE)
+        #1.6 done = 0;
+      else if(state == CONVERT)
+        #115 done = 1;
+   end
 ```
+
+---
+
+![left fit](../media/tt06_sar_anawave2.png)
+![right fit](../media/tt06_sar_digwave.png)
+
+---
+
 
 <!--pan_doc:
 
-When `EXPOSE` is enabled to collect light, we reduce the `tmp` value proportional to an lsb and 
-a derivative `dv_pixel`. The `dv_pixel` is a parameter we can set on each pixel to model the 
-light. 
 
-The RAMP input signal is the analog ramp on the top level fed to each pixel. However, 
-since I did not have real wires in `iverilog` I had to be creative. Instead of a continuous 
-increasing value the `RAMP` is a clock that toggles 255 times. The actual "input" to the 
-ADC is the `adc` variable, but that is generated locally in each pixel. When the `adc` exceeds 
-the `tmp` we set `cmp` high.
 
-The previous paragraph demonstrates an important point on analog systemVerilog models. 
-They don't need to be exact, and they don't need to reflect exactly what happens in the "real world"
-of the analog circuit. What's important is that the behavior from the outside resembles 
-the real analog circuit, and that the digital designer makes the correct design choices. 
 
-The comparator locks the `p_data`, and, as we can see, the `DATA` is a tri-state bus that 
-is used both for reading and writing. 
 
 -->
 
-[.column]
 
-```verilog 
-   //----------------------------------------------------------------
-   // SENSOR
-   //----------------------------------------------------------------
-   // Use bias to provide a clock for integration when exposing
-   always @(posedge VBN1) begin
-      if(EXPOSE)
-        tmp = tmp - dv_pixel*lsb;
-   end
-
-   //----------------------------------------------------------------
-   // Comparator
-   //----------------------------------------------------------------
-   // Use ramp to provide a clock for ADC conversion, assume that ramp
-   // and DATA are synchronous
-   always @(posedge RAMP) begin
-      adc = adc + lsb;
-      if(adc > tmp)
-        cmp <= 1;
-   end
-
-   //----------------------------------------------------------------
-   // Memory latch
-   //----------------------------------------------------------------
-   always_comb  begin
-      if(!cmp) begin
-         p_data = DATA;
-      end
-
-   end
-
-   //----------------------------------------------------------------
-   // Readout
-   //----------------------------------------------------------------
-   // Assign data to bus when pixRead = 0
-   assign DATA = READ ? p_data : 8'bZ;
-
-endmodule // re_control
-
-```
 
 
 <!--pan_doc:
