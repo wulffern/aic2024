@@ -4,7 +4,7 @@ autoscale:true
 theme: Plain Jane, 1
 text:  Helvetica
 header:  Helvetica
-date: 2024-04-26
+date: 2024-07-07
 
 
 <!--pan_skip: -->
@@ -66,7 +66,7 @@ The NMOS is NM1 and PMOS is MP1.
 <!--pan_doc:
 
 The MOS part of the name can be seen in NM1, where $V_{G}$ is the gate connected to a vertical line (metal), a space (oxide), 
-and another vertical line (the silicon substrate). 
+and another vertical line (the silicon substrate or silicon bulk). 
 
 On the sides of the gate we have two connections, a drain $V_{D}$ and a source $V_{S}$. 
 
@@ -91,10 +91,10 @@ the transistor it would work almost exactly the same.
 ## Field Effect 
 
 <!--pan_doc:
-Imagine that the bulk (the empty space between the transistor), and the source is connected to 0 V. 
+Imagine that the bulk (the empty space underneath the gate), and the source is connected to 0 V. 
 Assume that the gate is 0V. 
 
-In the  source and drain parts of the transistor there is an abundance of electrons that can move around, exactly like in a metal conductor, however, underneath the gate there are almost 
+In the  source and drain parts of the transistor there is an abundance of **free** electrons that can move around, exactly like in a metal conductor, however, underneath the gate there are almost 
 no **free** electrons. 
 
 There are electrons underneath the gate though, trillions upon trillions of electrons, but they are stuck in co-valent bonds
@@ -110,7 +110,7 @@ This thin blue sheet extend from source to drain, and create a conductive channe
 Assume you raise the drain voltage. The electrons would move from source to drain proportional to the voltage. 
 How many electrons could  move would depend on the gate voltage. 
 
-If the gate voltage was low, then there is low density of electrons, and low current. 
+If the gate voltage was low, then there is low density of electrons in the sheet, and low current. 
 
 If the gate voltage is high, then the electron density in the sheet is high, and there can be a high current, although, the electrons do 
 have a maximum speed, so at some point the current does not change as fast with the gate voltage.
@@ -159,10 +159,17 @@ transistors work.
 
 <!--pan_doc:
 
-Because, why did the area underneath the gate turn blue?  Why did the blue color change suddenly? And did you realize I never
-in this chapter explained how the field effect worked?
+Because:
 
-
+- Why did the area underneath the gate turn blue? 
+- Why is it only a thin sheet that turns blue?
+- Where did the electrons for the sheet come from?
+- Why did the blue color change suddenly? 
+- How does the brightness of the blue change with gate-source voltage?
+- How can the electrons stay in that sheet when we connect the bulk to 0 V?
+- Why is there not a current from the bulk (0 V) to drain?
+- Why does not the electrons jump from source to drain? It's a gap, the same as from the sheet to drain?
+And did you realize I never in this chapter explained how the field effect worked?
 -->
 
 ---
