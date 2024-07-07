@@ -57,7 +57,7 @@ The length (L), and width (W) of the MOS is annotated in blue.
 <!--pan_doc:
 
 MOSFETs come in two main types. There is NMOS, and PMOS. The symbols are as shown below. 
-The NMOS is NM1 and PMOS is MP1. 
+The NMOS is MN1 and PMOS is MP1. 
 
 -->
 
@@ -65,7 +65,7 @@ The NMOS is NM1 and PMOS is MP1.
 
 <!--pan_doc:
 
-The MOS part of the name can be seen in NM1, where $V_{G}$ is the gate connected to a vertical line (metal), a space (oxide), 
+The MOS part of the name can be seen in MN1, where $V_{G}$ is the gate connected to a vertical line (metal), a space (oxide), 
 and another vertical line (the silicon substrate or silicon bulk). 
 
 On the sides of the gate we have two connections, a drain $V_{D}$ and a source $V_{S}$. 
@@ -92,13 +92,13 @@ the transistor it would work almost exactly the same.
 
 <!--pan_doc:
 Imagine that the bulk (the empty space underneath the gate), and the source is connected to 0 V. 
-Assume that the gate is 0V. 
+Assume that the gate is 0 V. 
 
 In the  source and drain parts of the transistor there is an abundance of **free** electrons that can move around, exactly like in a metal conductor, however, underneath the gate there are almost 
 no **free** electrons. 
 
 There are electrons underneath the gate though, trillions upon trillions of electrons, but they are stuck in co-valent bonds
-between the Silicon atoms, and around the nucleus of the Silicon atoms. These electrons are what we call bound electrons, they cannot move, or more precisely, they cannot contribute to current (because they do move, all the time). 
+between the Silicon atoms, and around the nucleus of the Silicon atoms. These electrons are what we call bound electrons, they cannot move, or more precisely, they cannot contribute to current (because they do move, all the time, but mostly around the atoms). 
 
 Think of the 3d image above. Imagine that your eyes could see the free electrons as a blue fluorescent color. What you would see is a bright blue drain, and bright blue source, but no color underneath the gate.
 
