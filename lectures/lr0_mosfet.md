@@ -42,7 +42,7 @@ The first part of the MOSFET name illustrates the 3 dimensional composition of t
 some oxide (Silicon Oxide, Shim2), and place a metal, or conductive, gate on top of the oxide.
 With those three components we can build our transistor. 
 
-Something like the cartoon below, only the "GATE" of the MOS name is shown. The oxide and the silicon bulk is not visible, 
+Something like the cartoon below, only the Metal (gate) of the MOS name is shown. The oxide and the silicon bulk is not visible, 
 but you can imagine them to be underneath the gate, with a thin oxide (a few nano meters thick) 
 and the silicon the transparent part of the picture. 
 
