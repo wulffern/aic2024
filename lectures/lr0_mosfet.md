@@ -169,7 +169,10 @@ Because:
 - How can the electrons stay in that sheet when we connect the bulk to 0 V?
 - Why is there not a current from the bulk (0 V) to drain?
 - Why does not the electrons jump from source to drain? It's a gap, the same as from the sheet to drain?
+
+
 And did you realize I never in this chapter explained how the field effect worked?
+
 -->
 
 ---
