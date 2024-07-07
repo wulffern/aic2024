@@ -570,35 +570,6 @@ and store energy in the magnetic fields in a loop of a conductor.
 
 <!--pan_doc: 
 
-# Diodes 
-
-See [Diodes](https://wulffern.github.io/aic2023/2021/07/08/Diodes.html) for a
-long explanation. 
-
-Assume we in the silicon lattice introduce a dopant, for example phosphorus with one
-more electron than silicon. Four of the electrons will be in co-valent bonds
-with the silicon lattice, while the last electron is loosely bound to the
-phosphorus atom. We call that a donor.
-
-A donor will shift the Fermi level towards the conduction band, and as such,
-there will be more free electrons, as long as there is sufficient energy to
-break the loose electron bond.
-
-A atom with one less electron, for example Boron, can be introduced in the same
-way, and is called an acceptor.
-
-Most of the charges in a p-type (acceptors) silicon will be holes, while in
-n-type it will be electrons.
-
-The interesting thing happens when p-type and n-type are in contact. Since we've
-shifted the Fermi level of the two silicon types in opposite direction there
-will be an energy difference. That energy difference must be equalized, as
-such, over time, the Fermi level of the two types will align, and a junction
-will form, with few free charges, a depletion region. 
-
-The conduction band and valence band will bend, and we now have a barrier for
-charge transport, a built-in electric field. 
-
 [^1]: Although you do have to keep your symbols straight. We use "C" for Capacitance, but C can also mean Columbs. Context matters.
 
 -->

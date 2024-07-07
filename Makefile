@@ -18,7 +18,8 @@ FILES = l00_diode \
 	l09_osc \
 	l10_lpradio \
 	lx_energysrc \
-	l11_aver
+	l11_aver \
+	lr0_mosfet
 
 
 all: posts latex book
