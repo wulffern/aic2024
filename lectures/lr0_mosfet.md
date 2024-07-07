@@ -39,7 +39,7 @@ In this document I'm focusing on Metal Oxide Semiconductor Field Effect Transist
 <!--pan_doc: 
 
 The first part of the MOSFET name illustrates the 3 dimensional composition of the transistor. Take a semiconductor (Silicon), grow 
-some oxide (Silicon Oxide, SiO2), and place a metal, or conductive, gate on top of the oxide.
+some oxide (Silicon Oxide, Shim2), and place a metal, or conductive, gate on top of the oxide.
 With those three components we can build our transistor. 
 
 Something like the cartoon below, only the "GATE" of the MOS name is shown. The oxide and the silicon bulk is not visible, 
@@ -73,7 +73,7 @@ On the sides of the gate we have two connections, a drain $V_{D}$ and a source $
 If we have a sufficient voltage between gate and source $V_{GS}$, then the transistor will conduct from drain to source. 
 If the voltage is too low, then there will not be much current. 
 
-The "source" name is because that's where the charge carrier (electrons) come from, they come frome the source, and flow towards the drain.
+The "source" name is because that's where the charge carrier (electrons) come from, they come from the source, and flow towards the drain.
 As you may remember, the "current", as we've defined it, flows opposite of the electron current, from drain to source. 
 
 The PMOS works in a similar manner, however, the PMOS is made of a different type of silicon, where the 
@@ -97,15 +97,15 @@ Assume that the gate is 0V.
 In the  source and drain parts of the transistor there is an abundance of electrons that can move around, exactly like in a metal conductor, however, underneath the gate there are almost 
 no **free** electrons. 
 
-There are electrons underneath the gate though, trilions upon trillions of electrons, but they are stuck in co-valent bonds
-between the Silicon atoms, and around the nucleus of the Silicon atoms. These electrons are what we call bound electrons, they cannot move. 
+There are electrons underneath the gate though, trillions upon trillions of electrons, but they are stuck in co-valent bonds
+between the Silicon atoms, and around the nucleus of the Silicon atoms. These electrons are what we call bound electrons, they cannot move, or more precisely, they cannot contribute to current (because they do move, all the time). 
 
-Think of the 3d image above. Imagine that your eyes could see the free electrons as a blue fluorecent color. What you would see is a bright blue drain, and bright blue source, but no color underneath the gate.
+Think of the 3d image above. Imagine that your eyes could see the free electrons as a blue fluorescent color. What you would see is a bright blue drain, and bright blue source, but no color underneath the gate.
 
-As you increase the gate voltage, the color underneath the gate would change. First, you would think might be some blue color, but it would be barely noticable. At a certain voltage, suddenly, there would be a thin blue sheet underneath the gate. You'd have to
+As you increase the gate voltage, the color underneath the gate would change. First, you would think might be some blue color, but it would be barely noticeable. At a certain voltage, suddenly, there would be a thin blue sheet underneath the gate. You'd have to
 zoom in to see it. As you continue to increase the gate voltage the blue color would become a little brighter, but not much.
 
-This thin blue sheet extend from source to drain, and create a conductive channel where the electrons can move from source to drain (or drain to source), exactly like a resistor. The counductance of the sheet is the same as the brightness, higher gate source voltage, more bright blue, higher conductance, less resistance.
+This thin blue sheet extend from source to drain, and create a conductive channel where the electrons can move from source to drain (or drain to source), exactly like a resistor. The conductance of the sheet is the same as the brightness, higher gate source voltage, more bright blue, higher conductance, less resistance.
 
 Assume you raise the drain voltage. The electrons would move from source to drain proportional to the voltage. 
 How many electrons could  move would depend on the gate voltage. 
@@ -115,7 +115,7 @@ If the gate voltage was low, then there is low density of electrons, and low cur
 If the gate voltage is high, then the electron density in the sheet is high, and there can be a high current, although, the electrons do 
 have a maximum speed, so at some point the current does not change as fast with the gate voltage.
 
-At a certain drain voltage you would see the blue color dissapear close to the drain and there would be a gap 
+At a certain drain voltage you would see the blue color disappear close to the drain and there would be a gap 
 in the sheet. 
 That could make you think the current would stop, but it turns out, that the electrons close to drain get swept across 
 the gap because the electric field is so high from the edge of the sheet to the drain.
