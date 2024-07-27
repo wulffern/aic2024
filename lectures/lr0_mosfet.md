@@ -39,10 +39,12 @@ In this document I'm focusing on Metal Oxide Semiconductor Field Effect Transist
 <!--pan_doc: 
 
 The first part of the MOSFET name illustrates the 3 dimensional composition of the transistor. Take a semiconductor (Silicon), grow 
-some oxide (Silicon Oxide, Shim2), and place a metal, or conductive, gate on top of the oxide.
+some oxide (Silicon Oxide, SiO2), and place a metal, or conductive, gate on top of the oxide.
 With those three components we can build our transistor. 
 
-Something like the cartoon below, only the Metal (gate) of the MOS name is shown. The oxide and the silicon bulk is not visible, 
+Something like the cartoon below where only the Metal (gate) of the MOS name is shown. 
+
+The oxide and the silicon bulk is not visible, 
 but you can imagine them to be underneath the gate, with a thin oxide (a few nano meters thick) 
 and the silicon the transparent part of the picture. 
 
@@ -80,7 +82,7 @@ The PMOS works in a similar manner, however, the PMOS is made of a different typ
 dominant charge carrier is holes in the valence band. As a result, the gate-source voltage needs to be negative for the 
 PMOS to conduct. 
 
-In a PMOS the holes come from the source, and flow to the drain. Since holes are positive charge carriers, then the current
+In a PMOS the holes come from the source, and flow to the drain. Since holes are positive charge carriers, the current
 flows from source to drain.
 
 In most MOSFETs there is no physical difference between source and drain. If you flip
@@ -100,10 +102,34 @@ no **free** electrons.
 There are electrons underneath the gate though, trillions upon trillions of electrons, but they are stuck in co-valent bonds
 between the Silicon atoms, and around the nucleus of the Silicon atoms. These electrons are what we call bound electrons, they cannot move, or more precisely, they cannot contribute to current (because they do move, all the time, but mostly around the atoms). 
 
-Think of the 3d image above. Imagine that your eyes could see the free electrons as a blue fluorescent color. What you would see is a bright blue drain, and bright blue source, but no color underneath the gate.
+Imagine that your eyes could see the free electrons as a blue fluorescent color. What you would see is a bright blue drain, and bright blue source, but no color underneath the gate.
 
-As you increase the gate voltage, the color underneath the gate would change. First, you would think might be some blue color, but it would be barely noticeable. At a certain voltage, suddenly, there would be a thin blue sheet underneath the gate. You'd have to
-zoom in to see it. As you continue to increase the gate voltage the blue color would become a little brighter, but not much.
+-->
+
+![inline](../media/mosfet_off.pdf)
+
+<!--pan_doc:
+
+As you increase the gate voltage, the color underneath the gate would change. First, you would think there might be some blue color, but it would be barely noticeable. 
+
+-->
+
+![inline](../media/mosfet_subthreshold.pdf)
+
+<!--pan_doc:
+
+
+At a certain voltage, suddenly, there would be a thin blue sheet underneath the gate. You'd have to
+zoom in to see it, in reality it's a ultra thin, 2 dimensional electron sheet.
+
+As you continue to increase the gate voltage the blue color would become a little brighter, but not much.
+
+-->
+
+![inline](../media/mosfet_strong_inversion.pdf)
+
+<!--pan_doc:
+
 
 This thin blue sheet extend from source to drain, and create a conductive channel where the electrons can move from source to drain (or drain to source), exactly like a resistor. The conductance of the sheet is the same as the brightness, higher gate source voltage, more bright blue, higher conductance, less resistance.
 
@@ -117,12 +143,23 @@ have a maximum speed, so at some point the current does not change as fast with 
 
 At a certain drain voltage you would see the blue color disappear close to the drain and there would be a gap 
 in the sheet. 
+
+-->
+
+![inline](../media/mosfet_strong_inversion_and_saturation.pdf)
+
+<!--pan_doc:
+
+
 That could make you think the current would stop, but it turns out, that the electrons close to drain get swept across 
 the gap because the electric field is so high from the edge of the sheet to the drain.
 
-As you continue to increase the drain voltage, the gap increases, but the current does not really increase that much.
+As you continue to increase the drain voltage, the gap increases, but the current does not really increase that much. It's this exact feature that 
+make transistor so attractive in analog circuits. I can create a current from drain to source that does not depend much on the drain to source voltage! That's why we 
+sometimes imagine transistors as a "trans-conductance". The conductance between drain and source depends on the voltage somewhere else, the gate-source voltage.
 
-And now you may think you understand how the transistor works. By changing the gate voltage, we can change the current from source to drain. We can turn on, and off, currents, creating a 0 and 1 state. 
+And now you may think you understand how the transistor works. By changing the gate voltage, we can change the electron current from source to drain. 
+We can turn on, and off, currents, creating a 0 and 1 state. 
 
 For example, if I take a PMOS and connect the source to a high voltage, the drain to an output, and an NMOS with the source to ground and the drain to the output, and connect the gates together, I would have the simplest logic gate, an inverter, as shown below. 
 
@@ -173,12 +210,38 @@ Because:
 
 And did you realize I never in this chapter explained how the field effect worked?
 
+Someday, I'll write the details. I just need to figure out how I'm going to write it first. 
+
 -->
 
 ---
 
-## It's all quantum 
+## Why did the area underneath the gate turn blue?
 
-Someday, I'll write the details. I just need to figure out how I'm going to write it first. 
+<!--pan_doc:
+
+
+If you have not read the chapter on diodes, or the refresh chapter, then you should read those first.
+
+The state of the electron is determined by the wave function. The time evolution of the wave functions is determined by the Schrodinger equation. In the general form
+
+$$ i\hbar\frac{d}{dt}\Psi(r,t) = \widehat{H} \Psi(r,t) $$
+
+The Hamiltonian ($H$) is an "energy matrix" operator and may contain terms both for the momentum and Columb force (electric field) experienced by the system.
+
+But what does the Schrodinger equation tell us? Well, the equation above does not tell me much, it can't be "solved", or rather, it does not have a single solution. It's more a framework for how the wave function, and the Hamiltonian, describes the quantum states of a system. 
+
+The Schrodinger equation describes the time evolution of the bound electrons shared between the Silicon atoms, and the fact that applying a electric field to silicon can free co-valent bonds. 
+
+As the gate voltage increases the Schrodinger equation tells us that the wave function for the free electrons will form 
+a 2d sheet underneath the gate. 
+
+I would really recommend that you have a look at Mark Lundstrom's lecture series on [Essentials of MOSFETs](https://www.youtube.com/watch?v=5eG6CvcEHJ8&list=PLtkeUZItwHK6F4a4OpCOaKXKmYBKGWcHi)
+
+-->
+
+
+
+
 
 
