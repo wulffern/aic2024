@@ -223,22 +223,25 @@ Someday, I'll write the details. I just need to figure out how I'm going to writ
 
 If you have not read the chapter on diodes, or the refresh chapter, then you should read those first.
 
-The state of the electron is determined by the wave function. The time evolution of the wave functions is determined by the Schrodinger equation. In the general form
+The quantum state of the electron is determined fully by it's spin, momentum and position in space. How those parameters evolve with time is determined by the Schrodinger equation. In the general form
 
 $$ i\hbar\frac{d}{dt}\Psi(r,t) = \widehat{H} \Psi(r,t) $$
 
 The Hamiltonian ($H$) is an "energy matrix" operator and may contain terms both for the momentum and Columb force (electric field) experienced by the system.
 
-But what does the Schrodinger equation tell us? Well, the equation above does not tell me much, it can't be "solved", or rather, it does not have a single solution. It's more a framework for how the wave function, and the Hamiltonian, describes the quantum states of a system. 
+But what does the Schrodinger equation tell us? Well, the equation above does not tell me much, it can't be "solved", or rather, it does not have a single solution. It's more a framework for how the wave function, and the Hamiltonian, describes the quantum states of a system, and the probability ampltiudes of transition between states. 
 
 The Schrodinger equation describes the time evolution of the bound electrons shared between the Silicon atoms, and the fact that applying a electric field to silicon can free co-valent bonds. 
 
-As the gate voltage increases the Schrodinger equation tells us that the wave function for the free electrons will form 
-a 2d sheet underneath the gate. 
+As the gate voltage increases the wave function that fits in the Schrodinger equation predicts that the free electrons will form  a 2d sheet underneath the gate. The thickness of the sheet is only a few 
+
+[Carrier transport near the Si/SiO2 interface of a MOSFET](https://www.sciencedirect.com/science/article/pii/0038110189900609)
 
 I would really recommend that you have a look at Mark Lundstrom's lecture series on [Essentials of MOSFETs](https://www.youtube.com/watch?v=5eG6CvcEHJ8&list=PLtkeUZItwHK6F4a4OpCOaKXKmYBKGWcHi)
 
 -->
+
+<!-- https://pdf.sciencedirectassets.com/271497/1-s2.0-S0038110100X02584/1-s2.0-0038110189900609/main.pdf-->
 
 
 
