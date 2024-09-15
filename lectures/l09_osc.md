@@ -330,7 +330,8 @@ Volume 6, Part A, Chapter 3.1 (page 2653) for details.
 
 ---
 
-![fit](https://www.iqdfrequencyproducts.com/media/c/blg/411/1438250963/rc/2000/1047/90/quartz-crystal-stability-how-myths-and-misconceptions-mask-good-value.jpg)
+
+![fit](../media/at_crystal.jpeg)
 
 ---
 
