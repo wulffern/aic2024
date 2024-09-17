@@ -271,7 +271,7 @@ Strong $$ \frac{g_m}{I_d} = \frac{2}{V_{eff}}$$
 
 # More information
 
-[Ngspice Manual](http://ngspice.sourceforge.net/docs/ngspice-34-manual.pdf)
+[Ngspice Manual](http://ngspice.sourceforge.net/docs/ngspice-43-manual.pdf)
 
 [Installing tools](https://analogicus.com/aicex/started/)
 
