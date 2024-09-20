@@ -44,6 +44,9 @@ Let's make a radio (or at least, let's **pretend**)
 
 <!--pan_doc:
 
+
+Keywords: Range, Antenna Size, Modulation, OFDM, GFSK, pi/4-qpsk, 8-psk, 16 QAM, Bluetooth LE, LP RX, LNA, MIxer, AAF, ADC, BB
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_hgmxi3F5Ew?si=vVYy8txyCYsAZ7oD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 Radio's are all around us. In our phone, on our wrist, in our house, there is Bluetooth, WiFi, Zigbee, LTE, GPS and many more. 

@@ -8,22 +8,49 @@ date: 2024-09-11
 
 #[fit] SPICE
 
-<!--pan_title: SPICE -->
+<!--pan_title: SPICE  -->
+
+<!--pan_doc: 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/z9go-m0hnIg?si=YI3uCt9mp4Ei65Xo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+-->
 
 ---
 
-# Simulation Program with Integrated Circuit Emphasis (SPICE)
+# Simulation Program with Integrated Circuit Emphasis
+
+<!--pan_doc: 
+
+
+To manufacture an integrated circuit we have to be able to predict how it's going to work. The only way to predict is to rely on our knowledge of physics, and build models 
+of the real world in our computers. 
+
+One simulation strategy for a model of the real world, which absolutely every single integrated circuit in the world has used to come into existence, is SPICE. 
+
+-->
 
 Published in 1973 by Nagel and Pederson
 
-*SPICE (Simulation Program with Integrated Circuit Emphasis)*
 
-[https://www2.eecs.berkeley.edu/Pubs/TechRpts/1973/ERL-m-382.pdf](https://www2.eecs.berkeley.edu/Pubs/TechRpts/1973/ERL-m-382.pdf)
+[SPICE (Simulation Program with Integrated Circuit Emphasis)](https://www2.eecs.berkeley.edu/Pubs/TechRpts/1973/ERL-m-382.pdf)
 
 ![right fit](../media/nagel.png)
 
+
+
+
 ---
-# Today
+## Today
+
+<!--pan_doc:
+
+
+There are multiple SPICE programs that has been written, but they all work in a similar fashion. There are expensive ones, closed source, and open source. 
+
+Some are better at dealing with complex circuits, some are faster, and some are more accurate. If you don't have money, then start with ngspice. 
+
+-->
 
 [.column]
 **Commercial**
@@ -40,7 +67,15 @@ Published in 1973 by Nagel and Pederson
 [ngspice](http://ngspice.sourceforge.net)
 
 ---
-# But
+## But
+
+<!--pan_doc:
+
+
+All SPICE simulators understand the same language (yes, even spectre can speak SPICE). We write our testbenches in a text file, and give it to the SPICE program. That's the same for all programs. Some may have 
+built fancy GUI's to hide the fact that we're really writing text files, but text files is what is under the hood.
+
+-->
 
 Pretty much the same usage model as 48 years ago
 
@@ -48,7 +83,7 @@ Pretty much the same usage model as 48 years ago
     
 for example
 
-    aimspice testbench.cir
+    ngspice testbench.cir
     
 Or in the most expensive analog tool (Cadence Spectre)
 
@@ -59,7 +94,7 @@ Or in the most expensive analog tool (Cadence Spectre)
 
 ---
 
-The expensive tools have built graphical user interface around the SPICE simulator to make it easier to run many times. Simplifies running multiple PVT corners (maybe 320 simulations).
+The expensive tools have built graphical user interface around the SPICE simulator to make it easier to run multiple scenarios. 
 
 | Corner | Typical | Fast | Slow | All |
 |:---|:---|:---|:---|:---|
@@ -74,9 +109,23 @@ The expensive tools have built graphical user interface around the SPICE simulat
 
 ![right fit](../media/assembler.png)
 
+<!--pan_doc:
+
+I'm a fan of launching multiple simulations from the command line. I don't like GUI's. As such, I wrote [cicsim](https://github.com/wulffern/cicsim/tree/main), and that's what I use in the video and demo.
+
+-->
+
 ---
 
-# Sources
+## Sources
+
+<!--pan_doc:
+
+The SPICE language is a set of conventions for how to write the text files. In general, it's one line, one command (although, lines can be continued with a +). 
+
+I'm not going to go through an extensive tutorial in this document, and there are dialects with different SPICE programs. You'll find more info at [ngspice](http://ngspice.sourceforge.net/docs.html)
+
+-->
 
 [.column]
 
@@ -110,7 +159,7 @@ V1 VDD 0 dc 1.5
 
 ---
 
-# Passives
+## Passives
 
 [.column]
 
@@ -142,7 +191,7 @@ C5 N1 N2 1u
 
 ---
 
-# Transistors
+## Transistor Models
 
 Needs a model file the transistor model
 
@@ -200,7 +249,7 @@ XTSS=0.02 XTSD=0.02 XTSSWS=0.02 XTSSWD=0.02 XTSSWGS=0.02 XTSSWGD=0.02
 ```	   
 ---
 
-# Transistors
+## Transistors
 
 ```
 
@@ -215,7 +264,7 @@ M2 VDP VDP VDD VDD pmos W=0.6u L=0.15u
 
 ---
 
-# Transistor models
+## Foundries
 
 Each foundry has their own SPICE models bacause the transistor parameters depend on the exact physics of the technology!
 
@@ -241,7 +290,7 @@ $$ I_{D} = \frac{1}{2} \mu_n C_{ox} \frac{W}{L} V_{eff}^2$$, $$V_{eff} \propto \
 
 ---
 
-# Use unit size transistors for analog design
+## Use unit size transistors for analog design
 
  $$ W/L \approx \in[4, 6, 10] $$, but should have space for two contacts
  
@@ -255,7 +304,7 @@ Choose sizes that have been used by foundry for measurement to match SPICE model
 
 ---
 
-# What about gm/Id ?
+## What about gm/Id ?
 
 Weak $$ \frac{g_m}{I_d} = \frac{1}{nV_T}$$
 
@@ -263,7 +312,7 @@ Strong $$ \frac{g_m}{I_d} = \frac{2}{V_{eff}}$$
 
 ---
 
-# Characterize the transistors
+## Characterize the transistors
 
 [http://analogicus.com/cnr\_atr\_sky130nm/mos/CNRATR\_NCH\_2C1F2.html](http://analogicus.com/cnr_atr_sky130nm/mos/CNRATR_NCH_2C1F2.html)
 
@@ -277,7 +326,7 @@ Strong $$ \frac{g_m}{I_d} = \frac{2}{V_{eff}}$$
 
 ---
 
-## Analog Design
+# Analog Design
 
 1. **Define the problem, what are you trying to solve?**
 1. **Find a circuit that can solve the problem (papers, books)**

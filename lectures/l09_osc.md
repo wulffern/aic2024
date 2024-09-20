@@ -47,6 +47,8 @@ Introduction to **Relaxation-oscillators**
 
 <!--pan_doc: 
 
+Keywords: Crystal model, Pierce, Temperature, Controlled oscillator, Ring osc, Ictrl Rosc, DCO Ring, LCOSC, RCOSC
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Y7EkdvkB43M?si=tK4vCz4N3wuK90NV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 

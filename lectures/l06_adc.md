@@ -18,6 +18,8 @@ date: 2024-02-16
 
 <!--pan_doc:
 
+Keywords: Quantization, OSR, NEG FB, STF, NTF, SAR, First Order, SC SD, CT SD, INCR, FOM
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/fdczPHW4jis?si=kqpoggmr_IYkrrs4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 -->

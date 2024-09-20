@@ -16,6 +16,8 @@ date: 2024-03-08
 
 <!--pan_doc:
 
+Keywords: Systems, Feedback, PLL, Integer Divider, SD, SD PLL, Modulation, linear phase model
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/f0dJtMrwuJk?si=jZpeDYCXxWd8Ysh3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 -->
