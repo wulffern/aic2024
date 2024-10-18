@@ -623,6 +623,18 @@ You must **always handle ESD** on an IC
 
 ---
 
+<!--pan_doc:
+
+# Want to learn more?
+
+[ESD (Electrostatic Discharge) Protection Design for Nanoelectronics in CMOS Technology](https://ieeexplore.ieee.org/document/4016442)
+
+[Overview on Latch-Up Prevention in CMOS Integrated Circuits by Circuit Solutions](https://ieeexplore.ieee.org/document/9998049)
+
+[Overview on ESD Protection Designs of Low-Parasitic Capacitance for RF ICs in CMOS Technologies](https://ieeexplore.ieee.org/document/5688227)
+
+-->
+
 
 #[fit] Thanks!
 

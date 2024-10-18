@@ -1041,7 +1041,11 @@ I hope you understand now that it's actually complicated.
 
 ---
 
-# References
+<!--pan_doc:
+
+# Want to learn more?
+
+-->
 
 [A 0.5V BLE Transceiver with a 1.9mW RX Achieving -96.4dBm Sensitivity and 4.1dB Adjacent Channel Rejection at 1MHz Offset in 22nm FDSOI](https://ieeexplore.ieee.org/document/9063021), M. Tamura, Sony Semiconductor Solutions, Atsugi, Japan, 30.5, ISSCC 2020
 

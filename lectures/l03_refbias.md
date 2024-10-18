@@ -505,6 +505,22 @@ We can use other things for Z, like  a switched capacitor
 
 ---
 
+<!--pan_doc:
+
+# Want to learn more?
+
+[A simple three-terminal IC bandgap reference](https://ieeexplore.ieee.org/document/1050532)
+
+[A CMOS bandgap reference circuit with sub-1-V operation](https://ieeexplore.ieee.org/document/760378)
+
+[A sub-1-V 15-ppm//spl deg/C CMOS bandgap voltage reference without requiring low threshold voltage device](https://ieeexplore.ieee.org/document/991391)
+
+[The Bandgap Reference](https://ieeexplore.ieee.org/document/7559954)
+
+[The Design of a Low-Voltage Bandgap Reference](https://ieeexplore.ieee.org/document/9523469)
+
+-->
+
 
 #[fit] Thanks!
 

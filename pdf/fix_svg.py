@@ -20,8 +20,10 @@ def toPdf(ftype,path):
     return imgConvert(ftype,".pdf",path)
 
 def getPath(line):
-    m = re.findall("{([^}]+)}",line)
+
+    m = re.findall(r"{([^{}]+)}",line)
     path = m[0]
+
     return path
 
 tmplt = r"""
@@ -32,15 +34,29 @@ tmplt = r"""
 }
 """
 
+#tmplt = r"""
+#\pandocbounded{\includegraphics[width=\myfigwidth]{#path#}}
+#"""
+
 foname = fname.replace(".latex","_fiximg.tex")
 foname_png = fname.replace(".latex","_fiximg_png.tex")
 with open(fname) as fi:
     with open(foname,"w") as fo:
         with open(foname_png,"w") as fo_png:
             for line in fi:
+
+                #- Fix titles for kao
+                #if(re.search(r"^\s*\\chapter",line)):
+                #    nline = """\setchapterstyle{kao}
+#\setchapterpreamble[u]{\margintoc}
+#""" + line
+ #                   fo.write(nline)
+ #                   fo_png.write(line)
+ #                   continue
+
                 #- Pandoc sometimes uses includesvg instead of includegraphics
                 line = line.replace("includesvg","includegraphics")
-                if(re.search("includegraphics{",line)):
+                if(re.search(r"includegraphics(\[[^\]]+\])?{",line)):
                     path = getPath(line)
                     fopath = path
                     fopath_png = path

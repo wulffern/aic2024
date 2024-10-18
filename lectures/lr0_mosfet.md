@@ -210,20 +210,21 @@ Because:
 
 And did you realize I never in this chapter explained how the field effect worked?
 
-Someday, I'll write the details. I just need to figure out how I'm going to write it first. 
+<!--Someday, I'll write the details. I just need to figure out how I'm going to write it first. -->
 
 -->
 
 ---
 
-## Why did the area underneath the gate turn blue?
+# Transistors in strong inversion
 
 <!--pan_doc:
 
+The conditions to be in strong inversion is that the gate/source voltage is above some magic values (threshold voltage), and then some. In the nomenclature I've used above, there is lot's of blue stuff underneath the gate. 
 
-If you have not read the chapter on diodes, or the refresh chapter, then you should read those first.
+## Where are the free electrons?
 
-The quantum state of the electron is determined fully by it's spin, momentum and position in space. How those parameters evolve with time is determined by the Schrodinger equation. In the general form
+The quantum state of the electron is fully determined by it's spin, momentum and position in space. How those parameters evolve with time is determined by the Schrodinger equation. In the general form
 
 $$ i\hbar\frac{d}{dt}\Psi(r,t) = \widehat{H} \Psi(r,t) $$
 
@@ -233,11 +234,13 @@ But what does the Schrodinger equation tell us? Well, the equation above does no
 
 The Schrodinger equation describes the time evolution of the bound electrons shared between the Silicon atoms, and the fact that applying a electric field to silicon can free co-valent bonds. 
 
-As the gate voltage increases the wave function that fits in the Schrodinger equation predicts that the free electrons will form  a 2d sheet underneath the gate. The thickness of the sheet is only a few 
+As the gate voltage increases the wave function that fits in the Schrodinger equation predicts that the free electrons will form  a 2d sheet underneath the gate. The thickness of the sheet is only a few nano meters.
 
-[Carrier transport near the Si/SiO2 interface of a MOSFET](https://www.sciencedirect.com/science/article/pii/0038110189900609)
+In Figure 2 in [Carrier transport near the Si/SiO2 interface of a MOSFET](https://www.sciencedirect.com/science/article/pii/0038110189900609) you can see how the free electron density is located underneath the gate. 
 
-I would really recommend that you have a look at Mark Lundstrom's lecture series on [Essentials of MOSFETs](https://www.youtube.com/watch?v=5eG6CvcEHJ8&list=PLtkeUZItwHK6F4a4OpCOaKXKmYBKGWcHi)
+I would really recommend that you have a look at Mark Lundstrom's lecture series on [Essentials of MOSFETs](https://www.youtube.com/watch?v=5eG6CvcEHJ8&list=PLtkeUZItwHK6F4a4OpCOaKXKmYBKGWcHi). It's the most complete description of electrons in MOSFET's I've seen 
+
+
 
 -->
 

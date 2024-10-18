@@ -606,7 +606,7 @@ $$ f_o = \frac{1}{2}f =  \frac{1}{2RC}$$
 
 <!--pan_doc:
 
-# Additional material
+# Want to learn more?
 
 -->
 

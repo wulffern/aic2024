@@ -722,8 +722,7 @@ a charge storage device, either a battery, or a capacitor.
 
 ---
 
-# References
-
+# Want to learn more?
 
 [1] [Towards a Green and Self-Powered Internet of Things Using Piezoelectric Energy Harvesting](https://ieeexplore.ieee.org/document/8762143)
 

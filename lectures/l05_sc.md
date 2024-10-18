@@ -505,10 +505,12 @@ Hanning window below.
 N = 2**13
 t = np.linspace(0,N,N)
 
-#- Create the "continuous time" signal with multiple sinusoidal signals and some noise
+#- Create the "continuous time" signal with multiple 
+#- "sinusoidal signals and some noise
 f1 = 233/N
 fd = 1/N*119
-x_s = np.sin(2*np.pi*f1*t) + 1/1024*np.random.randn(N) +   0.5*np.sin(2*np.pi*(f1-fd)*t) + 0.5*np.sin(2*np.pi*(f1+fd)*t)
+x_s = np.sin(2*np.pi*f1*t) + 1/1024*np.random.randn(N) + \
+    0.5*np.sin(2*np.pi*(f1-fd)*t) + 0.5*np.sin(2*np.pi*(f1+fd)*t)
 
 #- Create the sampling vector, and the sampled signal
 t_s_unit = [1,1,0,0,0,0,0,0]
@@ -1202,6 +1204,24 @@ $$ V_O(z) = 10 \frac{kT}{q} \ln (N)z^{-1} $$
 <!--pan_doc:
 
 [^1]: I use the \$ to mark the end of the period. It comes from [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression).
+
+# Want to learn more?
+
+[Blind Multiband Signal Reconstruction: Compressed Sensing for Analog Signal](https://ieeexplore.ieee.org/document/4749297)
+
+[Comparator-based switched-capacitor pipelined analog-to-digital converter with comparator preset, and comparator delay compensation](https://link.springer.com/article/10.1007/s10470-010-9576-3)
+
+[A Compiled 9-bit 20-MS/s 3.5-fJ/conv.step SAR ADC in 28-nm FDSOI for Bluetooth Low Energy Receivers](https://ieeexplore.ieee.org/document/7906479)
+
+[A 10-bit 50-MS/s SAR ADC With a Monotonic Capacitor Switching Procedure](https://ieeexplore.ieee.org/document/5437496)
+
+[Low Voltage, Low Power, Inverter-Based Switched-Capacitor Delta-Sigma Modulator](https://ieeexplore.ieee.org/document/4768910)
+
+[Ring Amplifiers for Switched Capacitor Circuits](https://ieeexplore.ieee.org/document/6373760)
+
+[A Switched-Capacitor RF Power Amplifier](A Switched-Capacitor RF Power Amplifier)
+
+[Design of Active N-Path Filters](https://ieeexplore.ieee.org/document/6650076)
 
 -->
 

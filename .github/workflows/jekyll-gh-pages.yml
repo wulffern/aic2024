@@ -25,7 +25,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: texlive/texlive:latest
+      image: wulffern/aic:2024_latest
       options: --user root
     steps:
       - name: Checkout
@@ -33,13 +33,10 @@ jobs:
         with:
           submodules: recursive
       - name: Build posts
+        shell: bash
         run: |
-          apt-get update
-          apt-get -y install ghostscript pip poppler-utils pandoc wget imagemagick
-          python3 -m pip install --break-system-packages click svglib
-          apt -y install python3-svglib
-          python3 -m pip install --break-system-packages  svglib
-          git config --global --add safe.directory /__w/aic2024/aic2024
+          which python3
+          git config --global --add safe.directory `pwd`
           make
       - name: Setup Pages
         uses: actions/configure-pages@v2

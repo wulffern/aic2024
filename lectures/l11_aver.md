@@ -449,7 +449,8 @@ module tt_um_TT06_SAR_wulffern (
                                 input real        ua_0,
                                 input real        ua_1,
 `else
-                                inout wire [7:0]  ua, // analog pins
+                                // analog pins
+                                inout wire [7:0]  ua, 
 `endif
                                 input wire        ena,
                                 input wire        clk,
@@ -627,6 +628,8 @@ rund:
 
 <!--pan_doc:
 
+# Want to learn more?
+
 For more information on real-number modeling I would recommend [The Evolution of Real Number Modeling](https://youtu.be/gNpPslQZT-Y)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gNpPslQZT-Y"
@@ -637,6 +640,8 @@ allowfullscreen></iframe>
 -->
 
 ---
+
+
 
 <!--pan_skip: -->
 

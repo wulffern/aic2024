@@ -794,6 +794,18 @@ You can find the schematic for the OTA at
 ![fit inline](../media/l04_ota_sch.svg)
 
 
+<!--pan_doc:
+
+# Want to learn more?
+
+[A 77.3-dB SNDR 62.5-kHz Bandwidth Continuous-Time Noise-Shaping SAR ADC With Duty-Cycled Gm-C Integrator](https://ieeexplore.ieee.org/document/9989513)
+
+[Design Considerations for a Low-Power Control-Bounded A/D Converter](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2824253)
+
+[A 56 mW Continuous-Time Quadrature Cascaded Sigma-Delta Modulator With 77 dB DR in a Near Zero-IF 20 MHz Band](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4381437)
+
+-->
+
 ---
 
 #[fit] Thanks!

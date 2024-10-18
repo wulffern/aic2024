@@ -5,18 +5,36 @@ FILE= aic
 
 TEXS = ${shell ls -1 *.latex}
 
+PYTHON=python3
+ifneq ($(wildcard /pyenv/bin/.*),)
+	PYTHON=/pyenv/bin/python3
+endif
+
+kaobook:
+	git clone https://github.com/fmarotta/kaobook.git
+
 fix:
-	${foreach f, ${TEXS}, python3 fix_svg.py ${f};}
+	${foreach f, ${TEXS}, ${PYTHON} fix_svg.py ${f};}
 
 hash:
 	echo '{\\noindent ${VERSION_DATE}} \\\\ \n {\\noindent from ${VERSION_HASH}}'  > version.tex
 
-one: fix hash
+#- Choose right pandoc file based on pandoc version
+PANDOC=pandoc_$(shell pandoc --version|head -n 1|cut -d " " -f 2|cut -d "." -f "1,2").tex
+pandoc.tex:
+	cp ${PANDOC} pandoc.tex
+
+
+one: fix hash kaobook pandoc.tex
+	export
 	chmod -R 755  media
-	pdflatex aic.tex
+	TEXINPUTS=".:kaobook:" pdflatex aic
+	#TEXINPUTS=".:kaobook:" makeindex aic.nlo
 	#-pdflatex -interaction nonstopmode --shell-escape aic.latex
-	-bibtex aic
-	pdflatex aic.tex
+	-TEXINPUTS=".:kaobook:" bibtex aic
+	TEXINPUTS=".:kaobook:" pdflatex aic
+	TEXINPUTS=".:kaobook:" pdflatex aic
+	#TEXINPUTS=".:kaobook:" pdflatex aic.tex
 	#-pdflatex -interaction nonstopmode --shell-escape aic.latex
 
 compress:

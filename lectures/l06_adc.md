@@ -547,8 +547,7 @@ All the other spikes are the odd harmonics above the sample rate that fold. The 
 
 From the function for the amplitude of the quantization noise for harmonic indices higher than $p=1$
 
-$$ A_p =  \sum_{m=1}^\infty{\frac{2}{m\pi}J_p(2m\pi
-  \bf{2^{n-1}})},  p=odd$$
+$$ A_p =  \sum_{m=1}^\infty{\frac{2}{m\pi}J_p(2m\pi 2^{n-1}  ) }\text{,  p=odd} $$
 
 we can see that the input to the Bessel function increases faster for a higher number of bits $n$. As such, from the Bessel function figure above, I would expect that the sum of the Bessel function is a lower value. Accordingly, the quantization noise reduces at higher number of bits. 
 
@@ -1276,6 +1275,22 @@ For more information, ask me, or see the patent at
 [Analogue-to-digital converter](https://patents.google.com/patent/US8947280B2/en?inventor=carsten+wulff&oq=carsten+wulff)
 
 ![inline](../media/l6_patent.pdf)
+
+<!--pan_doc:
+
+# Want to learn more?
+
+[The design of sigma-delta modulation analog-to-digital converters](https://ieeexplore.ieee.org/document/90025)
+
+[Delta-sigma modulation in fractional-N frequency synthesis](https://ieeexplore.ieee.org/document/229400)
+
+[A CMOS Temperature Sensor With a Voltage-Calibrated Inaccuracy of ± 0.15 C (3sigma) From -55 Cto 125 C](https://ieeexplore.ieee.org/document/6323049)
+
+[A 20-mW 640-MHz CMOS Continuous-Time Sigma-Delta ADC With 20-MHz Signal Bandwidth, 80-dB Dynamic Range and 12-bit ENOB](https://ieeexplore.ieee.org/document/4014623)
+
+[A Micro-Power Two-Step Incremental Analog-to-Digital Converter](https://ieeexplore.ieee.org/document/7078971)
+
+-->
 
 ---
 

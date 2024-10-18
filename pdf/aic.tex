@@ -1,15 +1,18 @@
 
-\documentclass[11pt,twoside,openright]{book}
+%\PassOptionsToPackage{showframe}{geometry}
+\documentclass[11pt,twoside,openright]{kaobook}
 
-\usepackage[
-    left=0.5in,
-    right=0.5in,
-    top=0.75in,
-    bottom=1.0in,
-    paperwidth=8.25in,
-    paperheight=11in,
-    bindingoffset=0.375in
-    ]{geometry}
+
+
+%\usepackage[
+%    left=0.5in,
+%    right=0.5in,
+%    top=0.75in,
+%    bottom=1.0in,
+%    paperwidth=8.25in,
+%    paperheight=11in,
+%    bindingoffset=0.375in
+%    ]{geometry}
 
 \input{pandoc.tex}
 
@@ -72,54 +75,89 @@
 \chapter{Background}
 \input{tex_intro_fiximg.tex}
 
+
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Introduction}
 \input{lecture_1_-__introduction_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{How to write a project report}
 \input{how_to_write_a_project_report_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Refresher}
 \input{a_refresher_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Diodes}
 \input{diodes_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Mosfets}
 \input{mosfets_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Spice}
 \input{spice_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{ESD and IC}
 \input{lecture_2_-_ic_and_esd_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{References and bias}
 \input{lecture_3_-_references_and_bias_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Analog frontend and filter}
 \input{lecture_4_-_analog_frontend_and_filters_fiximg.tex}
-
+%
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Switched capacitor circuits}
 \input{lecture_5_-_switched-capacitor_circuits_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Oversampling and Sigma-Delta ADCs}
 \input{lecture_6_-_oversampling_and_sigma-delta_adcs_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Voltage Regulation}
 \input{lecture_7_-_voltage_regulation_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Clocks and PLLs}
 \input{lecture_8_-_clocks_and_plls_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Oscillators}
 \input{lecture_9_-_oscillators_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Low Power Radio}
 \input{lecture_10_-_low_power_radio_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Analog SystemVerilog}
 \input{lecture_11_-_analog_systemverilog_fiximg.tex}
 
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc}
 \chapter{Energy Sources}
 \input{lecture_x_-_energy_sources_fiximg.tex}
 
@@ -127,12 +165,10 @@
 %\input{what_i_expect_you_to_already_know.latex}
 
 
-%\bibliographystyle{IEEEtran}
+\bibliographystyle{IEEEtran}
 \bibliography{aic.bib}
 
 \backmatter
-
-
 
 
 \end{document}
